@@ -2,8 +2,9 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
+var mongoose = require('mongoose');
 var User = require('../models/user');
+mongoose.connect('mongodb://localhost/users');
 
 // Register
 router.get('/register', function (req, res) {
@@ -14,6 +15,7 @@ router.get('/register', function (req, res) {
 router.get('/login', function (req, res) {
 	res.render('login');
 });
+
 
 // Register User
 router.post('/register', function (req, res) {
@@ -40,10 +42,10 @@ router.post('/register', function (req, res) {
 	}
 	else {
 		//checking for email and username are already taken
-		User.findOne({ username: { 
+		User.findOne({ username: {
 			"$regex": "^" + username + "\\b", "$options": "i"
 	}}, function (err, user) {
-			User.findOne({ email: { 
+			User.findOne({ email: {
 				"$regex": "^" + email + "\\b", "$options": "i"
 		}}, function (err, mail) {
 				if (user || mail) {
