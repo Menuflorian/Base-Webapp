@@ -5,12 +5,6 @@ var mongoose = require('mongoose');
 var DualboxExports = require('../models/DualboxExport');
 var session = require('express-session');
 
-
-
-
-
-mongoose.connect('mongodb://localhost/DualboxExports');
-
 //verif auth
 
 function ensureAuthenticated(req, res, next){
@@ -30,19 +24,11 @@ router.get('/dual', function (req, res) {
 
 
 
-// redirection bouton api
-
-/*
-router.get('/api',ensureAuthenticated, function (req, res) {
-	res.render('api');
-});
-
-*/
-
 //affichage DB script
 
+
 router.get('/api',ensureAuthenticated , function(req, res) {
-	DualboxExports.find( function(err, DualboxExports){
+	DualboxExports.find({ownerId: req.user._id}, {}, function(err, DualboxExports){
 			if(err){
 				res.send(err);
 			}

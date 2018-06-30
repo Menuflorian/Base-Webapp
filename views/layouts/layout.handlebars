@@ -10,11 +10,13 @@
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
-            {{#if user}}
-              <li role="presentation"><a href="/">Dashboard</a></li>
+						<li role="presentation"><a href="/">Index</a></li>
+						<li role="presentation"><a href="/Other/Pricing">Pricing</a></li>
+						{{#if user}}
 							<li role="presentation"><a href="/DualboxExports/dual">DualboxExports</a></li>
 							<li role="presentation"><a href="/DualboxExports/api">afficher db</a></li>
 							<li role="presentation"><a href="/users/logout">Logout</a></li>
+							<li role="presentation"><a href="/Other/Dashboard">Dashboard</a></li>
             {{else}}
               <li role="presentation"><a href="/users/login">Login</a></li>
               <li role="presentation"><a href="/users/register">Register</a></li>

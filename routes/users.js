@@ -4,7 +4,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var User = require('../models/user');
-mongoose.connect('mongodb://localhost/users');
+
 
 // Register
 router.get('/register', function (req, res) {
