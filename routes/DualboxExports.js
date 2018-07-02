@@ -1,4 +1,5 @@
-var express = require('express');
+var express = require('express'),
+    jsonUtils = require("../models/json_utils.js");
 var router = express.Router();
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
@@ -26,12 +27,16 @@ router.get('/dual', function (req, res) {
 //affichage DB script
 
 router.get('/api',ensureAuthenticated , function(req, res) {
-	DualboxExports.find({ownerId: req.user._id},{} , function(err, dbx){
-			if(err){
-				res.send(err);
+	DualboxExports.find(
+			{ownerId: req.user._id},
+			{} ,
+			function(err, dbx){
+				if(err){
+					res.send(err);
+				}
+					res.render('api', {dbData : encodeURI(JSON.stringify(dbx))});
 			}
-			res.render('api', {dbData : JSON.stringify(dbx)});
-				});
+	);
 });
 
 //Enregistrement de la page script

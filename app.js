@@ -12,6 +12,7 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
 
+
 mongoose.connect('mongodb://localhost/baseapp');
 
 var db = mongoose.connection;
@@ -83,6 +84,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/dualboxExports', DualboxExports);
 app.use('/other', other);
+
 
 // Set Port
 app.set('port', (process.env.PORT || 3000));
