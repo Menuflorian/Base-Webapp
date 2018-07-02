@@ -19,24 +19,20 @@ function ensureAuthenticated(req, res, next){
 // redirection bouton DualboxExports
 
 router.get('/dual', function (req, res) {
-	res.render('DualboxExports');
+		res.render('DualboxExports');
 });
-
 
 
 //affichage DB script
 
-
 router.get('/api',ensureAuthenticated , function(req, res) {
-	DualboxExports.find({ownerId: req.user._id}, {}, function(err, DualboxExports){
+	DualboxExports.find({ownerId: req.user._id},{} , function(err, dbx){
 			if(err){
 				res.send(err);
 			}
-			res.send(DualboxExports);
-			});
+			res.render('api', {dbData : JSON.stringify(dbx)});
+				});
 });
-
-
 
 //Enregistrement de la page script
 
@@ -57,18 +53,14 @@ router.post('/',ensureAuthenticated , function (req, res) {
 
 //supression d'un scripts.
 
-router.delete("/:scripts_id", function(req,res){
-		Scripts.remove({_id: req.params.scripts_id}, function (err){
+router.delete("/:_id", function(req,res){
+		dualboxExports.remove({_id: req.params.dualboxExports_id}, function (err){
 				if(err){
 						res.send(err);
 				}
-				res.send({message: "Script supprimé"});
+				res.send({message: "DBX supprimé"});
 			});
 });
-
-
-
-
 
 
 module.exports = router;
