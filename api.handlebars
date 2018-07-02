@@ -1,0 +1,47 @@
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script type="module" src='../routes/DualboxExports.js'> </script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+
+<h2 class="page-header">Api</h2>
+
+
+
+
+    <div class="panel panel-default">
+        <div class="planel heading">
+            <div class="variable">
+              <div id="title">
+                test
+              </div>
+            </div>
+        </div>
+    </div>
+
+
+{% for p in DualboxExports %}
+
+
+    <script LANGUAGE="Javascript">
+var data = JSON.parse(  {{ dbData }} );
+    document.write(data)
+console.log(data);
+/*
+    var person = { name: 'Joe Blow ', age: "42 ", sexe:"M " };
+    var texte1 = "le nom est ";
+    var name = person.name;
+    var texte2 = "l'age est de ";
+    var age = person.age;
+    var texte3 = "le sexe est ";
+    var sexe = person.sexe;
+    document.write(texte1 + name + texte2 + age + texte3 + sexe)
+*/
+
+
+console.log(DualboxExports);
+
+
+    </script>
+
+
+
+</SCRIPT>
