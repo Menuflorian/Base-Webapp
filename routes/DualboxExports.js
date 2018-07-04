@@ -24,6 +24,7 @@ router.get('/dual', function (req, res) {
 });
 
 
+
 //affichage DB script
 
 router.get('/api',ensureAuthenticated , function(req, res) {
