@@ -29,7 +29,6 @@ decode = module.exports.decodeJSON = function(obj) {
 
     obj = decodeURI(obj);
 
-    console.log(obj);
 
     return tryParseJSON(obj);
 };

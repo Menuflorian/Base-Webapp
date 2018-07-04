@@ -86,7 +86,7 @@ router.get('/:id', ensureAuthenticated, function (req, res) {
 });
 
 
-/*
+
 //modification du corp
 router.post('/put/:id',ensureAuthenticated , function (req, res) {
   var Id = req.params.id ;
@@ -99,30 +99,15 @@ router.post('/put/:id',ensureAuthenticated , function (req, res) {
         dualboxExports.name= req.body.name;
     		dualboxExports.corp= req.body.corp;
     		dualboxExports.owneId= req.user._id;
-    	});
-        Uptdate.save(function(err){
+
+        dualboxExports.save(function(err){
           if(err){
             res.send(err);
             }
           res.send({message: "Exports crée "});
+          });
         });
-});
-*/
-router.post('/put/:id',ensureAuthenticated , function (req, res) {
-  var Id = req.params.id ;
-  DualboxExports.findOne(
-    {_id: Id},
-    function (err, DualboxExports) {
-      if (err) return (err);
-      console.log(DualboxExports);
-    DualboxExports.set({ corp:req.body.corp });
-    console.log(DualboxExports);
-    DualboxExports.save(function (err, updatedTank) {
-    if (err) return (err);
-    res.send(updatedTank);
-  });
-});
-});
+      });
 
 
 module.exports = router;

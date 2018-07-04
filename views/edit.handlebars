@@ -1,0 +1,27 @@
+<form method="post" value="post" action="/DualboxExports/put/:projet_id">
+    <div class="form-group">
+        <label for="name">Nom du projet</label>
+        <div class="container">
+          <script type="text/javascript">
+          var Projet = JSON.parse(decodeURI("{{ DataPro }}" ));
+          var nom = Projet.name;
+          var corp2 = Projet.corp;
+          function inserer(textarea, str) {
+            var textareaa = document.getElementById(textarea);
+            textareaa.value = corp2;
+            console.log(Projet.corp);
+          };
+          document.write(nom);
+          inserer('txt');
+          </script>
+        </div>
+
+        <label for="name">Corp Du projet</label>
+        <div class="form-group">
+          <textarea id='txt' type="text" class="form-control" name="corp">
+          </textarea>
+        </div>
+
+    </div>
+    <input type="button"  value="Inserer data" onclick="inserer('txt')">
+    <button type="submit" class="btn btn-default"  name="sauve"> sauvegarder </button>

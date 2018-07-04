@@ -9,24 +9,39 @@
 
 <script LANGUAGE="Javascript">
     var ListProjet = JSON.parse(decodeURI("{{ dbData }}" ));
-    console.log(ListProjet);
-
     var LpLength = Object.keys(ListProjet).length
 
     console.log(ListProjet.length);
-
-
     ListProjet.forEach(function(element) {
+      var i;
       var name = element.name;
       var corp = element.corp;
       var text = " ";
-      var id = element._id;
+      var projet_id = element._id;
+
       document.write(name);
       document.write(text);
       document.write(corp);
       document.write(text);
-      document.write('<button type="button" class="btn btn-outline-success" value= "id">Delete</button>');
-      document.write('<br />');
-      return {element};
-        });
+      document.write('<a id="_id" type="button" href="/DualboxExports/' + projet_id +'  " class="btn btn-primary" value= "">Edit</a>');
+      document.write('<br/>');
+      console.log(projet_id);
+    });
+
+
 </script>
+
+<a id="[i]" type="button" href=/DualboxExports/:_id class="btn btn-primary">Edit</a>
+
+<a href="#"></a>
+
+<!--
+             for(var i=0; i < ListProjet.length; i++) {
+               document.write('<tr>');
+               document.write('<td><script>= ListProjet[i].name;</script></td>');
+               document.write('<td><%= ListProjet[i].id %></td>');
+               document.write('<td><%= ListProjet[i].corp %></td>');
+               document.write('<td><%= ListProjet[i].ownerId %></td>');
+               document.write('</tr>');
+             }
+-->
