@@ -1,58 +1,62 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Base-WebApp</title>
 	<link rel="stylesheet" href="/css/bootstrap.css" />
 	<link rel="stylesheet" href="/css/style.css" />
 	<meta charset="UTF-8">
 </head>
+
 <body>
 	<div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills pull-right">
-						<li role="presentation"><a href="/">Index</a></li>
-						<li role="presentation"><a href="/Other/Pricing">Pricing</a></li>
-						{{#if user}}
-							<li role="presentation"><a href="/DualboxExports/dual">DualboxExports</a></li>
-							<li role="presentation"><a href="/DualboxExports/api">afficher db</a></li>
-							<li role="presentation"><a href="/users/logout">Logout</a></li>
-							<li role="presentation"><a href="/Other/Dashboard">Dashboard</a></li>
-            {{else}}
-              <li role="presentation"><a href="/users/login">Login</a></li>
-              <li role="presentation"><a href="/users/register">Register</a></li>
-            {{/if}}
-          </ul>
-        </nav>
-        <h3 class="text-muted">Base-WebApp</h3>
-      </div>
+		<div class="header clearfix">
+			<nav>
+				<ul class="nav nav-pills pull-right">
+					<li role="presentation"><a href="/">Index</a></li>
+					<li role="presentation"><a href="/Other/Pricing">Pricing</a></li>
+					{{#if user}}
+						<li role="presentation"><a href="/Other/Dashboard">Dashboard</a></li>
+						<li role="presentation"><a href="/DualboxExports/dual">DualboxExports</a></li>
+						<li role="presentation"><a href="/DualboxExports/api">Afficher db</a></li>
+						<li role="presentation"><a href="/users/logout">Logout</a></li>
+					{{else}}
+						<li role="presentation"><a href="/users/login">Login</a></li>
+						<li role="presentation"><a href="/users/register">Register</a></li>
+					{{/if}}
+				</ul>
+			</nav>
+			<h3 class="text-muted">Base-WebApp</h3>
+		</div>
 
 
-      <div class="row">
-        <div class="col-lg-12">
-          {{#if success_msg}}
-            <div class="alert alert-success">{{success_msg}}</div>
-          {{/if}}
+		<div class="row">
+			<div class="col-lg-12">
+				{{#if success_msg}}
+					<div class="alert alert-success">{{success_msg}}</div>
+				{{/if}}
 
-          {{#if error_msg}}
-            <div class="alert alert-danger">{{error_msg}}</div>
-          {{/if}}
+				{{#if error_msg}}
+					<div class="alert alert-danger">{{error_msg}}</div>
+				{{/if}}
 
-          {{#if error}}
-            <div class="alert alert-danger">{{error}}</div>
-          {{/if}}
-
-
-          {{{body}}}
-        </div>
+				{{#if error}}
+					<div class="alert alert-danger">{{error}}</div>
+				{{/if}}
 
 
-      </div>
+				{{{body}}}
+			</div>
 
-      <footer class="footer">
-        <p>&copy; 2018 Dualbox, Inc.</p>
-      </footer>
 
-    </div> <!-- /container -->
+		</div>
+
+		<footer class="footer">
+			<p>&copy; 2018 Dualbox, Inc.</p>
+		</footer>
+
+	</div>
+	<!-- /container -->
 </body>
+
 </html>

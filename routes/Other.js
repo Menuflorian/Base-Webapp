@@ -4,13 +4,13 @@ var router = express.Router();
 
 
 // Dashboard
-router.get('/Dashboard', function (req, res) {
-	res.render('Dashboard');
+router.get('/Dashboard', function(req, res) {
+  res.render('Dashboard');
 });
 
 // Register
-router.get('/Pricing', function (req, res) {
-	res.render('Pricing');
+router.get('/Pricing', function(req, res) {
+  res.render('Pricing');
 });
 
 

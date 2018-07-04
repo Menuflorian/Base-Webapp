@@ -1,18 +1,16 @@
 <h2 class="page-header">Api</h2>
 <script LANGUAGE="Javascript">
-    var ListProjet = JSON.parse(decodeURI("{{ dbData }}" ));
-    var LpLength = Object.keys(ListProjet).length
-    ListProjet.forEach(function(element) {
-      var i;
-      var name = element.name;
-      var corp = element.corp;
-      var text = " ";
-      var projet_id = element._id;
-      document.write(name);
-      document.write(text);
-      document.write(corp);
-      document.write(text);
-      document.write('<a id="_id" type="button" href="/DualboxExports/' + projet_id +'  " class="btn btn-primary" value= "">Edit</a>');
-      document.write('<br/>');
-    });
+  var ListProjet = JSON.parse(decodeURI("{{ dbData }}"));
+  var LpLength = Object.keys(ListProjet).length
+  ListProjet.forEach(function(element) {
+    var i;
+    var name = element.name;
+    var corp = element.corp;
+    var text = " ";
+    var projet_id = element._id;
+    document.write(name + " " + corp);
+    document.write('<a id="_id" class= "btn btn-default pull-right" type="button" position = "right" href="/DualboxExports/' + projet_id + '  " class="btn btn-primary" value= "">Edit</a>');
+    document.write('<br/>');
+    document.write('<br/>');
+  });
 </script>
