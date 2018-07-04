@@ -38,7 +38,7 @@ router.get('/api', ensureAuthenticated, function(req, res) {
   );
 });
 
-//Enregistrement de la page script
+//Enregistrement d'un projet via page jrojet
 router.post('/', ensureAuthenticated, function(req, res) {
   var dualboxExports = new DualboxExports({
     name: req.body.name,
@@ -55,22 +55,25 @@ router.post('/', ensureAuthenticated, function(req, res) {
   });
 });
 
-//supression d'un scripts.
-/*
-router.delete("/:projet_id",ensureAuthenticated, function(req,res){
-		dualboxExports.remove({_id: req.params.projet_id}, function (err){
+
+
+//supression d'un projet.
+router.delete('/:id',ensureAuthenticated, function(req,res){
+    var Id = req.params.id;
+    console.log(Id);
+		DualboxExports.remove({_id: Id}, function (err){
 				if(err){
 						res.send(err);
 				}
 				res.send({message: "DBX supprimé"});
 			});
 });
-*/
 
-//redirection btn edit
+
+//redirection edition d'un projet.
 router.get('/:id', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
-  console.log(req.params.id);
+console.log(Id+'test');
   DualboxExports.findOne({
       _id: Id
     }, {}, {},
@@ -85,6 +88,7 @@ router.get('/:id', ensureAuthenticated, function(req, res) {
   );
 });
 
+
 //modification du corp
 router.post('/:id', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
@@ -95,10 +99,7 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
       if (err) {
         res.send(err);
       }
-      console.log(Id);
-      console.log(dualboxExports);
       dualboxExports.corp = req.body.corp;
-      console.log(dualboxExports);
       dualboxExports.save(function(err, majdata) {
         if (err) {
           res.send(err);

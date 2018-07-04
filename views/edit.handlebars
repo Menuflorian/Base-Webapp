@@ -1,29 +1,43 @@
-<form method="post" value="post">
+<form method="post" value="edit">
   <div class="form-group">
     <label for="name">Nom du projet</label>
     <div class="container">
       <script type="text/javascript">
+
         var Projet = JSON.parse(decodeURI("{{ DataPro }}"));
         var nom = Projet.name;
-        var corp2 = Projet.corp;
-
+        var corp = Projet.corp;
+        var _id = Projet._id
+        document.write('<p>'+nom+'</p>');
+        console.log(corp);
         function inserer(textarea, str) {
           var textareaa = document.getElementById(textarea);
-          textareaa.value = corp2;
-          console.log(Projet.corp);
+          textareaa.value = corp;
         };
-        var _id = projet.corp
-        document.write(nom);
-        inserer('txt');
+
       </script>
     </div>
 
-    <label for="name">Corp Du projet</label>
     <div class="form-group">
-      <textarea id='txt' type="text" class="form-control" name="corp">
-            {{Projet.corp}}
-          </textarea>
+      <textarea id='txt' type="text" class="form-control" name="corp"></textarea>
+      <button type="button" class="btn btn-default" value="Inserer data" onclick="inserer('txt')">inserer</button>
+      <button
+        type="submit"
+        class="btn btn-default"
+        name="sauve"
+      >sauvegarder
+      </button>
     </div>
   </div>
-  <input type="button" value="Inserer data" onclick="inserer('txt')">
-  <button type="submit" class="btn btn-default" name="sauve"> sauvegarder </button>
+</form>
+
+<form method="delete" value="delet">
+    <div class="form-group">
+      <label for="name">Option du projet</label>
+      <div class="container">
+        <button type="submit" class="btn btn-danger" name"delet">
+          Supprimer l'enregistrement.
+        </button>
+      </div>
+    </div>
+</form>
