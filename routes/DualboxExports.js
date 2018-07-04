@@ -18,15 +18,11 @@ function ensureAuthenticated(req, res, next){
 }
 
 // redirection bouton DualboxExports
-
 router.get('/dual', function (req, res) {
 		res.render('DualboxExports');
 });
 
-
-
 //affichage DB script
-
 router.get('/api',ensureAuthenticated , function(req, res) {
 	DualboxExports.find(
 			{ownerId: req.user._id},
@@ -41,7 +37,6 @@ router.get('/api',ensureAuthenticated , function(req, res) {
 });
 
 //Enregistrement de la page script
-
 router.post('/',ensureAuthenticated , function (req, res) {
 		var dualboxExports = new DualboxExports({
 		name: req.body.name,
@@ -56,7 +51,6 @@ router.post('/',ensureAuthenticated , function (req, res) {
 		});
 });
 
-
 //supression d'un scripts.
 /*
 router.delete("/:projet_id",ensureAuthenticated, function(req,res){
@@ -68,9 +62,9 @@ router.delete("/:projet_id",ensureAuthenticated, function(req,res){
 			});
 });
 */
+
 //redirection btn edit
 router.get('/:id', ensureAuthenticated, function (req, res) {
-
   var Id = req.params.id;
   console.log(req.params.id);
   DualboxExports.findOne(
@@ -86,44 +80,26 @@ router.get('/:id', ensureAuthenticated, function (req, res) {
   );
 });
 
-
-/*
 //modification du corp
-router.post('/put/:id',ensureAuthenticated , function (req, res) {
+router.post('/:id',ensureAuthenticated , function (req, res) {
   var Id = req.params.id ;
-  DualboxExports.findOne(
+  DualboxExports.findById(
       {_id: Id},
-      {} ,
-      {} ,
       function(err, dualboxExports){
-        dualboxExports={};
-        dualboxExports.name= req.body.name;
-    		dualboxExports.corp= req.body.corp;
-    		dualboxExports.owneId= req.user._id;
-    	});
-        Uptdate.save(function(err){
+        if (err) {
+          res.send(err);
+        }
+        console.log(Id);
+        console.log(dualboxExports);
+        dualboxExports.corp = req.body.corp;
+        console.log(dualboxExports);
+        dualboxExports.save(function(err, majdata){
           if(err){
             res.send(err);
             }
           res.send({message: "Exports crée "});
         });
 });
-*/
-router.post('/put/:id',ensureAuthenticated , function (req, res) {
-  var Id = req.params.id ;
-  DualboxExports.findOne(
-    {_id: Id},
-    function (err, DualboxExports) {
-      if (err) return (err);
-      console.log(DualboxExports);
-    DualboxExports.set({ corp:req.body.corp });
-    console.log(DualboxExports);
-    DualboxExports.save(function (err, updatedTank) {
-    if (err) return (err);
-    res.send(updatedTank);
-  });
 });
-});
-
 
 module.exports = router;

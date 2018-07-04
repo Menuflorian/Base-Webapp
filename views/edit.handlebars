@@ -1,4 +1,4 @@
-<form method="post" value="post" action="/DualboxExports/put/:projet_id">
+<form method="post" value="post" >
     <div class="form-group">
         <label for="name">Nom du projet</label>
         <div class="container">
@@ -11,6 +11,7 @@
             textareaa.value = corp2;
             console.log(Projet.corp);
           };
+          var _id = projet.corp
           document.write(nom);
           inserer('txt');
           </script>
@@ -19,9 +20,9 @@
         <label for="name">Corp Du projet</label>
         <div class="form-group">
           <textarea id='txt' type="text" class="form-control" name="corp">
+            {{Projet.corp}}
           </textarea>
         </div>
-
     </div>
     <input type="button"  value="Inserer data" onclick="inserer('txt')">
     <button type="submit" class="btn btn-default"  name="sauve"> sauvegarder </button>
