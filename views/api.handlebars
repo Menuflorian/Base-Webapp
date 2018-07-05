@@ -8,9 +8,14 @@
     var corp = element.corp;
     var text = " ";
     var projet_id = element._id;
+    var ownerName = element.ownerName;
+    {{#if admin}}
+    document.write(ownerName + " " );
+    {{/if}}
     document.write(name + " " + corp);
     document.write('<a id="_id" class= "btn btn-default pull-right" type="button" position = "right" href="/DualboxExports/' + projet_id + '  " class="btn btn-primary" value= "">Edit</a>');
     document.write('<br/>');
     document.write('<br/>');
+
   });
 </script>

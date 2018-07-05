@@ -3,10 +3,6 @@ var mongoose = require('mongoose');
 //scripts Schema
 var DualboxExportsSchema = mongoose.Schema({
   name: {
-    ownerId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "DualboxExports"
-    },
     type: String,
   },
   corp: {
@@ -20,6 +16,11 @@ var DualboxExportsSchema = mongoose.Schema({
     type: Boolean,
     default: false
   },
+  ownerName: {
+    type: String,
+    default: mongoose.Schema.username
+  },
+
 });
 
 var DualboxExports = module.exports = mongoose.model('DualboxExports', DualboxExportsSchema);

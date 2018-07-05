@@ -59,16 +59,16 @@ router.post('/', ensureAuthenticated, function(req, res) {
   var dualboxExports = new DualboxExports({
     name: req.body.name,
     corp: req.body.corp,
-    ownerId: req.user._id
+    ownerId: req.user._id,
+    ownerName: req.user.name
   });
   dualboxExports.save(function(err) {
     if (err) {
       res.send(err);
     }
-    res.send({
-      message: "Exports crée "
+    req.flash('success_msg', 'Enregistrement terminer');
+    res.redirect('/DualboxExports/dual');
     });
-  });
 });
 
 
@@ -85,9 +85,8 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
       if (err) {
         res.send(err);
       }
-      res.send({
-        message: "DBX supprimé"
-      });
+      req.flash('success_msg', 'Supression definitive terminer');
+      res.redirect('/DualboxExports/api');
     });
 
   else if (value == "edit")
@@ -103,9 +102,8 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
           if (err) {
             res.send(err);
           }
-          res.send({
-            message: "Exports crée "
-          });
+          req.flash('success_msg', 'Modicication terminer');
+          res.redirect('/DualboxExports/api');
         });
       });
 
@@ -122,11 +120,11 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
           if (err) {
             res.send(err);
           }
-          res.send({
-            message: "Exports crée "
-          });
+          req.flash('success_msg', 'Supression terminer');
+          res.redirect('/DualboxExports/api');
         });
       });
+
   else if (value == "restore")
     DualboxExports.findById({
         _id: Id
@@ -140,9 +138,8 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
           if (err) {
             res.send(err);
           }
-          res.send({
-            message: "Exports crée "
-          });
+          req.flash('success_msg', 'Restoration Admin terminer');
+          res.redirect('/DualboxExports/api');
         });
       });
 });

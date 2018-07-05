@@ -14,13 +14,14 @@
           var textareaa = document.getElementById(textarea);
           textareaa.value = corp;
         };
+
       </script>
     </div>
 
     <div class="form-group">
-      <textarea id='txt' type="text" class="form-control" name="corp"></textarea>
+      <textarea id='txt' type="text" class="form-control" name="corp" window.onload="inserer('txt')"></textarea>
       <button type="button" class="btn btn-default" value="Inserer data" onclick="inserer('txt')">inserer</button>
-      <input type="hidden" class="form-control" placeholder="delete" name="delete" value="edit">
+      <input type="hidden" class="form-control" placeholder="delete" name="delete" value="edit" >
       <button type="submit" class="btn btn-default" name="sauve">
         sauvegarder</button>
     </div>

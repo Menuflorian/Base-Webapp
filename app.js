@@ -78,7 +78,6 @@ app.use(function (req, res, next) {
   res.locals.error = req.flash('error');
   res.locals.user = req.user || null;
   res.locals.admin = req.user && req.user.isAdmin == true;
-  console.log(res.locals.admin );
   next();
 });
 
