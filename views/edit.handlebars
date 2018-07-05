@@ -3,41 +3,62 @@
     <label for="name">Nom du projet</label>
     <div class="container">
       <script type="text/javascript">
-
         var Projet = JSON.parse(decodeURI("{{ DataPro }}"));
         var nom = Projet.name;
         var corp = Projet.corp;
         var _id = Projet._id
-        document.write('<p>'+nom+'</p>');
+        document.write('<p>' + nom + '</p>');
         console.log(corp);
+
         function inserer(textarea, str) {
           var textareaa = document.getElementById(textarea);
           textareaa.value = corp;
         };
-
       </script>
     </div>
 
     <div class="form-group">
       <textarea id='txt' type="text" class="form-control" name="corp"></textarea>
       <button type="button" class="btn btn-default" value="Inserer data" onclick="inserer('txt')">inserer</button>
-      <button
-        type="submit"
-        class="btn btn-default"
-        name="sauve"
-      >sauvegarder
-      </button>
+      <input type="hidden" class="form-control" placeholder="delete" name="delete" value="edit">
+      <button type="submit" class="btn btn-default" name="sauve">
+        sauvegarder</button>
     </div>
   </div>
 </form>
 
-<form method="delete" value="delet">
-    <div class="form-group">
-      <label for="name">Option du projet</label>
-      <div class="container">
-        <button type="submit" class="btn btn-danger" name"delet">
+<form method="post">
+  <div class="form-group">
+    <label for="name">Option du projet</label>
+    <div class="container">
+      <input type="hidden" class="form-control" placeholder="delete" name="delete" value="userdelete">
+      <button id="del" type="submit" class="btn btn-secondary" name "userdelet">
           Supprimer l'enregistrement.
         </button>
-      </div>
     </div>
+  </div>
+</form>
+
+
+<form method="post">
+  <div class="form-group">
+    <label for="name">Option administrateur du projet</label>
+    <div class="container">
+      <input type="hidden" class="form-control" placeholder="delete" name="delete" value="delete">
+      <button id="del" type="submit" class="btn btn-danger" name "delet">
+          Supprimer l'enregistrement definitivement.
+        </button>
+    </div>
+  </div>
+</form>
+
+<form method="post">
+  <div class="form-group">
+    <div class="container">
+      <input type="hidden" class="form-control" placeholder="delete" name="delete" value="restore">
+      <button id="del" type="submit" class="btn btn-danger" name "delet">
+          Restorer l'enregistrement definitivement.
+        </button>
+    </div>
+  </div>
 </form>

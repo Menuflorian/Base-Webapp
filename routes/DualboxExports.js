@@ -24,18 +24,34 @@ router.get('/dual', function(req, res) {
 
 //affichage DB script
 router.get('/api', ensureAuthenticated, function(req, res) {
-  DualboxExports.find({
-      ownerId: req.user._id
-    }, {},
-    function(err, dbx) {
-      if (err) {
-        res.send(err);
+  var Id = req.params.id;
+  admin = req.user.admin;
+  if (admin == true)
+    DualboxExports.find({}, {},
+      function(err, dbx) {
+        if (err) {
+          res.send(err);
+        }
+        res.render('api', {
+          dbData: encodeURI(JSON.stringify(dbx))
+        });
       }
-      res.render('api', {
-        dbData: encodeURI(JSON.stringify(dbx))
-      });
-    }
-  );
+    );
+  else
+    DualboxExports.find({
+        ownerId: req.user._id,
+        deleted: false
+      }, {},
+      function(err, dbx) {
+        if (err) {
+          res.send(err);
+        }
+        res.render('api', {
+          dbData: encodeURI(JSON.stringify(dbx))
+        });
+      }
+    );
+
 });
 
 //Enregistrement d'un projet via page jrojet
@@ -58,57 +74,110 @@ router.post('/', ensureAuthenticated, function(req, res) {
 
 
 //supression d'un projet.
-router.delete('/:id',ensureAuthenticated, function(req,res){
-    var Id = req.params.id;
-    console.log(Id);
-		DualboxExports.remove({_id: Id}, function (err){
-				if(err){
-						res.send(err);
-				}
-				res.send({message: "DBX supprimé"});
-			});
+router.post('/:id', ensureAuthenticated, function(req, res) {
+  var Id = req.params.id;
+  var value = req.body.delete;
+
+  if (value == "delete")
+    DualboxExports.remove({
+      _id: Id
+    }, function(err) {
+      if (err) {
+        res.send(err);
+      }
+      res.send({
+        message: "DBX supprimé"
+      });
+    });
+
+  else if (value == "edit")
+    DualboxExports.findById({
+        _id: Id
+      },
+      function(err, dualboxExports) {
+        if (err) {
+          res.send(err);
+        }
+        dualboxExports.corp = req.body.corp;
+        dualboxExports.save(function(err, majdata) {
+          if (err) {
+            res.send(err);
+          }
+          res.send({
+            message: "Exports crée "
+          });
+        });
+      });
+
+  else if (value == "userdelete")
+    DualboxExports.findById({
+        _id: Id
+      },
+      function(err, dualboxExports) {
+        if (err) {
+          res.send(err);
+        }
+        dualboxExports.deleted = true;
+        dualboxExports.save(function(err, majdata) {
+          if (err) {
+            res.send(err);
+          }
+          res.send({
+            message: "Exports crée "
+          });
+        });
+      });
+  else if (value == "restore")
+    DualboxExports.findById({
+        _id: Id
+      },
+      function(err, dualboxExports) {
+        if (err) {
+          res.send(err);
+        }
+        dualboxExports.deleted = false;
+        dualboxExports.save(function(err, majdata) {
+          if (err) {
+            res.send(err);
+          }
+          res.send({
+            message: "Exports crée "
+          });
+        });
+      });
 });
 
 
 //redirection edition d'un projet.
 router.get('/:id', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
-console.log(Id+'test');
-  DualboxExports.findOne({
-      _id: Id
-    }, {}, {},
-    function(err, Proj) {
-      if (err) {
-        res.send(err);
-      }
-      res.render('edit', {
-        DataPro: encodeURI(JSON.stringify(Proj))
-      });
-    }
-  );
-});
-
-
-//modification du corp
-router.post('/:id', ensureAuthenticated, function(req, res) {
-  var Id = req.params.id;
-  DualboxExports.findById({
-      _id: Id
-    },
-    function(err, dualboxExports) {
-      if (err) {
-        res.send(err);
-      }
-      dualboxExports.corp = req.body.corp;
-      dualboxExports.save(function(err, majdata) {
+  admin = req.user.admin;
+  if (admin == true)
+    DualboxExports.findOne({}, {}, {},
+      function(err, Proj) {
         if (err) {
           res.send(err);
         }
-        res.send({
-          message: "Exports crée "
+        res.render('edit', {
+          DataPro: encodeURI(JSON.stringify(Proj))
         });
-      });
-    });
+      }
+    );
+  else
+    DualboxExports.findOne({
+        _id: Id,
+        deleted: false
+      }, {}, {},
+      function(err, Proj) {
+        if (err) {
+          res.send(err);
+        }
+        res.render('edit', {
+          DataPro: encodeURI(JSON.stringify(Proj))
+        });
+      }
+    );
 });
+
 
 module.exports = router;
