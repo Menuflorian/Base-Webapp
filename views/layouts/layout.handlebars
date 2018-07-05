@@ -1,37 +1,41 @@
 <!DOCTYPE html>
 <html>
 
-<head>
 	<head>
 		<title>Base-WebApp</title>
-		<link rel="stylesheet" href="/css/bootstrap.css" />
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" >
 		<link rel="stylesheet" href="/css/style.css" />
 		<meta charset="UTF-8">
 	</head>
 
-<body>
-	<div class="container-fluid">
-		<div class="header clearfix">
-			<nav>
-				<ul class="nav nav-pills pull-right">
-					<li class="active"><a href="/">Index</a></li>
-					<li class="active"><a href="/Other/Pricing">Pricing</a></li>
-					{{#if user}}
-						<li class="active"><a href="/Other/Dashboard">Dashboard</a></li>
-						<li role="presentation"><a href="/DualboxExports/dual">Projet</a></li>
-						<li role="presentation"><a href="/DualboxExports/api">Afficher db</a></li>
-						<li role="presentation"><a href="/users/logout">Logout</a></li>
-					{{else}}
-						<li role="presentation"><a href="/users/login">Login</a></li>
-						<li role="presentation"><a href="/users/register">Register</a></li>
-					{{/if}}
-				</ul>
-			</nav>
+	<header>
+		<div class="container-fluid">
+			<div class="header clearfix">
+				<nav>
+					<ul class="nav justify-content-end">
+							<li> <a class="btn btn-primary" role="button" href="/">Index</a></li>
+							<li> <a class="btn btn-primary" role="button" href="/Other/Pricing">Pricing</a></li>
+						{{#if user}}
+							<li> <a class="btn btn-primary" role="button" href="/Other/Dashboard">Dashboard</a></li>
+							<li> <a class="btn btn-primary" role="button" href="/DualboxExports/dual">Projet</a></li>
+							<li> <a class="btn btn-primary" role="button" href="/DualboxExports/api">Afficher db</a></li>
+						{{#if admin}}
+							<li> <a class="btn btn-danger" role="button" href="/admin/">admin</a></li>
+						{{/if}}
+							<li> <a class="btn btn-primary" role="button" href="/users/logout">Logout</a></li>
+						{{else}}
+							<li> <a class="btn btn-primary" role="button" href="/users/login">Login</a></li>
+							<li> <a class="btn btn-primary" role="button" href="/users/register">Register</a></li>
+						{{/if}}
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</header>
+
+	<body>
 			<div class="container">
 				<h3 class="text-muted">Base-WebApp</h3>
-
-
-
 				<div class="row">
 					<div class="col-lg-12">
 						{{#if success_msg}}
@@ -46,19 +50,17 @@
 							<div class="alert alert-danger">{{error}}</div>
 						{{/if}}
 
-
 						{{{body}}}
+
 					</div>
 				</div>
-
 			</div>
+			<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+		</body>
 
-			<footer class="footer">
-				<p>&copy; 2018 Dualbox, Inc.</p>
-			</footer>
-
-		</div>
-		<!-- /container -->
-</body>
-
+<footer class="footer">
+	<p>&copy; 2018 Dualbox, Inc.</p>
+</footer>
 </html>

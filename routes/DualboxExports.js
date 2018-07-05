@@ -27,7 +27,7 @@ router.get('/api', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
   var admin = req.user.isAdmin;
   if (admin == true)
-    DualboxExports.find({}, {},
+    DualboxExports.find({deleted: true}, {},
       function(err, dbx) {
         if (err) {
           res.send(err);

@@ -14,14 +14,13 @@
           var textareaa = document.getElementById(textarea);
           textareaa.value = corp;
         };
-
       </script>
     </div>
 
     <div class="form-group">
       <textarea id='txt' type="text" class="form-control" name="corp" window.onload="inserer('txt')"></textarea>
       <button type="button" class="btn btn-default" value="Inserer data" onclick="inserer('txt')">inserer</button>
-      <input type="hidden" class="form-control" placeholder="delete" name="delete" value="edit" >
+      <input type="hidden" class="form-control" placeholder="delete" name="delete" value="edit">
       <button type="submit" class="btn btn-default" name="sauve">
         sauvegarder</button>
     </div>
@@ -33,34 +32,34 @@
     <label for="name">Option du projet</label>
     <div class="container">
       <input type="hidden" class="form-control" placeholder="delete" name="delete" value="userdelete">
-      <button id="del" type="submit" class="btn btn-secondary" name "userdelet">
-          Supprimer l'enregistrement.
-        </button>
+      <button id="del" type="submit" class="btn btn-secondary" name "userdelet" value="userdelete" onclick="Confirmation()">
+        <p id="deluser">  Supprimer l'enregistrement.</p>
+      </button>
     </div>
   </div>
 </form>
 
 {{#if admin}}
-<form method="post">
-  <div class="form-group">
-    <label for="name">Option administrateur du projet</label>
-    <div class="container">
-      <input type="hidden" class="form-control" placeholder="delete" name="delete" value="delete">
-      <button id="del" type="submit" class="btn btn-danger" name "delet">
+  <form method="post">
+    <div class="form-group">
+      <label for="name">Option administrateur du projet</label>
+      <div class="container">
+        <input type="hidden" class="form-control" placeholder="delete" name="delete" value="delete">
+        <button id="del" type="submit" class="btn btn-danger" name "delet">
           Supprimer l'enregistrement definitivement.
         </button>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
 
-<form method="post">
-  <div class="form-group">
-    <div class="container">
-      <input type="hidden" class="form-control" placeholder="delete" name="delete" value="restore">
-      <button id="del" type="submit" class="btn btn-danger" name "delet">
+  <form method="post">
+    <div class="form-group">
+      <div class="container">
+        <input type="hidden" class="form-control" placeholder="delete" name="delete" value="restore">
+        <button id="del" type="submit" class="btn btn-danger" name "delet">
           Restorer l'enregistrement definitivement.
         </button>
+      </div>
     </div>
-  </div>
-</form>
+  </form>
 {{/if}}
