@@ -25,7 +25,7 @@ router.get('/dual', function(req, res) {
 //affichage DB script
 router.get('/api', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
-  admin = req.user.admin;
+  var admin = req.user.isAdmin;
   if (admin == true)
     DualboxExports.find({}, {},
       function(err, dbx) {
@@ -151,7 +151,7 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
 //redirection edition d'un projet.
 router.get('/:id', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
-  admin = req.user.admin;
+  var admin = req.user.isAdmin;
   if (admin == true)
     DualboxExports.findOne({}, {}, {},
       function(err, Proj) {

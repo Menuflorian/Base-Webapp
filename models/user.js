@@ -16,7 +16,7 @@ var UserSchema = mongoose.Schema({
   name: {
     type: String
   },
-  admin: {
+  isAdmin: {
     type: Boolean,
     default: false
   }
