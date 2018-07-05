@@ -9,14 +9,26 @@
     var text = " ";
     var projet_id = element._id;
     var ownerName = element.ownerName;
-    document.write('<div flex-direction: column>')
-    {{#if admin}}
-    document.write(ownerName + " " );
-    {{/if}}
-    document.write(name + " " + corp);
-    document.write('<a id="_id" class= "btn btn-primary justify-content-end" type="button" position = "right" href="/DualboxExports/' + projet_id + '  " class="btn btn-primary" value= "">Edit</a>');
-    document.write('<br/>');
-    document.write('<br/>');
-    document.write('</div>')
+    document.write('<div class = "containerfluid d-flex justify-content-between">');
+      document.write('<div class = "container-fluid d-flex ">');
+        document.write('<div class = "container-fluid " " >');
+          {{#if admin}}
+          document.write(ownerName + " " );
+          {{/if}}
+        document.write('</div>');
+        document.write('<div class = "container-fluid ">');
+          document.write(name + " ");
+        document.write('</div>');
+      document.write('</div>');
+      document.write('<div class = "container-fluid d-flex ">');
+        document.write('<div class = "container-fluid " >');
+        document.write('</div>');
+        document.write('<div class = "containerfluid" >');
+          document.write('<a type="button" href="/DualboxExports/' + projet_id + '  " class="btn btn-primary btn-sm" value= "">Edit</a>');
+          document.write('<br/>');
+          document.write('<br/>');
+        document.write('</div>');
+      document.write('</div>');
+    document.write('</div>');
   });
 </script>
