@@ -1,13 +1,13 @@
 {
-  "name": "loginapp",
+  "name": "BaseWebApp",
   "version": "1.0.0",
-  "description": "Simple authentication system",
+  "description": "Rest Api with auth",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Brad Traversy",
+  "author": "Florian Menu",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "*",

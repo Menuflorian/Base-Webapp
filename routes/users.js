@@ -6,18 +6,20 @@ var mongoose = require('mongoose');
 var User = require('../models/user');
 
 
-// Register
+//  redirection vers la page Register
 router.get('/register', function(req, res) {
   res.render('register');
 });
+//fin de redirection//
 
-// Login
+// redirection vers la page Login
 router.get('/login', function(req, res) {
   res.render('login');
 });
+//fin de redirection//
 
 
-// Register User
+// recupération des information envoyer via page register//
 router.post('/register', function(req, res) {
   var name = req.body.name;
   var email = req.body.email;
@@ -75,6 +77,8 @@ router.post('/register', function(req, res) {
     });
   }
 });
+//fin de traitement//
+
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
@@ -121,9 +125,7 @@ router.post('/login',
 
 router.get('/logout', function(req, res) {
   req.logout();
-
   req.flash('success_msg', 'You are logged out');
-
   res.redirect('/users/login');
 });
 
