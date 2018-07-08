@@ -225,7 +225,7 @@ router.get('/api', ensureAuthenticated, function(req, res) {
       deleted: false
     });
 });
-//fin de l'affichage de la liste des projets//
+//fin de fonction//
 
 //Enregistrement d'un nouveau projet via page projet//
 router.post('/', ensureAuthenticated, function(req, res) {
@@ -301,7 +301,8 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
     dbfindAndDelete(false);
   }
 });
-// fin de Supression definitive et utilisateur, edition et restoration//
+
+
 
 //redirection edition d'un projet.
 router.get('/:id', ensureAuthenticated, function(req, res) {
@@ -328,8 +329,5 @@ router.get('/:id', ensureAuthenticated, function(req, res) {
     });
   }
 });
-// Fin de redirection edition d'un projet.
-
-
 module.exports = router;
 >>>>>>> 53dfa729ff3dfa04513f887eab91626bfd428bf8:routes/exports.js
