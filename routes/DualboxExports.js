@@ -158,7 +158,7 @@ router.get('/:id', ensureAuthenticated, function(req, res) {
   };
 
   if (admin == true)
-    search({_id = Id});  // vers page edit coté admin.
+    search({_id : Id});  // vers page edit coté admin.
 
   else
     search({    // vers page edit coté client.
