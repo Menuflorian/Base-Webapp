@@ -147,7 +147,7 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
 router.get('/:id', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
   var admin = req.user.isAdmin;
-  var search = function search(selectors) {
+  var dbfindOne = function dbfindOne(selectors) {
     DualboxExports.findOne(selectors, {}, {},
       function(err, db_export) {
         if (err) {
@@ -160,9 +160,9 @@ router.get('/:id', ensureAuthenticated, function(req, res) {
   };
 
   if (admin == true) {
-    search({});  // vers page edit coté admin.
+    dbfindOne({});  // vers page edit coté admin.
   }else{
-    search({    // vers page edit coté client.
+    dbfindOne({    // vers page edit coté client.
       _id: Id,
       deleted: false
     });
