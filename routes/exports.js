@@ -78,7 +78,7 @@ router.post('/', ensureAuthenticated, function(req, res) {
 router.post('/:id', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
   var value = req.body.delete;
-  var delresed = function delresed(paramDual) {
+  var dbfindAndDelete = function dbfindAndDelete(paramDual) {
     //fonction supression et restoration factoriser//
     DualboxExports.findById({
         _id: Id
@@ -99,8 +99,8 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
   };
 //fin de la partit commune//
 
-// fonction de supression definitive (admin)//
-  if (value == "delete")
+
+  if (value == "delete") {  // Supression definitive (admin)
     DualboxExports.remove({
       _id: Id
     }, function(err) {
@@ -110,10 +110,7 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
       req.flash('success_msg', 'Supression definitive terminer');
       res.redirect('/exports/api');
     });
-// fin de fonction supression//
-
-// fonction edition de la page edit.
-  else if (value == "edit")
+  }else if (value == "edit"){ // Edition de la page edit.
     DualboxExports.findById({
         _id: Id
       },
@@ -130,15 +127,11 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
           res.redirect('/exports/api');
         });
       });
-//fin de la fonction edition//
-
-// fonction supression (utilisateur) et restoration (admin)//
-  else if (value == "userdelete")
-    delresed(true);
-
-  else if (value == "restore")
-    delresed(false);
-//fin des fonction supression et restoration//
+  } else if (value == "userdelete"){ // Supression (utilisateur)
+    dbfindAndDelete(true);
+  }else if (value == "restore") { // Restoration (admin)
+    dbfindAndDelete(false);
+  }
 });
 
 
