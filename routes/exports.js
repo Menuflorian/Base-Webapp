@@ -74,12 +74,11 @@ router.post('/', ensureAuthenticated, function(req, res) {
 });
 //fin de nouveau projet//
 
-//partit commune des fonctions: supression definitive et utilisateur, edition et restoration//
+//Supression definitive et utilisateur, edition et restoration//
 router.post('/:id', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
   var value = req.body.delete;
   var dbfindAndDelete = function dbfindAndDelete(paramDual) {
-    //fonction supression et restoration factoriser//
     DualboxExports.findById({
         _id: Id
       },
@@ -97,8 +96,6 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
         });
       });
   };
-//fin de la partit commune//
-
 
   if (value == "delete") {  // Supression definitive (admin)
     DualboxExports.remove({
