@@ -16,10 +16,11 @@
         };
       </script>
     </div>
+    <body onload="inserer('txt')">
+    </body>
 
     <div class="form-group">
-      <textarea id='txt' type="text" class="form-control" name="corp" window.onload="inserer('txt')"></textarea>
-      <button type="button" class="btn btn-default" value="Inserer data" onclick="inserer('txt')">inserer</button>
+      <textarea id='txt' type="text" class="form-control" name="corp" ></textarea>
       <input type="hidden" class="form-control" placeholder="delete" name="delete" value="edit">
       <button type="submit" class="btn btn-default" name="sauve">
         sauvegarder</button>

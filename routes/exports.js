@@ -149,7 +149,7 @@ router.get('/:id', ensureAuthenticated, function(req, res) {
   };
 
   if (admin == true) {
-    dbfindOne({});  // vers page edit coté admin.
+    dbfindOne({_id: Id});  // vers page edit coté admin.
   }else{
     dbfindOne({    // vers page edit coté client.
       _id: Id,
