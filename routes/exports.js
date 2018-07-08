@@ -29,8 +29,8 @@ router.get('/dual', function(req, res) {
 router.get('/api', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
   var admin = req.user.isAdmin;
-  var dbfind = function dbfind(recherche2) {
-    DualboxExports.find(recherche2, {},
+  var dbfind = function dbfind(selectors) {
+    DualboxExports.find(selectors, {},
       function(err, dbx) {
         if (err) {
           res.send(err);
@@ -147,8 +147,8 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
 router.get('/:id', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
   var admin = req.user.isAdmin;
-  var search = function search(recherche) {
-    DualboxExports.findOne(recherche, {}, {},
+  var search = function search(selectors) {
+    DualboxExports.findOne(selectors, {}, {},
       function(err, db_export) {
         if (err) {
           res.send(err);
