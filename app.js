@@ -11,15 +11,13 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 
-
-
 mongoose.connect('mongodb://localhost/baseapp');
 
 var db = mongoose.connection;
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var DualboxExports = require('./routes/DualboxExports');
+var exports = require('./routes/exports');
 var other = require('./routes/other');
 
 
@@ -83,7 +81,7 @@ app.use(function (req, res, next) {
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/dualboxExports', DualboxExports);
+app.use('/exports', exports);
 app.use('/other', other);
 
 
