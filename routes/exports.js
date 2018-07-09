@@ -19,6 +19,15 @@ function ensureAuthenticated(req, res, next) {
   }
 }
 
+function ensureAdmin(req, res, next) {
+  if (req.user && req.user.isAdmin == true) {
+    return next();
+  } else {
+    req.flash('error_msg', 'This part is reserved to admin');
+    res.redirect('/users/login');
+  }
+}
+
 // redirection bouton projet vers la page de création de projet//
 router.get('/dual', function(req, res) {
   res.render('DualboxExports');
@@ -78,7 +87,7 @@ router.post('/', ensureAuthenticated, function(req, res) {
 router.post('/:id', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
   var value = req.body.delete;
-  var dbfindAndDelete = function dbfindAndDelete(paramDual) {
+  var dbfindAndDelete = function dbfindAndDelete(paramDual, texteetat) {
     DualboxExports.findById({
         _id: Id
       },
@@ -91,7 +100,7 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
           if (err) {
             res.send(err);
           }
-          req.flash('success_msg', 'Modifications saved.');
+          req.flash('success_msg', texteetat);
           res.redirect('/exports/api');
         });
       });
@@ -125,9 +134,9 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
         });
       });
   } else if (value == "userdelete"){ // Supression (utilisateur)
-    dbfindAndDelete(true);
+    dbfindAndDelete(true, 'Suppression terminer.');
   }else if (value == "restore") { // Restoration (admin)
-    dbfindAndDelete(false);
+    dbfindAndDelete(false, 'Restoration terminer.');
   }
 });
 // fin de Supression definitive et utilisateur, edition et restoration//
