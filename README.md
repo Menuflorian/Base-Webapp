@@ -8,8 +8,11 @@ This is a user login and registration app using Node.js, Express, Passport and M
 
 ### Usage
 
-
-
+Installer mongodb
+  -demanrer mogod
+    -> mongod.exe --dpath (chemin de la data)
+  -demarer l'appli
+    -> npm start
 ### Installation
 
 Base-WebApp requires [Node.js](https://nodejs.org/) v4+ to run.
