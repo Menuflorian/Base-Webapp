@@ -1,34 +1,36 @@
-<h2 class="page-header">Api</h2>
-<script LANGUAGE="Javascript">
-  var ListProjet = JSON.parse(decodeURI("{{ dbData }}"));
-  var LpLength = Object.keys(ListProjet).length
-  ListProjet.forEach(function(element) {
-    var i;
-    var name = element.name;
-    var corp = element.corp;
-    var text = " ";
-    var projet_id = element._id;
-    var ownerName = element.ownerName;
-    document.write('<div class = "containerfluid d-flex justify-content-between">');
-      document.write('<div class = "container-fluid d-flex ">');
-        document.write('<div class = "container-fluid " " >');
-          {{#if admin}}
-          document.write(ownerName + " " );
-          {{/if}}
+<div class="container">
+  <h2 class="page-header">Api</h2>
+  <script LANGUAGE="Javascript">
+    var ListProjet = JSON.parse(decodeURI("{{ dbData }}"));
+    var LpLength = Object.keys(ListProjet).length
+    ListProjet.forEach(function(element) {
+      var i;
+      var name = element.name;
+      var corp = element.corp;
+      var text = " ";
+      var projet_id = element._id;
+      var ownerName = element.ownerName;
+      document.write('<div class = "containerfluid d-flex justify-content-between">');
+        document.write('<div class = "container-fluid d-flex ">');
+          document.write('<div class = "container-fluid " " >');
+            {{#if admin}}
+            document.write(ownerName + " " );
+            {{/if}}
+          document.write('</div>');
+          document.write('<div class = "container-fluid ">');
+            document.write(name + " ");
+          document.write('</div>');
         document.write('</div>');
-        document.write('<div class = "container-fluid ">');
-          document.write(name + " ");
+        document.write('<div class = "container-fluid d-flex ">');
+          document.write('<div class = "container-fluid " >');
+          document.write('</div>');
+          document.write('<div class = "containerfluid" >');
+            document.write('<a type="button" href="/exports/' + projet_id + '  " class="btn btn-primary btn-sm" value= "">Edit</a>');
+            document.write('<br/>');
+            document.write('<br/>');
+          document.write('</div>');
         document.write('</div>');
       document.write('</div>');
-      document.write('<div class = "container-fluid d-flex ">');
-        document.write('<div class = "container-fluid " >');
-        document.write('</div>');
-        document.write('<div class = "containerfluid" >');
-          document.write('<a type="button" href="/exports/' + projet_id + '  " class="btn btn-primary btn-sm" value= "">Edit</a>');
-          document.write('<br/>');
-          document.write('<br/>');
-        document.write('</div>');
-      document.write('</div>');
-    document.write('</div>');
-  });
-</script>
+    });
+  </script>
+</div>

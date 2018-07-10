@@ -78,7 +78,7 @@ router.post('/', ensureAuthenticated, function(req, res) {
       res.send(err);
     }
     req.flash('success_msg', 'File saved successfuly');
-    res.redirect('/exports/dual');
+    res.redirect('/exports/Dual');
   });
 });
 //fin de nouveau projet//
@@ -101,7 +101,7 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
             res.send(err);
           }
           req.flash('success_msg', texteetat);
-          res.redirect('/exports/api');
+          res.redirect('/exports/Api');
         });
       });
   };
@@ -114,9 +114,9 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
         res.send(err);
       }
       req.flash('success_msg', 'Supression definitive terminer');
-      res.redirect('/exports/api');
+      res.redirect('/exports/Api');
     });
-  }else if (value == "edit"){ // Edition de la page edit.
+  }else if (value == "Edit"){ // Edition de la page edit.
     DualboxExports.findById({
         _id: Id
       },
@@ -130,7 +130,7 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
             res.send(err);
           }
           req.flash('success_msg', 'Modicication terminer');
-          res.redirect('/exports/api');
+          res.redirect('/exports/Api');
         });
       });
   } else if (value == "userdelete"){ // Supression (utilisateur)
@@ -151,7 +151,7 @@ router.get('/:id', ensureAuthenticated, function(req, res) {
         if (err) {
           res.send(err);
         }
-        res.render('edit', {
+        res.render('Edit', {
           DataPro: encodeURI(JSON.stringify(db_export))
         });
       });

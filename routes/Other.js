@@ -14,7 +14,9 @@ router.get('/Pricing', function(req, res) {  //  redirection vers la page Regist
   res.render('Pricing');
 });
 
-
+router.get('/About', function(req, res) {  //  redirection vers la page Register
+  res.render('About');
+});
 
 function ensureAdmin(req, res, next) {       // Verfi du rang admin
   if (req.user && req.user.isAdmin == true) {
