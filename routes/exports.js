@@ -45,8 +45,7 @@ router.get('/api', ensureAuthenticated, function(req, res) {
           res.send(err);
         }
         res.render('api', {
-          dbData: encodeURI(JSON.stringify(dbx)),
-          rawJson:dbx,
+          dbData: dbx,
           admin:admin
         });
       }
