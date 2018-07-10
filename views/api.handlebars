@@ -8,7 +8,7 @@
     {{#each dbData}}
         <div class = "containerfluid d-flex justify-content-between">
             <div class = "container-fluid d-flex ">
-                <div class = "container-fluid " " >
+                <div class = "container-fluid " >
                     {{this.ownerName}}
                     {{#if ../admin}}
                         (Admin)
@@ -22,7 +22,7 @@
                 <div class = "container-fluid " >
                 </div>
                 <div class = "containerfluid" >
-                    <a type="button" href="/exports/' + {{this._id}} + '  " class="btn btn-primary btn-sm" value= "">Edit</a>
+                    <a type="button" href="/exports/{{this._id}}" class="btn btn-primary btn-sm" value= "">Edit</a>
                     <br/>
                     <br/>
                 </div>
