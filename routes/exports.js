@@ -6,7 +6,7 @@ var session = require('express-session');
 
 var jsonUtils = require("../models/json_utils.js");
 
-var DualboxExports = require('../models/DualboxExport');
+var DualboxExports = require('../models/DualboxExports');
 
 //verif auth
 
@@ -45,7 +45,9 @@ router.get('/api', ensureAuthenticated, function(req, res) {
           res.send(err);
         }
         res.render('api', {
-          dbData: encodeURI(JSON.stringify(dbx))
+          dbData: encodeURI(JSON.stringify(dbx)),
+          rawJson:dbx,
+          admin:admin
         });
       }
     );
