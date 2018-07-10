@@ -9,7 +9,7 @@ This is a user login and registration app using Node.js, Express, Passport and M
 ### Usage
 
 Installer mongodb
-  -demanrer mogod
+  -demarer mogod
     -> mongod.exe --dpath (chemin de la data)
   -demarer l'appli
     -> npm start
