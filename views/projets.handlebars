@@ -1,0 +1,117 @@
+<div class="container">
+  <h1 class="mt-4 mb-3">Projets
+    {{#if admin}}
+      <small>You are an admin.</small>
+    {{/if}}
+
+  </h1>
+
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="/">Home</a>
+    </li>
+    <li class="breadcrumb-item active">projets version porte folio 1</li>
+  </ol>
+
+{{#each dbData}}
+  <div class="row">
+      <div class="col-md-7">
+        <a href="#">
+          <img class="card-img-top" src="http://placehold.it/700x300" alt="">
+        </a>
+      </div>
+      <div class="col-md-5">
+        <h3>{{this.name}}</h3>
+        <p >{{this.corp}}</p>
+        <a class="btn btn-primary" href="/exports/{{this._id}}"  value="">Edit
+          <span class="glyphicon glyphicon-chevron-right"></span>
+        </a>
+      </div>
+  </div>
+  <hr>
+{{/each}}
+
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="/">Home</a>
+    </li>
+    <li class="breadcrumb-item active">projets version porte folio 2</li>
+  </ol>
+
+
+  <div class="row">
+    {{#each dbData}}
+      <div class="col-lg-6 portfolio-item">
+        <div class="card h-100">
+          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+          <div class="card-body">
+            <h3 class="card-title">
+              <div>{{this.name}}</div>
+            </h3>
+            <p class="card-text">{{this.corp}}</p>
+          </div>
+          <div class="containerfluid d-flex justify-content-center">
+            <a type="button" href="/exports/{{this._id}}" class="btn btn-primary btn-sm" value="">Edit</a>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
+
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="/">Home</a>
+    </li>
+    <li class="breadcrumb-item active">projets version porte folio 3</li>
+  </ol>
+
+
+  <div class="row">
+    {{#each dbData}}
+      <div class="col-lg-4 col-sm-6 portfolio-item">
+        <div class="card h-100">
+          <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+          <div class="card-body">
+            <h3 class="card-title">
+              <div>{{this.name}}</div>
+            </h3>
+            <p class="card-text">{{this.corp}}</p>
+          </div>
+          <div class="containerfluid d-flex justify-content-center">
+            <a type="button" href="/exports/{{this._id}}" class="btn btn-primary btn-sm" value="">Edit</a>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="/">Home</a>
+  </li>
+  <li class="breadcrumb-item active">projets version porte folio 4</li>
+</ol>
+
+
+<div class="row">
+  {{#each dbData}}
+    <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+      <div class="card h-100">
+        <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
+        <div class="card-body">
+          <h3 class="card-title">
+            <div>{{this.name}}</div>
+          </h3>
+          <p class="card-text">{{this.corp}}</p>
+        </div>
+        <div class="containerfluid d-flex justify-content-center">
+          <a type="button" href="/exports/{{this._id}}" class="btn btn-primary btn-sm" value="">Edit</a>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+</div>
+</div>
+</div>

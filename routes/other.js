@@ -4,74 +4,74 @@ var router = express.Router();
 
 
 
-router.get('/Dashboard', function(req, res) { //  redirection vers la page Dashboard
-  res.render('Dashboard');
+router.get('/dashboard', function(req, res) { //  redirection vers la page Dashboard
+  res.render('dashboard');
 });
 
 
 
-router.get('/Pricing', function(req, res) {  //  redirection vers la page Register
-  res.render('Pricing');
+router.get('/pricing', function(req, res) {  //  redirection vers la page Register
+  res.render('pricing');
 });
 
-router.get('/About', function(req, res) {  //  redirection vers la page Register
-  res.render('About');
+router.get('/about', function(req, res) {  //  redirection vers la page Register
+  res.render('about');
 });
 
-router.get('/Portfolio-1-col', function(req, res) {  //  redirection vers la page portfolio-1-col
-  res.render('Portfolio-1-col');
+router.get('/portfolio-1-col', function(req, res) {  //  redirection vers la page portfolio-1-col
+  res.render('portfolio-1-col');
 });
 
-router.get('/Portfolio-2-col', function(req, res) {  //  redirection vers la page portfolio-1-col
-  res.render('Portfolio-2-col');
+router.get('/portfolio-2-col', function(req, res) {  //  redirection vers la page portfolio-1-col
+  res.render('portfolio-2-col');
 });
 
-router.get('/Portfolio-3-col', function(req, res) {  //  redirection vers la page portfolio-1-col
-  res.render('Portfolio-3-col');
+router.get('/portfolio-3-col', function(req, res) {  //  redirection vers la page portfolio-1-col
+  res.render('portfolio-3-col');
 });
 
-router.get('/Portfolio-4-col', function(req, res) {  //  redirection vers la page portfolio-1-col
-  res.render('Portfolio-4-col');
+router.get('/portfolio-4-col', function(req, res) {  //  redirection vers la page portfolio-1-col
+  res.render('portfolio-4-col');
 });
 
-router.get('/Portfolio-item', function(req, res) {  //  redirection vers la page portfolio-1-col
-  res.render('Portfolio-item');
+router.get('/portfolio-item', function(req, res) {  //  redirection vers la page portfolio-1-col
+  res.render('portfolio-item');
 });
 
-router.get('/Contact', function(req, res) {  //  redirection vers la page portfolio-1-col
-  res.render('Contact');
+router.get('/contact', function(req, res) {  //  redirection vers la page portfolio-1-col
+  res.render('contact');
 });
 
-router.get('/Services', function(req, res) {  //  redirection vers la page portfolio-1-col
-  res.render('Services');
+router.get('/services', function(req, res) {  //  redirection vers la page portfolio-1-col
+  res.render('services');
 });
 
-router.get('/Blog-home-1', function(req, res) {  //  redirection vers la page portfolio-1-col
-  res.render('Blog-home-1');
+router.get('/blog-home-1', function(req, res) {  //  redirection vers la page portfolio-1-col
+  res.render('blog-home-1');
 });
 
-router.get('/Blog-home-2', function(req, res) {  //  redirection vers la page portfolio-1-col
-  res.render('Blog-home-2');
+router.get('/blog-home-2', function(req, res) {  //  redirection vers la page portfolio-1-col
+  res.render('blog-home-2');
 });
 
-router.get('/Blog-post', function(req, res) {  //  redirection vers la page portfolio-1-col
-  res.render('Blog-post');
+router.get('/blog-post', function(req, res) {  //  redirection vers la page portfolio-1-col
+  res.render('blog-post');
 });
 
-router.get('/Sidebar', function(req, res) {  //  redirection vers la page portfolio-1-col
-  res.render('Sidebar');
+router.get('/sidebar', function(req, res) {  //  redirection vers la page portfolio-1-col
+  res.render('sidebar');
 });
 
-router.get('/Faq', function(req, res) {  //  redirection vers la page portfolio-1-col
-  res.render('Faq');
+router.get('/faq', function(req, res) {  //  redirection vers la page portfolio-1-col
+  res.render('faq');
 });
 
 router.get('/404', function(req, res) {  //  redirection vers la page portfolio-1-col
   res.render('404');
 });
 
-router.get('/Full-width', function(req, res) {  //  redirection vers la page portfolio-1-col
-  res.render('Full-width');
+router.get('/full-width', function(req, res) {  //  redirection vers la page portfolio-1-col
+  res.render('full-width');
 });
 
 

@@ -3,7 +3,7 @@ var router = express.Router();
 
 // redirection vers index//
 router.get('/', function(req, res){
-	res.render('Index');
+	res.render('index');
 });
 //fin de redirection//
 
@@ -13,7 +13,7 @@ function ensureAuthenticated(req, res, next) {
     return next();
   } else {
     req.flash('error_msg', 'You are not logged in');
-    res.redirect('/users/Login');
+    res.redirect('/users/login');
   }
 }
 //fin de verif//

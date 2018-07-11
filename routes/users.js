@@ -7,20 +7,20 @@ var User = require('../models/user');
 
 
 //  redirection vers la page Register
-router.get('/Register', function(req, res) {
-  res.render('Register');
+router.get('/register', function(req, res) {
+  res.render('register');
 });
 //fin de redirection//
 
 // redirection vers la page Login
-router.get('/Login', function(req, res) {
-  res.render('Login');
+router.get('/login', function(req, res) {
+  res.render('login');
 });
 //fin de redirection//
 
 
 // recupération des information envoyer via page register//
-router.post('/Register', function(req, res) {
+router.post('/register', function(req, res) {
   var name = req.body.name;
   var email = req.body.email;
   var username = req.body.username;
@@ -38,7 +38,7 @@ router.post('/Register', function(req, res) {
   var errors = req.validationErrors();
 
   if (errors) {
-    res.render('Register', {
+    res.render('register', {
       errors: errors
     });
   } else {
@@ -56,7 +56,7 @@ router.post('/Register', function(req, res) {
         }
       }, function(err, mail) {
         if (user || mail) {
-          res.render('Register', {
+          res.render('register', {
             user: user,
             mail: mail
           });
@@ -71,7 +71,7 @@ router.post('/Register', function(req, res) {
             if (err) throw err;
           });
           req.flash('success_msg', 'You are registered and can now login');
-          res.redirect('/users/Login');
+          res.redirect('/users/login');
         }
       });
     });
@@ -113,20 +113,20 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
-router.post('/Login',
+router.post('/login',
   passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/users/Login',
+    failureRedirect: '/users/login',
     failureFlash: true
   }),
   function(req, res) {
     res.redirect('/');
   });
 
-router.get('/Logout', function(req, res) {
+router.get('/logout', function(req, res) {
   req.logout();
   req.flash('success_msg', 'You are logged out');
-  res.redirect('/users/Login');
+  res.redirect('/users/login');
 });
 
 module.exports = router;

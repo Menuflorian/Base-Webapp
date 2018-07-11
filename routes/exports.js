@@ -6,7 +6,7 @@ var session = require('express-session');
 
 var jsonUtils = require("../models/json_utils.js");
 
-var DualboxExports = require('../models/DualboxExports');
+var DualboxExports = require('../models/dualboxExports');
 
 //verif auth
 
@@ -30,12 +30,12 @@ function ensureAdmin(req, res, next) {
 
 // redirection bouton projet vers la page de création de projet//
 router.get('/dual', function(req, res) {
-  res.render('DualboxExports');
+  res.render('dualboxExports');
 });
 //fin de redirection//
 
 //affichage de la liste des projets //
-router.get('/api', ensureAuthenticated, function(req, res) {
+router.get('/projets', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
   var admin = req.user.isAdmin;
   var dbfind = function dbfind(selectors) {
@@ -44,7 +44,7 @@ router.get('/api', ensureAuthenticated, function(req, res) {
         if (err) {
           res.send(err);
         }
-        res.render('api', {
+        res.render('projets', {
           dbData: dbx,
           admin:admin
         });
@@ -79,7 +79,7 @@ router.post('/', ensureAuthenticated, function(req, res) {
       res.send(err);
     }
     req.flash('success_msg', 'File saved successfuly');
-    res.redirect('/exports/Dual');
+    res.redirect('/exports/dual');
   });
 });
 //fin de nouveau projet//
@@ -102,7 +102,7 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
             res.send(err);
           }
           req.flash('success_msg', texteetat);
-          res.redirect('/exports/Api');
+          res.redirect('/exports/projets');
         });
       });
   };
@@ -115,7 +115,7 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
         res.send(err);
       }
       req.flash('success_msg', 'Supression definitive terminer');
-      res.redirect('/exports/Api');
+      res.redirect('/exports/projets');
     });
   }else if (value == "Edit"){ // Edition de la page edit.
     DualboxExports.findById({
@@ -131,7 +131,7 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
             res.send(err);
           }
           req.flash('success_msg', 'Modicication terminer');
-          res.redirect('/exports/Api');
+          res.redirect('/exports/projets');
         });
       });
   } else if (value == "userdelete"){ // Supression (utilisateur)
