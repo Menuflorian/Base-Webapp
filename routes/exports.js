@@ -34,9 +34,10 @@ router.get('/dual', function(req, res) {
 });
 //fin de redirection//
 
-//affichage de la liste des projets //
-router.get('/projets', ensureAuthenticated, function(req, res) {
+//affichage de la liste des projects //
+router.get('/projects:folio', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
+  var folio = req.params.folio;
   var admin = req.user.isAdmin;
   var dbfind = function dbfind(selectors) {
     DualboxExports.find(selectors, {},
@@ -44,7 +45,7 @@ router.get('/projets', ensureAuthenticated, function(req, res) {
         if (err) {
           res.send(err);
         }
-        res.render('projets', {
+        res.render('projects'+ folio, {
           dbData: dbx,
           admin:admin
         });
@@ -88,6 +89,7 @@ router.post('/', ensureAuthenticated, function(req, res) {
 router.post('/:id', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
   var value = req.body.delete;
+  var folio = req.params.folio;
   var dbfindAndDelete = function dbfindAndDelete(paramDual, texteetat) {
     DualboxExports.findById({
         _id: Id
@@ -102,7 +104,7 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
             res.send(err);
           }
           req.flash('success_msg', texteetat);
-          res.redirect('/exports/projets');
+          res.redirect('/exports/projects'+folio);
         });
       });
   };
@@ -115,7 +117,7 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
         res.send(err);
       }
       req.flash('success_msg', 'Supression definitive terminer');
-      res.redirect('/exports/projets');
+      res.redirect('/exports/projects');
     });
   }else if (value == "Edit"){ // Edition de la page edit.
     DualboxExports.findById({
@@ -131,7 +133,7 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
             res.send(err);
           }
           req.flash('success_msg', 'Modicication terminer');
-          res.redirect('/exports/projets');
+          res.redirect('/exports/projects'+folio);
         });
       });
   } else if (value == "userdelete"){ // Supression (utilisateur)

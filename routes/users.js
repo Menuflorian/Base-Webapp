@@ -24,7 +24,7 @@ router.get('/register', function(req, res) { //  redirection vers la page Regist
 });
 
 
-router.get('/profile', ensureAuthenticated,  function(req, res) {  //  redirection vers la page profile
+router.get('/profile', ensureAuthenticated,  function(req, res) { //  redirection vers la page profile
   res.render('profile');
 });
 
@@ -86,7 +86,7 @@ router.post('/register', function(req, res) {
             email: email,
             username: username,
             password: password,
-            registerdate: formaDate(new Date()),
+            registerdate: Date(),
           });
           User.createUser(newUser, function(err, user) {
             if (err) throw err;

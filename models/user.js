@@ -22,7 +22,7 @@ var UserSchema = mongoose.Schema({
     default: false
   },
   registerdate: {
-    type: String,
+    type: Date,
   },
 });
 
