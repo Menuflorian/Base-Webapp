@@ -6,7 +6,7 @@ var session = require('express-session');
 
 var jsonUtils = require("../models/json_utils.js");
 
-var DualboxExports = require('../models/dualboxExports');
+var DualboxExports = require('../models/DualboxExports');
 
 //verif auth
 
