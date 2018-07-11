@@ -159,6 +159,30 @@ function ensureAuthenticated(req, res, next) {
   }
 }
 
+router.post('/eprofile', function(req, res) {
+  var Id= req.user._id;
+  var name = req.body.name;
+  var email = req.body.email;
+  var username = req.body.username;
 
-
+  User.findById({
+      _id: Id
+    },
+    function(err, db_user) {
+      if (err) res.send(err);
+      if (name == "") { name = req.user.name;}
+      else {db_user.name = req.body.name;}
+      if (username == "") { username = req.user.username;}
+      else {db_user.username = req.body.username;}
+      if (email == "") { email = req.user.email;}
+      else {db_user.email = req.body.email;}
+      db_user.save(function(err, majdata) {
+        if (err) {
+          res.send(err);
+        }
+        req.flash('success_msg', 'Modicication terminer');
+        res.redirect('/users/profile');
+      });
+    });
+});
 module.exports = router;
