@@ -5,6 +5,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
 var User = require('../models/user');
 
+//Transformation format date.
 var formaDate = function formatDate(date) {
   var monthNames = [
     "January", "February", "March",
@@ -19,27 +20,33 @@ var formaDate = function formatDate(date) {
   return day + ' ' + monthNames[monthIndex] + ' ' + year;
 };
 
-router.get('/register', function(req, res) { //  redirection vers la page Register
-  res.render('register');
-});
+//Check Auth
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  } else {
+    req.flash('error_msg', 'You are not logged in');
+    res.redirect('/users/login');
+  }
+}
 
-
-router.get('/profile', ensureAuthenticated,  function(req, res) { //  redirection vers la page profile
-  res.render('profile');
-});
-
-router.get('/eprofile', ensureAuthenticated,  function(req, res) {  //  redirection vers la page edit profile
-  res.render('eprofile');
-});
-
-
-router.get('/login', function(req, res) { // redirection vers la page Login
+router.get('/login', function(req, res) { // redirection toLogin
   res.render('login');
 });
 
+router.get('/register', function(req, res) { //  redirection to Register
+  res.render('register');
+});
 
+router.get('/profile', ensureAuthenticated,  function(req, res) { //  redirection to profile
+  res.render('profile');
+});
 
-// recupération des information envoyer via page register//
+router.get('/eprofile', ensureAuthenticated,  function(req, res) {  //  redirection to profile
+  res.render('eprofile');
+});
+
+// Register fonction
 router.post('/register', function(req, res) {
   var name = req.body.name;
   var email = req.body.email;
@@ -98,8 +105,6 @@ router.post('/register', function(req, res) {
     });
   }
 });
-//fin de traitement//
-
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
@@ -134,6 +139,7 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
+//Check if login is ok
 router.post('/login',
   passport.authenticate('local', {
     successRedirect: '/',
@@ -144,21 +150,14 @@ router.post('/login',
     res.redirect('/');
   });
 
+//Logout
 router.get('/logout', function(req, res) {
   req.logout();
   req.flash('success_msg', 'You are logged out');
   res.redirect('/users/login');
 });
 
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  } else {
-    req.flash('error_msg', 'You are not logged in');
-    res.redirect('/users/login');
-  }
-}
-
+//Edit profile
 router.post('/eprofile', function(req, res) {
   var Id= req.user._id;
   var name = req.body.name;
@@ -185,4 +184,5 @@ router.post('/eprofile', function(req, res) {
       });
     });
 });
+
 module.exports = router;

@@ -3,7 +3,14 @@ var router = express.Router();
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var session = require('express-session');
+<<<<<<< HEAD
+
+var jsonUtils = require("../models/json_utils.js");
+
 var DualboxExports = require('../models/DualboxExports');
+=======
+var DualboxExports = require('../models/dualboxExports');
+>>>>>>> 5906b9298603439811a67740adb25f969a942c84
 
 //Check auth
 

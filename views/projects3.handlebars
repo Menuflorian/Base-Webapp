@@ -10,7 +10,7 @@
     <li class="breadcrumb-item">
       <a href="/">Home</a>
     </li>
-    <li class="breadcrumb-item active">projets version porte folio 2</li>
+    <li class="breadcrumb-item active">Projects version portfolio 3</li>
   </ol>
 
   <div class="row">
@@ -20,12 +20,13 @@
           <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
           <div class="card-body">
             <h3 class="card-title">
-              <div>{{this.name}}</div>
-            </h3>
-            <p class="card-text">{{this.corp}}</p>
+              <h3 class="card-title">Name: {{this.name}}</h3>
+              <p >Corp: {{this.corp}}</p>
+              <p >Creation date: {{this.creationdate}}</p>
+              <p >Last edit: {{this.lastedit}}</p>
           </div>
           <div class="containerfluid d-flex justify-content-center">
-            <a type="button" href="/exports/{{this._id}}" class="btn btn-primary btn-sm" value="">Edit</a>
+            <a type="button" href="/exports/{{this._id}}" class="btn btn-primary " value="">Edit</a>
           </div>
         </div>
       </div>
