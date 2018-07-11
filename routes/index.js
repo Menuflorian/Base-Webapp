@@ -1,13 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-// redirection vers index//
+// redirection to index
 router.get('/', function(req, res){
 	res.render('index');
 });
-//fin de redirection//
 
-//fonction de verification de l'identité client.
+
+//Check client identity.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -16,5 +16,4 @@ function ensureAuthenticated(req, res, next) {
     res.redirect('/users/login');
   }
 }
-//fin de verif//
 module.exports = router;

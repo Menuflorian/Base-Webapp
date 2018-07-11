@@ -3,12 +3,9 @@ var router = express.Router();
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var session = require('express-session');
-
-var jsonUtils = require("../models/json_utils.js");
-
 var DualboxExports = require('../models/dualboxExports');
 
-//verif auth
+//Check auth
 
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -28,13 +25,11 @@ function ensureAdmin(req, res, next) {
   }
 }
 
-// redirection bouton projet vers la page de création de projet//
+// redirection to new project//
 router.get('/dual', function(req, res) {
   res.render('dualboxExports');
 });
-//fin de redirection//
 
-//affichage de la liste des projects //
 router.get('/projects:folio', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
   var folio = req.params.folio;
@@ -53,27 +48,27 @@ router.get('/projects:folio', ensureAuthenticated, function(req, res) {
     );
   };
   if (admin == true)
-//visibilité reduite au projet supprimer coté admin//
     dbfind({
       deleted: true
     });
 
   else
-//visibilité reduite des projets non supprimer spécifique du client//
     dbfind({
       ownerId: req.user._id,
       deleted: false
     });
 });
-//fin de l'affichage de la liste des projets//
 
-//Enregistrement d'un nouveau projet via page projet//
+
+//save new project//
 router.post('/', ensureAuthenticated, function(req, res) {
   var db_export = new DualboxExports({
     name: req.body.name,
     corp: req.body.corp,
     ownerId: req.user._id,
-    ownerName: req.user.name
+    ownerName: req.user.name,
+    lastedit: Date(),
+    creationdate: Date()
   });
   db_export.save(function(err) {
     if (err) {
@@ -83,14 +78,13 @@ router.post('/', ensureAuthenticated, function(req, res) {
     res.redirect('/exports/dual');
   });
 });
-//fin de nouveau projet//
 
-//Supression definitive et utilisateur, edition et restoration//
+//Delet from user and admin
 router.post('/:id', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
   var value = req.body.delete;
   var folio = req.params.folio;
-  var dbfindAndDelete = function dbfindAndDelete(paramDual, texteetat) {
+  var dbfindAndDelete = function dbfindAndDelete(paramDual, statetext) {
     DualboxExports.findById({
         _id: Id
       },
@@ -103,23 +97,23 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
           if (err) {
             res.send(err);
           }
-          req.flash('success_msg', texteetat);
+          req.flash('success_msg', statetext);
           res.redirect('/');
         });
       });
   };
 
-  if (value == "delete") {  // Supression definitive (admin)
+  if (value == "delete") {  // Delete (admin)
     DualboxExports.remove({
       _id: Id
     }, function(err) {
       if (err) {
         res.send(err);
       }
-      req.flash('success_msg', 'Supression definitive terminer');
+      req.flash('success_msg', 'Final delete finish');
       res.redirect('/');
     });
-  }else if (value == "Edit"){ // Edition de la page edit.
+  }else if (value == "Edit"){ // Edit page from edit.
     DualboxExports.findById({
         _id: Id
       },
@@ -128,23 +122,24 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
           res.send(err);
         }
         db_export.corp = req.body.corp;
+        db_export.lastedit = Date();
         db_export.save(function(err, majdata) {
           if (err) {
             res.send(err);
           }
-          req.flash('success_msg', 'Modicication terminer');
+          req.flash('success_msg', 'Edit finish');
           res.redirect('/');
         });
       });
-  } else if (value == "userdelete"){ // Supression (utilisateur)
-    dbfindAndDelete(true, 'Suppression terminer.');
+  } else if (value == "userdelete"){ // Delete (utilisateur)
+    dbfindAndDelete(true, 'Delete finish.');
   }else if (value == "restore") { // Restoration (admin)
-    dbfindAndDelete(false, 'Restoration terminer.');
+    dbfindAndDelete(false, 'Restoration finish.');
   }
 });
-// fin de Supression definitive et utilisateur, edition et restoration//
 
-//redirection edition d'un projet.
+
+//Edit project redirection.
 router.get('/:id', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
   var admin = req.user.isAdmin;
@@ -161,15 +156,13 @@ router.get('/:id', ensureAuthenticated, function(req, res) {
   };
 
   if (admin == true) {
-    dbfindOne({_id: Id});  // vers page edit coté admin.
+    dbfindOne({_id: Id});  // To edit page admin side
   }else{
-    dbfindOne({    // vers page edit coté client.
+    dbfindOne({    // To edit page client side.
       _id: Id,
       deleted: false
     });
   }
 });
-// Fin de redirection edition d'un projet.
-
 
 module.exports = router;

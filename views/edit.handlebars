@@ -25,30 +25,28 @@
       <div class="container ">
       <form method="post" value="edit">
         <div class="form-group">
-          <label for="name"><h2>Nom du projet</h2></label>
+          <label for="name"><h2>Project name</h2></label>
           <div class="container">
             <script type="text/javascript">
               var UsePro = JSON.parse(decodeURI("{{ DataPro }}"));
-              var nom = UsePro.name;
+              var name = UsePro.name;
               var corp = UsePro.corp;
               var _id = UsePro._id
-              document.write('<p><h4>' + nom + '</h4></p>');
-              console.log(corp);
-
-              function inserer(textarea, str) {
+              document.write('<p><h4>: ' + name + '</h4></p>');
+              function putinside(textarea, str) {
                 var textareaa = document.getElementById(textarea);
                 textareaa.value = corp;
               };
             </script>
           </div>
 
-          <body onload="inserer('txt')">
+          <body onload="putinside('txt')">
           </body>
           <div class="form-group">
             <textarea id='txt' type="text" class="form-control" name="corp"></textarea>
             <input type="hidden" class="form-control" placeholder="delete" name="delete" value="Edit">
             <button type="submit" class="btn btn-primary" name="sauve">
-              sauvegarder</button>
+              Save</button>
           </div>
         </div>
       </form>
@@ -57,11 +55,11 @@
 
       <form method="post">
         <div class="form-group">
-          <label for="name">Option du projet</label>
+          <label for="name">Project options</label>
           <div class="container">
             <input type="hidden" class="form-control" placeholder="delete" name="delete" value="userdelete">
             <button id="del" type="submit" class="btn btn-secondary" name "userdelet" value="userdelete" onclick="Confirmation()">
-          <p id="deluser">  Supprimer l'enregistrement.</p>
+          <p id="deluser">  Delete project.</p>
         </button>
           </div>
         </div>
@@ -70,11 +68,11 @@
       {{#if admin}}
         <form method="post">
           <div class="form-group">
-            <label for="name">Option administrateur du projet</label>
+            <label for="name">Admin option</label>
             <div class="container">
               <input type="hidden" class="form-control" placeholder="delete" name="delete" value="delete">
               <button id="del" type="submit" class="btn btn-danger" name "delet">
-            Supprimer l'enregistrement definitivement.
+            Final delete
           </button>
             </div>
           </div>
@@ -85,7 +83,7 @@
             <div class="container">
               <input type="hidden" class="form-control" placeholder="delete" name="delete" value="restore">
               <button id="del" type="submit" class="btn btn-danger" name "delet">
-            Restorer l'enregistrement definitivement.
+            Restore project.
           </button>
             </div>
           </div>
