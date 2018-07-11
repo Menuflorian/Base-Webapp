@@ -5,8 +5,8 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var DualboxExports = require('../models/DualboxExports');
 
-//Check auth
 
+//Check auth
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -17,7 +17,7 @@ function ensureAuthenticated(req, res, next) {
 }
 
 function ensureAdmin(req, res, next) {
-  if (req.user && req.user.isAdmin == true) {
+  if (req.isAuthenticated() && req.user.isAdmin == true) {
     return next();
   } else {
     req.flash('error_msg', 'This part is reserved to admin');
@@ -25,8 +25,35 @@ function ensureAdmin(req, res, next) {
   }
 }
 
+function dbfindAndUpdate(id, params, statetext, redirect, req) {
+    DualboxExports.findById(
+      {_id: id},
+      function(err, db_export) {
+        if (err) {
+            res.send(err);
+        }
+        if(params.deleted !== undefined){
+            db_export.deleted = params.deleted;
+        }
+        if(params.corp !== undefined){
+            db_export.corp = req.body.corp;
+        }
+        if(params.corp !== undefined){
+            db_export.lastedit = Date();
+        }
+        db_export.save(function(err, majdata) {
+            if (err) {
+                res.send(err);
+            }
+            req.flash('success_msg', statetext);
+            res.redirect(redirect);
+        });
+      }
+    );
+};
+
 // redirection to new project//
-router.get('/dual', function(req, res) {
+router.get('/dual', ensureAuthenticated, function(req, res) {
   res.render('dualboxExports');
 });
 
@@ -40,23 +67,21 @@ router.get('/projects:folio', ensureAuthenticated, function(req, res) {
         if (err) {
           res.send(err);
         }
-        res.render('projects'+ folio, {
+        res.render('projects'+ (folio === undefined ? 3 : folio), {
           dbData: dbx,
           admin:admin
         });
       }
     );
   };
-  if (admin == true)
-    dbfind({
-      deleted: true
-    });
-
-  else
+  if (admin == true) {
+    dbfind({});
+  }else{
     dbfind({
       ownerId: req.user._id,
       deleted: false
     });
+  }
 });
 
 
@@ -79,33 +104,11 @@ router.post('/', ensureAuthenticated, function(req, res) {
   });
 });
 
-//Delet from user and admin
-router.post('/:id', ensureAuthenticated, function(req, res) {
-  var Id = req.params.id;
-  var value = req.body.delete;
-  var folio = req.params.folio;
-  var dbfindAndDelete = function dbfindAndDelete(paramDual, statetext) {
-    DualboxExports.findById({
-        _id: Id
-      },
-      function(err, db_export) {
-        if (err) {
-          res.send(err);
-        }
-        db_export.deleted = paramDual;
-        db_export.save(function(err, majdata) {
-          if (err) {
-            res.send(err);
-          }
-          req.flash('success_msg', statetext);
-          res.redirect('/');
-        });
-      });
-  };
-
-  if (value == "delete") {  // Delete (admin)
+// Delete a project
+router.post('/admindelete/:id', ensureAdmin, function(req, res) {
+    var id = req.params.id;
     DualboxExports.remove({
-      _id: Id
+      _id: id
     }, function(err) {
       if (err) {
         res.send(err);
@@ -113,29 +116,47 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
       req.flash('success_msg', 'Final delete finish');
       res.redirect('/');
     });
-  }else if (value == "Edit"){ // Edit page from edit.
-    DualboxExports.findById({
-        _id: Id
-      },
-      function(err, db_export) {
-        if (err) {
-          res.send(err);
-        }
-        db_export.corp = req.body.corp;
-        db_export.lastedit = Date();
-        db_export.save(function(err, majdata) {
-          if (err) {
-            res.send(err);
-          }
-          req.flash('success_msg', 'Edit finish');
-          res.redirect('/');
-        });
-      });
-  } else if (value == "userdelete"){ // Delete (utilisateur)
-    dbfindAndDelete(true, 'Delete finish.');
-  }else if (value == "restore") { // Restoration (admin)
-    dbfindAndDelete(false, 'Restoration finish.');
-  }
+});
+
+router.post('/restore/:id', ensureAuthenticated, function(req, res) {
+    var id = req.params.id;
+    dbfindAndUpdate(
+        id,
+        {
+            deleted:false
+        },
+        'Project restored successfully.',
+        '/projects',
+        req
+    );
+});
+
+router.post('/userdelete/:id', ensureAuthenticated, function(req, res) {
+    var id = req.params.id;
+    dbfindAndUpdate(
+        id,
+        {
+            deleted:true
+        },
+        'Project deleted.',
+        '/projects',
+        req
+    );
+});
+
+//Delet from user and admin
+router.post('/edit/:id', ensureAuthenticated, function(req, res) {
+    var id = req.params.id;
+    dbfindAndUpdate(
+        id,
+        {
+            corp:req.body.corp,
+            lastedit:Date()
+        },
+        'Edit finish',
+        '/edit/'+id,
+        req
+    );
 });
 
 
@@ -150,7 +171,7 @@ router.get('/:id', ensureAuthenticated, function(req, res) {
           res.send(err);
         }
         res.render('Edit', {
-          DataPro: encodeURI(JSON.stringify(db_export))
+          dbData: db_export
         });
       });
   };

@@ -22,69 +22,46 @@
     </div>
 
     <div class="col-md-4">
-      <div class="container ">
-      <form method="post" value="edit">
-        <div class="form-group">
-          <label for="name"><h2>Project name</h2></label>
-          <div class="container">
-            <script type="text/javascript">
-              var UsePro = JSON.parse(decodeURI("{{ DataPro }}"));
-              var name = UsePro.name;
-              var corp = UsePro.corp;
-              var _id = UsePro._id
-              document.write('<p><h4>: ' + name + '</h4></p>');
-              function putinside(textarea, str) {
-                var textareaa = document.getElementById(textarea);
-                textareaa.value = corp;
-              };
-            </script>
-          </div>
-
-          <body onload="putinside('txt')">
-          </body>
-          <div class="form-group">
-            <textarea id='txt' type="text" class="form-control" name="corp"></textarea>
-            <input type="hidden" class="form-control" placeholder="delete" name="delete" value="Edit">
-            <button type="submit" class="btn btn-primary" name="sauve">
-              Save</button>
-          </div>
+        <div class="container ">
+          <form method="post" action="/exports/edit/{{dbData._id}}">
+            <div class="form-group">
+              <label for="name"><h2>Name : {{dbData.name}}</h2></label>
+              <div class="form-group">
+                <textarea id='txt' type="text" class="form-control" name="corp">{{dbData.corp}}</textarea>
+                <input type="hidden" class="form-control" placeholder="delete" name="delete" value="Edit">
+                <button type="submit" id="btn-save" class="btn btn-primary" name="sauve">Save</button>
+              </div>
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
 
 
-      <form method="post">
-        <div class="form-group">
-          <label for="name">Project options</label>
-          <div class="container">
-            <input type="hidden" class="form-control" placeholder="delete" name="delete" value="userdelete">
-            <button id="del" type="submit" class="btn btn-secondary" name "userdelet" value="userdelete" onclick="Confirmation()">
-          <p id="deluser">  Delete project.</p>
-        </button>
-          </div>
-        </div>
-      </form>
+        <form method="post" action="/exports/userdelete/{{dbData._id}}">
+            <div class="form-group">
+              <label for="name">Project options</label>
+              <div class="container">
+                <input type="hidden" class="form-control">
+                <button type="submit" class="btn btn-warning">Delete project</button>
+              </div>
+            </div>
+        </form>
 
       {{#if admin}}
-        <form method="post">
+        <form method="post" action="/exports/admindelete/{{dbData._id}}">
           <div class="form-group">
             <label for="name">Admin option</label>
             <div class="container">
-              <input type="hidden" class="form-control" placeholder="delete" name="delete" value="delete">
-              <button id="del" type="submit" class="btn btn-danger" name "delet">
-            Final delete
-          </button>
+              <input type="hidden" class="form-control">
+              <button type="submit" class="btn btn-danger">Final delete</button>
             </div>
           </div>
         </form>
 
-        <form method="post">
+        <form method="post" action="/exports/restore/{{dbData._id}}">
           <div class="form-group">
             <div class="container">
-              <input type="hidden" class="form-control" placeholder="delete" name="delete" value="restore">
-              <button id="del" type="submit" class="btn btn-danger" name "delet">
-            Restore project.
-          </button>
+              <input type="hidden" class="form-control">
+              <button type="submit" class="btn btn-danger">Restore project.</button>
             </div>
           </div>
         </form>
@@ -129,3 +106,13 @@
 
 </div>
 <!-- /.container -->
+
+<script>
+    var data = app.export();
+
+    $('#txt').value(JSON.stringify(data));
+
+    $('#btn-save').click();
+
+</script>
+
