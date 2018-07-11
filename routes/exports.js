@@ -104,7 +104,7 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
             res.send(err);
           }
           req.flash('success_msg', texteetat);
-          res.redirect('/exports/projects'+folio);
+          res.redirect('/');
         });
       });
   };
@@ -117,7 +117,7 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
         res.send(err);
       }
       req.flash('success_msg', 'Supression definitive terminer');
-      res.redirect('/exports/projects');
+      res.redirect('/');
     });
   }else if (value == "Edit"){ // Edition de la page edit.
     DualboxExports.findById({
@@ -133,7 +133,7 @@ router.post('/:id', ensureAuthenticated, function(req, res) {
             res.send(err);
           }
           req.flash('success_msg', 'Modicication terminer');
-          res.redirect('/exports/projects'+folio);
+          res.redirect('/');
         });
       });
   } else if (value == "userdelete"){ // Supression (utilisateur)
