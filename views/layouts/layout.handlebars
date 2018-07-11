@@ -84,7 +84,7 @@
               <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProjet">
                 <a class="dropdown-item" href="/other/dashboard">Dashboard</a>
                 <a class="dropdown-item" href="/exports/dual">Nouveau Projet</a>
-                <a class="dropdown-item" href="/exports/projets">Afficher db</a>
+                <a class="dropdown-item" href="/exports/projets">Tout mes projets</a>
               </div>
             </li>
             {{/if}}
@@ -112,8 +112,17 @@
             </li>
 
             {{#if user}}
-            <li class="nav-item">
-              <a class="nav-link" href="/users/logout">Logout</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown">{{user.email}} </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="/users/profile">Profil</a></li>
+                <li><a class="dropdown-item" href="#">Account Settings</a></li>
+                <li class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Help</a></li>
+                <li><a class="dropdown-item" href="#">Change language</a></li>
+                <li class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/users/logout">Logout</a></li>
+              </ul>
             </li>
             {{else}}
             <li class="nav-item">

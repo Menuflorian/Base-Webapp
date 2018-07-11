@@ -1,68 +1,133 @@
-<div class="container ">
-<form method="post" value="edit">
-  <div class="form-group">
-    <label for="name"><h2>Nom du projet</h2></label>
-    <div class="container">
-      <script type="text/javascript">
-        var UsePro = JSON.parse(decodeURI("{{ DataPro }}"));
-        var nom = UsePro.name;
-        var corp = UsePro.corp;
-        var _id = UsePro._id
-        document.write('<p>' + nom + '</p>');
-        console.log(corp);
-
-        function inserer(textarea, str) {
-          var textareaa = document.getElementById(textarea);
-          textareaa.value = corp;
-        };
-      </script>
-    </div>
-    <body onload="inserer('txt')">
-    </body>
-
-    <div class="form-group">
-      <textarea id='txt' type="text" class="form-control" name="corp" ></textarea>
-      <input type="hidden" class="form-control" placeholder="delete" name="delete" value="Edit">
-      <button type="submit" class="btn btn-default" name="sauve">
-        sauvegarder</button>
-    </div>
-  </div>
-</form>
-
-<form method="post">
-  <div class="form-group">
-    <label for="name">Option du projet</label>
-    <div class="container">
-      <input type="hidden" class="form-control" placeholder="delete" name="delete" value="userdelete">
-      <button id="del" type="submit" class="btn btn-secondary" name "userdelet" value="userdelete" onclick="Confirmation()">
-        <p id="deluser">  Supprimer l'enregistrement.</p>
-      </button>
-    </div>
-  </div>
-</form>
-
-{{#if admin}}
-  <form method="post">
-    <div class="form-group">
-      <label for="name">Option administrateur du projet</label>
-      <div class="container">
-        <input type="hidden" class="form-control" placeholder="delete" name="delete" value="delete">
-        <button id="del" type="submit" class="btn btn-danger" name "delet">
-          Supprimer l'enregistrement definitivement.
-        </button>
-      </div>
-    </div>
-  </form>
-
-  <form method="post">
-    <div class="form-group">
-      <div class="container">
-        <input type="hidden" class="form-control" placeholder="delete" name="delete" value="restore">
-        <button id="del" type="submit" class="btn btn-danger" name "delet">
-          Restorer l'enregistrement definitivement.
-        </button>
-      </div>
-    </div>
-  </form>
-{{/if}}
 </div>
+<!-- Page Content -->
+<div class="container">
+
+  <!-- Page Heading/Breadcrumbs -->
+  <h1 class="mt-4 mb-3">Portfolio Item
+    <small>Subheading</small>
+  </h1>
+
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="/">Home</a>
+    </li>
+    <li class="breadcrumb-item active">Portfolio Item</li>
+  </ol>
+
+  <!-- Portfolio Item Row -->
+  <div class="row">
+
+    <div class="col-md-8">
+      <img class="img-fluid" src="http://placehold.it/750x500" alt="">
+    </div>
+
+    <div class="col-md-4">
+      <div class="container ">
+      <form method="post" value="edit">
+        <div class="form-group">
+          <label for="name"><h2>Nom du projet</h2></label>
+          <div class="container">
+            <script type="text/javascript">
+              var UsePro = JSON.parse(decodeURI("{{ DataPro }}"));
+              var nom = UsePro.name;
+              var corp = UsePro.corp;
+              var _id = UsePro._id
+              document.write('<p><h4>' + nom + '</h4></p>');
+              console.log(corp);
+
+              function inserer(textarea, str) {
+                var textareaa = document.getElementById(textarea);
+                textareaa.value = corp;
+              };
+            </script>
+          </div>
+
+          <body onload="inserer('txt')">
+          </body>
+          <div class="form-group">
+            <textarea id='txt' type="text" class="form-control" name="corp"></textarea>
+            <input type="hidden" class="form-control" placeholder="delete" name="delete" value="Edit">
+            <button type="submit" class="btn btn-primary" name="sauve">
+              sauvegarder</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+
+      <form method="post">
+        <div class="form-group">
+          <label for="name">Option du projet</label>
+          <div class="container">
+            <input type="hidden" class="form-control" placeholder="delete" name="delete" value="userdelete">
+            <button id="del" type="submit" class="btn btn-secondary" name "userdelet" value="userdelete" onclick="Confirmation()">
+          <p id="deluser">  Supprimer l'enregistrement.</p>
+        </button>
+          </div>
+        </div>
+      </form>
+
+      {{#if admin}}
+        <form method="post">
+          <div class="form-group">
+            <label for="name">Option administrateur du projet</label>
+            <div class="container">
+              <input type="hidden" class="form-control" placeholder="delete" name="delete" value="delete">
+              <button id="del" type="submit" class="btn btn-danger" name "delet">
+            Supprimer l'enregistrement definitivement.
+          </button>
+            </div>
+          </div>
+        </form>
+
+        <form method="post">
+          <div class="form-group">
+            <div class="container">
+              <input type="hidden" class="form-control" placeholder="delete" name="delete" value="restore">
+              <button id="del" type="submit" class="btn btn-danger" name "delet">
+            Restorer l'enregistrement definitivement.
+          </button>
+            </div>
+          </div>
+        </form>
+      {{/if}}
+    </div>
+
+
+  </div>
+  <!-- /.row -->
+
+  <!-- Related Projects Row -->
+  <h3 class="my-4">Related Projects</h3>
+
+  <div class="row">
+
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="#">
+        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+      </a>
+    </div>
+
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="#">
+        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+      </a>
+    </div>
+
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="#">
+        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+      </a>
+    </div>
+
+    <div class="col-md-3 col-sm-6 mb-4">
+      <a href="#">
+        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+      </a>
+    </div>
+
+  </div>
+  <!-- /.row -->
+
+</div>
+<!-- /.container -->

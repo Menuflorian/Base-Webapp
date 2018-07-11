@@ -8,8 +8,6 @@ router.get('/dashboard', function(req, res) { //  redirection vers la page Dashb
   res.render('dashboard');
 });
 
-
-
 router.get('/pricing', function(req, res) {  //  redirection vers la page Register
   res.render('pricing');
 });
