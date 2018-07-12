@@ -113,7 +113,7 @@ router.post('/admindelete/:id', ensureAdmin, function(req, res) {
         res.send(err);
       }
       req.flash('success_msg', 'Final delete finish');
-      res.redirect('/');
+      res.redirect('/exports/projects3');
     });
 });
 

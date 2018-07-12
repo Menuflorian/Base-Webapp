@@ -2,8 +2,10 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var User = require('../models/user');
+var bcrypt = require('bcryptjs');
 
 //Transformation format date.
 var formaDate = function formatDate(date) {
@@ -39,11 +41,15 @@ router.get('/register', function(req, res) { //  redirection to Register
 });
 
 router.get('/profile', ensureAuthenticated,  function(req, res) { //  redirection to profile
-  res.render('profile');
+  res.render('profile', {layout:'layout2'});
 });
 
-router.get('/eprofile', ensureAuthenticated,  function(req, res) {  //  redirection to profile
-  res.render('eprofile');
+router.get('/eprofile', ensureAuthenticated,  function(req, res) {  //  redirection to edit profile
+  res.render('eprofile', {layout:'layout2'});
+});
+
+router.get('/change-password', ensureAuthenticated,  function(req, res) {  //  redirection to change password
+  res.render('change-password', {layout:'layout2'});
 });
 
 // Register fonction
@@ -185,4 +191,44 @@ router.post('/eprofile', function(req, res) {
     });
 });
 
+//Change password
+router.post('/change-password', ensureAuthenticated, function(req, res) {
+  var id = req.user.id;
+  var userpassword = req.body.userpassword;
+  var password = req.body.password;
+  var password2 = req.body.password2;
+  User.findById({
+      _id: id
+    },
+    function(err, db_user) {
+      if (err) {
+        res.send(err);
+      }
+      if (bcrypt.compareSync(userpassword, req.user.password) == false) {
+        req.flash('error_msg', 'The actual password is wrong');
+        res.render('change-password', {
+          layout: 'layout2'
+        });
+      } else {
+        if (password != password2) {
+          req.flash('error_msg', "New password don't match with cofirm password");
+          res.render('change-password', {
+            layout: 'layout2'
+          });
+        } else {
+          db_user.password = bcrypt.hashSync(password, 10);
+          db_user.save(function(err) {
+            if (err) {
+              res.send(err);
+            }
+            req.flash('success_msg', "Password has been changed");
+            res.render('profile', {
+              layout: 'layout2'
+            });
+          });
+        }
+      }
+    }
+  );
+});
 module.exports = router;

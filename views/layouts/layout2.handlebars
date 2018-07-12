@@ -104,8 +104,49 @@
 {{#if error}}
 	<div class="alert alert-danger">{{error}}</div>
 {{/if}}
+<!-- Page Content -->
+<div class="container">
 
-	{{{body}}}
+  <!-- Page Heading/Breadcrumbs -->
+  <h1 class="mt-4 mb-3">Account Settings
+    <small>{{user.name}}</small>
+  </h1>
+
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item">
+      <a href="/">Home</a>
+    </li>
+    <li class="breadcrumb-item active">About</li>
+  </ol>
+
+  <!-- Content Row -->
+  <div class="row">
+    <!-- Sidebar Column -->
+    <div class="col-lg-3 mb-4">
+      <div class="list-group">
+        <a href="/" class="list-group-item">Home</a>
+        <a href="/users/profile" class="list-group-item">Profile</a>
+        <a href="/users/eprofile" class="list-group-item">Edit profile</a>
+        <a href="/users/change-password" class="list-group-item">Change password</a>
+        <a href="#" class="list-group-item">Language</a>
+        <a href="#" class="list-group-item">Plan</a>
+        <a href="#" class="list-group-item">#######</a>
+        <a href="#" class="list-group-item">#######</a>
+        <a href="#" class="list-group-item">#######</a>
+        <a href="#" class="list-group-item">#######</a>
+
+      </div>
+    </div>
+    <!-- Content Column -->
+    <div class="col-lg-9 mb-4">
+      {{{body}}}
+    </div>
+
+  </div>
+  <!-- /.row -->
+
+</div>
+<!-- /.container -->
 
     <script src="../js/jqBootstrapValidation.js"></script>
     <script src="../js/contact_me.js"></script>
