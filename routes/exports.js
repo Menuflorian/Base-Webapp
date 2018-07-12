@@ -25,7 +25,7 @@ function ensureAdmin(req, res, next) {
   }
 }
 
-function dbfindAndUpdate(id, params, statetext, redirect, req) {
+function dbfindAndUpdate(id, params) {
     DualboxExports.findById(
       {_id: id},
       function(err, db_export) {
@@ -36,21 +36,19 @@ function dbfindAndUpdate(id, params, statetext, redirect, req) {
             db_export.deleted = params.deleted;
         }
         if(params.corp !== undefined){
-            db_export.corp = req.body.corp;
+            db_export.corp = params.corp;
         }
         if(params.corp !== undefined){
-            db_export.lastedit = Date();
+            db_export.lastedit = params.lastedit;
         }
         db_export.save(function(err, majdata) {
             if (err) {
                 res.send(err);
             }
-            req.flash('success_msg', statetext);
-            res.redirect(redirect);
         });
       }
     );
-};
+}
 
 // redirection to new project//
 router.get('/dual', ensureAuthenticated, function(req, res) {
@@ -109,7 +107,8 @@ router.post('/admindelete/:id', ensureAdmin, function(req, res) {
     var id = req.params.id;
     DualboxExports.remove({
       _id: id
-    }, function(err) {
+    },
+    function(err) {
       if (err) {
         res.send(err);
       }
@@ -124,11 +123,11 @@ router.post('/restore/:id', ensureAuthenticated, function(req, res) {
         id,
         {
             deleted:false
-        },
-        'Project restored successfully.',
-        '/projects',
-        req
+        }
     );
+    req.flash('success_msg', 'Project restored successfully.');
+    res.redirect('/exports/projects3');
+
 });
 
 router.post('/userdelete/:id', ensureAuthenticated, function(req, res) {
@@ -137,11 +136,10 @@ router.post('/userdelete/:id', ensureAuthenticated, function(req, res) {
         id,
         {
             deleted:true
-        },
-        'Project deleted.',
-        '/projects',
-        req
+        }
     );
+    req.flash('success_msg', 'Project deleted.');
+    res.redirect('/exports/projects3');
 });
 
 //Delet from user and admin
@@ -152,11 +150,10 @@ router.post('/edit/:id', ensureAuthenticated, function(req, res) {
         {
             corp:req.body.corp,
             lastedit:Date()
-        },
-        'Edit finish',
-        '/edit/'+id,
-        req
+        }
     );
+    req.flash('success_msg', 'Edit finish');
+    res.redirect('/exports/'+id);
 });
 
 
