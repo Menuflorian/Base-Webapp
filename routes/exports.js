@@ -54,7 +54,7 @@ function dbfindAndUpdate(id, params, statetext, redirect, req) {
 
 // redirection to new project//
 router.get('/dual', ensureAuthenticated, function(req, res) {
-  res.render('dualboxExports');
+  res.render('new-project');
 });
 
 router.get('/projects:folio', ensureAuthenticated, function(req, res) {
