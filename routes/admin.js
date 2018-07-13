@@ -110,5 +110,74 @@ router.get('/admin-edit-user:id', ensureAuthenticated, ensureAdmin,  function(re
   });
 });
 
+router.get('/admin-change-password:id', ensureAuthenticated, ensureAdmin,  function(req, res) {//  redirection to administration
+  var id = req.params.id;
+  User.find({_id : id},
+    function(err, userdetail) {
+      if (err) {
+        res.send(err);
+      }
+      var data = {
+        layout : 'layout3',
+        db_User : userdetail,
+      };
+  res.render('admin-change-password', data);
+});
+});
+
+//change password of a user
+router.post('/admin-change-password:id', ensureAuthenticated, ensureAdmin, function(req, res) {
+  var id = req.params.id;
+  var password = req.body.password;
+  var password2 = req.body.password2;
+  console.log(id);
+  console.log(password);
+  console.log(password2);
+  User.findById({
+      _id: id
+    },
+    function(err, db_user) {
+      if (err) {
+        res.send(err);
+      }
+        if (password != password2) {
+          req.flash('error_msg', "New password don't match with cofirm password");
+          console.log('toto');
+          res.render('admin-change-password', {
+            layout: 'layout3'
+          });
+        } else {
+          db_user.password = bcrypt.hashSync(password, 10);
+          console.log('tata');
+          db_user.save(function(err) {
+            if (err) {
+              res.send(err);
+            }
+            req.flash('success_msg', "Password has been changed");
+            res.render('admin-change-password', {
+              layout: 'layout3'
+            });
+          });
+        }
+      }
+  );
+});
+
+
+// Delete a project
+router.post('/admin-delete-user:id', ensureAuthenticated,ensureAdmin, function(req, res) {
+    var id = req.params.id;
+    User.remove({
+      _id: id
+    },
+    function(err) {
+      if (err) {
+        res.send(err);
+      }
+      req.flash('success_msg', 'Final delete finish');
+      res.redirect('/admin/admin');
+    });
+});
+
 
 module.exports = router;
