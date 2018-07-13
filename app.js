@@ -18,6 +18,7 @@ var db = mongoose.connection;
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var other = require('./routes/other');
+var admin = require('./routes/admin');
 var exports = require('./routes/exports');
 
 // Init App
@@ -82,6 +83,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/exports', exports);
 app.use('/other', other);
+app.use('/admin', admin);
 
 
 // Set Port

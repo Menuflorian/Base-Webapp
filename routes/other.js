@@ -8,52 +8,52 @@ router.get('/dashboard', function(req, res) { //  redirection to Dashboard
   res.render('dashboard');
 });
 
-router.get('/pricing', function(req, res) {  //  redirection to Register
+router.get('/pricing', function(req, res) { //  redirection to Register
   res.render('pricing');
 });
 
-router.get('/about', function(req, res) {  //  redirection to Register
+router.get('/about', function(req, res) { //  redirection to Register
   res.render('about');
 });
 
-router.get('/contact', function(req, res) {  //  redirection to contact
+router.get('/contact', function(req, res) { //  redirection to contact
   res.render('contact');
 });
 
-router.get('/services', function(req, res) {  //  redirection to services
+router.get('/services', function(req, res) { //  redirection to services
   res.render('services');
 });
 
-router.get('/blog-home-1', function(req, res) {  //  redirection to blog-home-1
+router.get('/blog-home-1', function(req, res) { //  redirection to blog-home-1
   res.render('blog-home-1');
 });
 
-router.get('/blog-home-2', function(req, res) {  //  redirection to blog-home-2
+router.get('/blog-home-2', function(req, res) { //  redirection to blog-home-2
   res.render('blog-home-2');
 });
 
-router.get('/blog-post', function(req, res) {  //  redirection to blog-post
+router.get('/blog-post', function(req, res) { //  redirection to blog-post
   res.render('blog-post');
 });
 
-router.get('/sidebar', function(req, res) {  //  redirection to sidebar
+router.get('/sidebar', function(req, res) { //  redirection to sidebar
   res.render('sidebar');
 });
 
-router.get('/faq', function(req, res) {  //  redirection to faq
+router.get('/faq', function(req, res) { //  redirection to faq
   res.render('faq');
 });
 
-router.get('/404', function(req, res) {  //  redirection to 404 page
+router.get('/404', function(req, res) { //  redirection to 404 page
   res.render('404');
 });
 
-router.get('/full-width', function(req, res) {  //  redirection to full-wigth
+router.get('/full-width', function(req, res) { //  redirection to full-wigth
   res.render('full-width');
 });
 
 
-function ensureAdmin(req, res, next) {       // Check if admin
+function ensureAdmin(req, res, next) { // Check if admin
   if (req.user && req.user.isAdmin == true) {
     return next();
   } else {

@@ -24,6 +24,10 @@ var UserSchema = mongoose.Schema({
   registerdate: {
     type: Date,
   },
+  validated: {
+    type: Boolean,
+    default: false
+  },
 });
 
 var User = module.exports = mongoose.model('User', UserSchema);

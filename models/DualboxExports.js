@@ -18,7 +18,6 @@ var DualboxExportsSchema = mongoose.Schema({
   },
   ownerName: {
     type: String,
-    default: mongoose.Schema.username
   },
   creationdate: {
     type: Date,
@@ -27,5 +26,4 @@ var DualboxExportsSchema = mongoose.Schema({
     type: Date,
   },
 });
-
 var DualboxExports = module.exports = mongoose.model('DualboxExports', DualboxExportsSchema);

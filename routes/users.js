@@ -5,6 +5,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var User = require('../models/user');
+var DualboxExports = require('../models/DualboxExports');
 var bcrypt = require('bcryptjs');
 
 //Transformation format date.
@@ -32,6 +33,16 @@ function ensureAuthenticated(req, res, next) {
   }
 }
 
+//Check Admin
+function ensureAdmin(req, res, next) {
+  if (req.isAuthenticated() && req.user.isAdmin == true) {
+    return next();
+  } else {
+    req.flash('error_msg', 'This part is reserved to admin');
+    res.redirect('/users/login');
+  }
+}
+
 router.get('/login', function(req, res) { // redirection toLogin
   res.render('login');
 });
@@ -40,16 +51,22 @@ router.get('/register', function(req, res) { //  redirection to Register
   res.render('register');
 });
 
-router.get('/profile', ensureAuthenticated,  function(req, res) { //  redirection to profile
-  res.render('profile', {layout:'layout2'});
+router.get('/profile', ensureAuthenticated, function(req, res) { //  redirection to profile
+  res.render('profile', {
+    layout: 'layout2'
+  });
 });
 
-router.get('/eprofile', ensureAuthenticated,  function(req, res) {  //  redirection to edit profile
-  res.render('eprofile', {layout:'layout2'});
+router.get('/eprofile', ensureAuthenticated, function(req, res) { //  redirection to edit profile
+  res.render('eprofile', {
+    layout: 'layout2'
+  });
 });
 
-router.get('/change-password', ensureAuthenticated,  function(req, res) {  //  redirection to change password
-  res.render('change-password', {layout:'layout2'});
+router.get('/change-password', ensureAuthenticated, function(req, res) { //  redirection to change password
+  res.render('change-password', {
+    layout: 'layout2'
+  });
 });
 
 // Register fonction
@@ -165,7 +182,7 @@ router.get('/logout', function(req, res) {
 
 //Edit profile
 router.post('/eprofile', function(req, res) {
-  var Id= req.user._id;
+  var Id = req.user._id;
   var name = req.body.name;
   var email = req.body.email;
   var username = req.body.username;
@@ -175,12 +192,21 @@ router.post('/eprofile', function(req, res) {
     },
     function(err, db_user) {
       if (err) res.send(err);
-      if (name == "") { name = req.user.name;}
-      else {db_user.name = req.body.name;}
-      if (username == "") { username = req.user.username;}
-      else {db_user.username = req.body.username;}
-      if (email == "") { email = req.user.email;}
-      else {db_user.email = req.body.email;}
+      if (name == "") {
+        name = req.user.name;
+      } else {
+        db_user.name = req.body.name;
+      }
+      if (username == "") {
+        username = req.user.username;
+      } else {
+        db_user.username = req.body.username;
+      }
+      if (email == "") {
+        email = req.user.email;
+      } else {
+        db_user.email = req.body.email;
+      }
       db_user.save(function(err, majdata) {
         if (err) {
           res.send(err);

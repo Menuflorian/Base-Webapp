@@ -26,28 +26,29 @@ function ensureAdmin(req, res, next) {
 }
 
 function dbfindAndUpdate(id, params) {
-    DualboxExports.findById(
-      {_id: id},
-      function(err, db_export) {
-        if (err) {
-            res.send(err);
-        }
-        if(params.deleted !== undefined){
-            db_export.deleted = params.deleted;
-        }
-        if(params.corp !== undefined){
-            db_export.corp = params.corp;
-        }
-        if(params.corp !== undefined){
-            db_export.lastedit = params.lastedit;
-        }
-        db_export.save(function(err, majdata) {
-            if (err) {
-                res.send(err);
-            }
-        });
+  DualboxExports.findById({
+      _id: id
+    },
+    function(err, db_export) {
+      if (err) {
+        res.send(err);
       }
-    );
+      if (params.deleted !== undefined) {
+        db_export.deleted = params.deleted;
+      }
+      if (params.corp !== undefined) {
+        db_export.corp = params.corp;
+      }
+      if (params.corp !== undefined) {
+        db_export.lastedit = params.lastedit;
+      }
+      db_export.save(function(err, majdata) {
+        if (err) {
+          res.send(err);
+        }
+      });
+    }
+  );
 }
 
 // redirection to new project//
@@ -65,16 +66,16 @@ router.get('/projects:folio', ensureAuthenticated, function(req, res) {
         if (err) {
           res.send(err);
         }
-        res.render('projects'+ (folio === undefined ? 3 : folio), {
+        res.render('projects' + (folio === undefined ? 3 : folio), {
           dbData: dbx,
-          admin:admin
+          admin: admin
         });
       }
     );
   };
   if (admin == true) {
     dbfind({});
-  }else{
+  } else {
     dbfind({
       ownerId: req.user._id,
       deleted: false
@@ -104,8 +105,8 @@ router.post('/', ensureAuthenticated, function(req, res) {
 
 // Delete a project
 router.post('/admindelete/:id', ensureAdmin, function(req, res) {
-    var id = req.params.id;
-    DualboxExports.remove({
+  var id = req.params.id;
+  DualboxExports.remove({
       _id: id
     },
     function(err) {
@@ -118,42 +119,39 @@ router.post('/admindelete/:id', ensureAdmin, function(req, res) {
 });
 
 router.post('/restore/:id', ensureAuthenticated, function(req, res) {
-    var id = req.params.id;
-    dbfindAndUpdate(
-        id,
-        {
-            deleted:false
-        }
-    );
-    req.flash('success_msg', 'Project restored successfully.');
-    res.redirect('/exports/projects3');
+  var id = req.params.id;
+  dbfindAndUpdate(
+    id, {
+      deleted: false
+    }
+  );
+  req.flash('success_msg', 'Project restored successfully.');
+  res.redirect('/exports/projects3');
 
 });
 
 router.post('/userdelete/:id', ensureAuthenticated, function(req, res) {
-    var id = req.params.id;
-    dbfindAndUpdate(
-        id,
-        {
-            deleted:true
-        }
-    );
-    req.flash('success_msg', 'Project deleted.');
-    res.redirect('/exports/projects3');
+  var id = req.params.id;
+  dbfindAndUpdate(
+    id, {
+      deleted: true
+    }
+  );
+  req.flash('success_msg', 'Project deleted.');
+  res.redirect('/exports/projects3');
 });
 
 //Delet from user and admin
 router.post('/edit/:id', ensureAuthenticated, function(req, res) {
-    var id = req.params.id;
-    dbfindAndUpdate(
-        id,
-        {
-            corp:req.body.corp,
-            lastedit:Date()
-        }
-    );
-    req.flash('success_msg', 'Edit finish');
-    res.redirect('/exports/'+id);
+  var id = req.params.id;
+  dbfindAndUpdate(
+    id, {
+      corp: req.body.corp,
+      lastedit: Date()
+    }
+  );
+  req.flash('success_msg', 'Edit finish');
+  res.redirect('/exports/' + id);
 });
 
 
@@ -174,9 +172,11 @@ router.get('/:id', ensureAuthenticated, function(req, res) {
   };
 
   if (admin == true) {
-    dbfindOne({_id: Id});  // To edit page admin side
-  }else{
-    dbfindOne({    // To edit page client side.
+    dbfindOne({
+      _id: Id
+    }); // To edit page admin side
+  } else {
+    dbfindOne({ // To edit page client side.
       _id: Id,
       deleted: false
     });
