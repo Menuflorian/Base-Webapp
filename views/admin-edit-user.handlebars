@@ -87,7 +87,7 @@
 			{{#each db_Data}}
 				<tbody>
 					<tr>
-						<th scope="row">1</th>
+						<th scope="row">{{@index}}</th>
 						<td>{{this.name}}</td>
 						<td>{{this.creationdate}}</td>
 						<td>{{this.lastedit}}</td>
@@ -96,18 +96,9 @@
 						{{else}}
 							<td>No</td>
 						{{/if}}
-						<td><a type="button" href="/exports/{{this._id}}" class="btn btn-primary">Edit</a></td>
+						<td><a href="/exports/{{this._id}}" class="btn btn-primary">Edit</a></td>
 					</tr>
 				</tbody>
 			{{/each}}
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Name</th>
-				<th scope="col">Username</th>
-				<th scope="col">Email</th>
-				<th scope="col">Rank</th>
-				<th scope="col"></th>
-
-			</tr>
 		</table>
 	</div>
