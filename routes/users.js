@@ -5,6 +5,7 @@ var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var User = require('../models/user');
+var DualboxExports = require('../models/DualboxExports');
 var bcrypt = require('bcryptjs');
 
 //Transformation format date.
@@ -28,6 +29,16 @@ function ensureAuthenticated(req, res, next) {
     return next();
   } else {
     req.flash('error_msg', 'You are not logged in');
+    res.redirect('/users/login');
+  }
+}
+
+//Check Admin
+function ensureAdmin(req, res, next) {
+  if (req.isAuthenticated() && req.user.isAdmin == true) {
+    return next();
+  } else {
+    req.flash('error_msg', 'This part is reserved to admin');
     res.redirect('/users/login');
   }
 }
