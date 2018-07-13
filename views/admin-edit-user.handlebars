@@ -8,13 +8,24 @@
         <button class="btn btn-danger btn-lg ">Delet user</button>
       </form>
     </div>
+    <div class="containerfluid">
+      {{#if db_User.[0].isAdmin}}
+      <form method="post" action="/admin/admin-removeadmin-user{{db_User.[0]._id}}">
+        <button class="btn btn-danger btn-lg ">Remove admin right</button>
+      </form>
+      {{else}}
+      <form method="post" action="/admin/admin-makeadmin-user{{db_User.[0]._id}}">
+        <button class="btn btn-danger btn-lg ">Make admin this user</button>
+      </form>
+      {{/if}}
+    </div>
   </div>
   <div class="card-body">
     <table class="table table-user-information">
       <tbody>
         <tr>
           <td>Role:</td>
-          {{#if db_User.[0].isadmin}}
+          {{#if db_User.[0].isAdmin}}
             <td>Admin</td>
           {{else}}
             <td>User</td>
@@ -40,10 +51,17 @@
           <td>Number of projects:</td>
           <td>{{db_Data.length}}</td>
         </tr>
+        <tr>
+          <td>Validated user:</td>
+          <td>{{db_User.[0].validated}} </td>
+        </tr>
       </tbody>
     </table>
     <div class="container d-flex justify-content-between">
     <a href="/admin/admin-edit-profile{{db_User.[0].id}}" class="btn btn-primary btn-lg  ">Edit {{this.name}} profile</a>
+    <form method="post" action="/admin/admin-validate-user{{db_User.[0]._id}}">
+      <button class="btn btn-primary btn-lg ">Validate user</button>
+    </form>
     <a href="/admin/admin-change-password{{db_User.[0]._id}}" class="btn btn-primary btn-lg  ">Change {{this.name}} password</a>
     </div>
   </div>
