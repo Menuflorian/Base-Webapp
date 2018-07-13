@@ -194,7 +194,7 @@ router.post('/admin-makeadmin-user:id', ensureAuthenticated, function(req, res) 
         if (err) {
           res.send(err);
         }
-        req.flash('success_msg', 'User is now an admin');
+        req.flash('success_msg', db_user.name +' is now an admin');
         res.redirect('/admin/userlist');
       });
     });
@@ -215,7 +215,7 @@ router.post('/admin-removeadmin-user:id', ensureAuthenticated, function(req, res
         if (err) {
           res.send(err);
         }
-        req.flash('success_msg', 'This user is not longer an admin');
+        req.flash('success_msg',  db_user.name +' is not longer an admin');
         res.redirect('/admin/userlist');
       });
     });
