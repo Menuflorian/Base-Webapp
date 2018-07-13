@@ -18,7 +18,6 @@ var DualboxExportsSchema = mongoose.Schema({
   },
   ownerName: {
     type: String,
-    default: mongoose.Schema.username
   },
   creationdate: {
     type: Date,
