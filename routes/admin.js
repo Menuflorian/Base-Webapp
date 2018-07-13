@@ -28,9 +28,11 @@ function ensureAdmin(req, res, next) {
   }
 }
 
-router.get('/admin-edit-profile:id', ensureAuthenticated, ensureAdmin,  function(req, res) {
+router.get('/admin-edit-profile:id', ensureAuthenticated, ensureAdmin, function(req, res) {
   var id = req.params.id;
-  User.find({_id : id},
+  User.find({
+      _id: id
+    },
     function(err, db_user) {
       if (err) {
         res.send(err);
@@ -39,12 +41,12 @@ router.get('/admin-edit-profile:id', ensureAuthenticated, ensureAdmin,  function
         layout: 'layout3',
         db_User: db_user
       };
-  res.render('admin-edit-profile', data);
-});
+      res.render('admin-edit-profile', data);
+    });
 });
 
-router.post('/admin-edit-profile:id',ensureAuthenticated, ensureAdmin, function(req, res) {
-  var id= req.params.id;
+router.post('/admin-edit-profile:id', ensureAuthenticated, ensureAdmin, function(req, res) {
+  var id = req.params.id;
   var name = req.body.name;
   var email = req.body.email;
   var username = req.body.username;
@@ -53,28 +55,39 @@ router.post('/admin-edit-profile:id',ensureAuthenticated, ensureAdmin, function(
     },
     function(err, db_user) {
       if (err) res.send(err);
-      if (name == "") { name = db_user.name;}
-      else {db_user.name = req.body.name;}
-      if (username == "") { username = db_user.username;}
-      else {db_user.username = req.body.username;}
-      if (email == "") { email = db_user.email;}
-      else {db_user.email = req.body.email;}
+      if (name == "") {
+        name = db_user.name;
+      } else {
+        db_user.name = req.body.name;
+      }
+      if (username == "") {
+        username = db_user.username;
+      } else {
+        db_user.username = req.body.username;
+      }
+      if (email == "") {
+        email = db_user.email;
+      } else {
+        db_user.email = req.body.email;
+      }
       db_user.save(function(err, majdata) {
         if (err) {
           res.send(err);
         }
         req.flash('success_msg', 'Modicication terminer');
-        res.redirect('/admin/admin-edit-profile'+id);
+        res.redirect('/admin/admin-edit-profile' + id);
       });
     });
 });
 
 
-router.get('/admin', ensureAuthenticated, ensureAdmin,  function(req, res) {  //  redirection to administration
-  res.render('admin', {layout:'layout3'});
+router.get('/admin', ensureAuthenticated, ensureAdmin, function(req, res) { //  redirection to administration
+  res.render('admin', {
+    layout: 'layout3'
+  });
 });
 
-router.get('/userlist', ensureAuthenticated, ensureAdmin,  function(req, res) {  //  redirection to the list of users
+router.get('/userlist', ensureAuthenticated, ensureAdmin, function(req, res) { //  redirection to the list of users
   User.find({},
     function(err, userlist) {
       if (err) {
@@ -88,41 +101,47 @@ router.get('/userlist', ensureAuthenticated, ensureAdmin,  function(req, res) { 
     });
 });
 
-router.get('/admin-edit-user:id', ensureAuthenticated, ensureAdmin,  function(req, res) {
-  var id =req.params.id;
-  User.find({_id : id},
+router.get('/admin-edit-user:id', ensureAuthenticated, ensureAdmin, function(req, res) {
+  var id = req.params.id;
+  User.find({
+      _id: id
+    },
     function(err, userdetail) {
       if (err) {
         res.send(err);
       }
-      DualboxExports.find({ownerId : id},
+      DualboxExports.find({
+          ownerId: id
+        },
         function(err, db_export) {
           if (err) {
             res.send(err);
           }
-      var data = {
-        layout : 'layout3',
-        db_User : userdetail,
-        db_Data : db_export
-      };
-      res.render('admin-edit-user', data);
+          var data = {
+            layout: 'layout3',
+            db_User: userdetail,
+            db_Data: db_export
+          };
+          res.render('admin-edit-user', data);
+        });
     });
-  });
 });
 
-router.get('/admin-change-password:id', ensureAuthenticated, ensureAdmin,  function(req, res) {//  redirection to administration
+router.get('/admin-change-password:id', ensureAuthenticated, ensureAdmin, function(req, res) { //  redirection to administration
   var id = req.params.id;
-  User.find({_id : id},
+  User.find({
+      _id: id
+    },
     function(err, userdetail) {
       if (err) {
         res.send(err);
       }
       var data = {
-        layout : 'layout3',
-        db_User : userdetail,
+        layout: 'layout3',
+        db_User: userdetail,
       };
-  res.render('admin-change-password', data);
-});
+      res.render('admin-change-password', data);
+    });
 });
 
 //change password of a user
@@ -137,24 +156,24 @@ router.post('/admin-change-password:id', ensureAuthenticated, ensureAdmin, funct
       if (err) {
         res.send(err);
       }
-        if (password != password2) {
-          req.flash('error_msg', "New password don't match with cofirm password");
+      if (password != password2) {
+        req.flash('error_msg', "New password don't match with cofirm password");
+        res.render('admin-change-password', {
+          layout: 'layout3'
+        });
+      } else {
+        db_user.password = bcrypt.hashSync(password, 10);
+        db_user.save(function(err) {
+          if (err) {
+            res.send(err);
+          }
+          req.flash('success_msg', "Password has been changed");
           res.render('admin-change-password', {
             layout: 'layout3'
           });
-        } else {
-          db_user.password = bcrypt.hashSync(password, 10);
-          db_user.save(function(err) {
-            if (err) {
-              res.send(err);
-            }
-            req.flash('success_msg', "Password has been changed");
-            res.render('admin-change-password', {
-              layout: 'layout3'
-            });
-          });
-        }
+        });
       }
+    }
   );
 });
 
@@ -173,9 +192,9 @@ router.post('/admin-validate-user:id', ensureAuthenticated, function(req, res) {
         if (err) {
           res.send(err);
         }
-      req.flash('success_msg', 'User is now validated');
-      res.redirect('/admin/userlist');
-    });
+        req.flash('success_msg', 'User is now validated');
+        res.redirect('/admin/userlist');
+      });
     });
 });
 
@@ -194,7 +213,7 @@ router.post('/admin-makeadmin-user:id', ensureAuthenticated, function(req, res) 
         if (err) {
           res.send(err);
         }
-        req.flash('success_msg', db_user.name +' is now an admin');
+        req.flash('success_msg', db_user.name + ' is now an admin');
         res.redirect('/admin/userlist');
       });
     });
@@ -215,16 +234,16 @@ router.post('/admin-removeadmin-user:id', ensureAuthenticated, function(req, res
         if (err) {
           res.send(err);
         }
-        req.flash('success_msg',  db_user.name +' is not longer an admin');
+        req.flash('success_msg', db_user.name + ' is not longer an admin');
         res.redirect('/admin/userlist');
       });
     });
 });
 
 // Delete a project
-router.post('/admin-delete-user:id', ensureAuthenticated,ensureAdmin, function(req, res) {
-    var id = req.params.id;
-    User.remove({
+router.post('/admin-delete-user:id', ensureAuthenticated, ensureAdmin, function(req, res) {
+  var id = req.params.id;
+  User.remove({
       _id: id
     },
     function(err) {

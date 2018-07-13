@@ -1,64 +1,63 @@
 <div class="container">
 
-  <h2 class="mt-4 mb-3">Untitled Project</h2>
-  <hr>
-  <div id="application" style="width: 100%; height: 100%;"></div>
-  <hr>
+	<h2 class="mt-4 mb-3">Untitled Project</h2>
+	<hr>
+	<div id="application" style="width: 100%; height: 100%;"></div>
+	<hr>
 
-  <!-- Modal -->
-  <div class="modal fade" id="saveProjectModal" tabindex="-1" role="dialog" aria-labelledby="saveProjectModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="saveProjectModalLabel">Save project</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	<!-- Modal -->
+	<div class="modal fade" id="saveProjectModal" tabindex="-1" role="dialog" aria-labelledby="saveProjectModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="saveProjectModalLabel">Save project</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-          </div>
-          <div class="modal-body">
-              <form method="post" action="/exports">
-                <div class="form-group">
-                  <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" class="form-control" name="name">
-                  </div>
-                  <label>Corp</label>
-                  <textarea id="corpTextArea" type="text" class="form-control" name="corp"></textarea>
-                  <button id="saveFormSubmit" type="submit" class="btn btn-primary" style="display:none;"></button>
-                </div>
-              </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-            <button id="saveProjectButton" type="button" class="btn btn-primary">Save</button>
-          </div>
-        </div>
-      </div>
-  </div>
+				</div>
+				<div class="modal-body">
+					<form method="post" action="/exports">
+						<div class="form-group">
+							<div class="form-group">
+								<label>Name</label>
+								<input type="text" class="form-control" name="name">
+							</div>
+							<label>Corp</label>
+							<textarea id="corpTextArea" type="text" class="form-control" name="corp"></textarea>
+							<button id="saveFormSubmit" type="submit" class="btn btn-primary" style="display:none;"></button>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+					<button id="saveProjectButton" type="button" class="btn btn-primary">Save</button>
+				</div>
+			</div>
+		</div>
+	</div>
 
-  <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#saveProjectModal">Save Project...</button>
+	<button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#saveProjectModal">Save Project...</button>
 
-  <!-- Maybe all the below script should be in new-project.js -->
-  <script src="../js/views/new-project.js"></script>
-  <script>
-    loadDualboxApp("iphone-case-engrave");
+	<!-- Maybe all the below script should be in new-project.js -->
+	<script src="../js/views/new-project.js"></script>
+	<script>
+		loadDualboxApp("iphone-case-engrave");
 
-    // Fill corp with app export when clicking on save
-    $('#saveProjectModal').on('show.bs.modal', function (event) {
-      var exp = window.iphoneCaseEngraveApp.export();
-      delete exp.input.file; // remove the file for now since it's too heavy
-      $('#corpTextArea').text(JSON.stringify(exp));
+		// Fill corp with app export when clicking on save
+		$('#saveProjectModal').on('show.bs.modal', function(event) {
+			var exp = window.iphoneCaseEngraveApp.export();
+			delete exp.input.file; // remove the file for now since it's too heavy
+			$('#corpTextArea').text(JSON.stringify(exp));
 
-      // Could be a useful jquery example if we decide to remove ids
-      // var modal = $(this)
-      // modal.find('.modal-title').text('New message to ' + recipient)
-      // modal.find('.modal-body input').val(recipient)
-    });
+			// Could be a useful jquery example if we decide to remove ids
+			// var modal = $(this)
+			// modal.find('.modal-title').text('New message to ' + recipient)
+			// modal.find('.modal-body input').val(recipient)
+		});
 
-    $('#saveProjectButton').on( "click", function() {
-        $('#saveFormSubmit').trigger('click');
-    });
-
-  </script>
+		$('#saveProjectButton').on("click", function() {
+			$('#saveFormSubmit').trigger('click');
+		});
+	</script>
 
 </div>

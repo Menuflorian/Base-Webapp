@@ -1,22 +1,22 @@
-      <div class="card ">
-        <h4 class="card-header">Edit profile</h4>
-        <div class="card-body">
-          <form method="post" action="/users/eprofile">
-           <fieldset>
-             <div class="form-group">
-               <label>Name</label>
-               <input type="text" class="form-control" placeholder="{{user.name}}" name="name">
-             </div>
-             <div class="form-group">
-             <label>Username</label>
-               <input type="text" class="form-control" placeholder="{{user.username}}" name="username">
-             </div>
-             <div class="form-group">
-               <label>Email</label>
-               <input type="email" class="form-control" placeholder="{{user.email}}" name="email">
-             </div>
-             <input class="btn btn-primary btn-lg  btn-block"  type="submit">
-           </fieldset>
-         </form>
+<div class="card ">
+  <h4 class="card-header">Edit profile</h4>
+  <div class="card-body">
+    <form method="post" action="/users/eprofile">
+      <fieldset>
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" class="form-control" placeholder="{{user.name}}" name="name">
         </div>
-      </div>
+        <div class="form-group">
+          <label>Username</label>
+          <input type="text" class="form-control" placeholder="{{user.username}}" name="username">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" class="form-control" placeholder="{{user.email}}" name="email">
+        </div>
+        <input class="btn btn-primary btn-lg  btn-block" type="submit">
+      </fieldset>
+    </form>
+  </div>
+</div>

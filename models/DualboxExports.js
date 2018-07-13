@@ -26,5 +26,4 @@ var DualboxExportsSchema = mongoose.Schema({
     type: Date,
   },
 });
-
 var DualboxExports = module.exports = mongoose.model('DualboxExports', DualboxExportsSchema);

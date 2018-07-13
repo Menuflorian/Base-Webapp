@@ -2,108 +2,107 @@
 <!-- Page Content -->
 <div class="container">
 
-  <!-- Page Heading/Breadcrumbs -->
-  <h1 class="mt-4 mb-3">Portfolio Item
+	<!-- Page Heading/Breadcrumbs -->
+	<h1 class="mt-4 mb-3">Portfolio Item
     <small>Subheading</small>
   </h1>
 
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">
-      <a href="/">Home</a>
-    </li>
-    <li class="breadcrumb-item active">Portfolio Item</li>
-  </ol>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a href="/">Home</a>
+		</li>
+		<li class="breadcrumb-item active">Portfolio Item</li>
+	</ol>
 
-  <!-- Portfolio Item Row -->
-  <div class="row">
+	<!-- Portfolio Item Row -->
+	<div class="row">
 
-    <div class="col-md-8">
-      <img class="img-fluid" src="http://placehold.it/750x500" alt="">
-    </div>
+		<div class="col-md-8">
+			<img class="img-fluid" src="http://placehold.it/750x500" alt="">
+		</div>
 
-    <div class="col-md-4">
-        <div class="container ">
-          <form method="post" action="/exports/edit/{{dbData._id}}">
-            <div class="form-group">
-              <label for="name"><h2>Name : {{dbData.name}}</h2></label>
-              <div class="form-group">
-                <textarea id='txt' type="text" class="form-control" name="corp">{{dbData.corp}}</textarea>
-                <input type="hidden" class="form-control" placeholder="delete" name="delete" value="Edit">
-                <button type="submit" id="btn-save" class="btn btn-primary" name="sauve">Save</button>
-              </div>
-            </div>
-          </form>
-        </div>
-
-
-        <form method="post" action="/exports/userdelete/{{dbData._id}}">
-            <div class="form-group">
-              <label for="name">Project options</label>
-              <div class="container">
-                <input type="hidden" class="form-control">
-                <button type="submit" class="btn btn-warning">Delete project</button>
-              </div>
-            </div>
-        </form>
-
-      {{#if admin}}
-        <form method="post" action="/exports/admindelete/{{dbData._id}}">
-          <div class="form-group">
-            <label for="name">Admin option</label>
-            <div class="container">
-              <input type="hidden" class="form-control">
-              <button type="submit" class="btn btn-danger">Final delete</button>
-            </div>
-          </div>
-        </form>
-
-        <form method="post" action="/exports/restore/{{dbData._id}}">
-          <div class="form-group">
-            <div class="container">
-              <input type="hidden" class="form-control">
-              <button type="submit" class="btn btn-danger">Restore project.</button>
-            </div>
-          </div>
-        </form>
-      {{/if}}
-    </div>
+		<div class="col-md-4">
+			<div class="container ">
+				<form method="post" action="/exports/edit/{{dbData._id}}">
+					<div class="form-group">
+						<label for="name"><h2>Name : {{dbData.name}}</h2></label>
+						<div class="form-group">
+							<textarea id='txt' type="text" class="form-control" name="corp">{{dbData.corp}}</textarea>
+							<input type="hidden" class="form-control" placeholder="delete" name="delete" value="Edit">
+							<button type="submit" id="btn-save" class="btn btn-primary" name="sauve">Save</button>
+						</div>
+					</div>
+				</form>
+			</div>
 
 
-  </div>
-  <!-- /.row -->
+			<form method="post" action="/exports/userdelete/{{dbData._id}}">
+				<div class="form-group">
+					<label for="name">Project options</label>
+					<div class="container">
+						<input type="hidden" class="form-control">
+						<button type="submit" class="btn btn-warning">Delete project</button>
+					</div>
+				</div>
+			</form>
 
-  <!-- Related Projects Row -->
-  <h3 class="my-4">Related Projects</h3>
+			{{#if admin}}
+				<form method="post" action="/exports/admindelete/{{dbData._id}}">
+					<div class="form-group">
+						<label for="name">Admin option</label>
+						<div class="container">
+							<input type="hidden" class="form-control">
+							<button type="submit" class="btn btn-danger">Final delete</button>
+						</div>
+					</div>
+				</form>
 
-  <div class="row">
+				<form method="post" action="/exports/restore/{{dbData._id}}">
+					<div class="form-group">
+						<div class="container">
+							<input type="hidden" class="form-control">
+							<button type="submit" class="btn btn-danger">Restore project.</button>
+						</div>
+					</div>
+				</form>
+			{{/if}}
+		</div>
 
-    <div class="col-md-3 col-sm-6 mb-4">
-      <a href="#">
+
+	</div>
+	<!-- /.row -->
+
+	<!-- Related Projects Row -->
+	<h3 class="my-4">Related Projects</h3>
+
+	<div class="row">
+
+		<div class="col-md-3 col-sm-6 mb-4">
+			<a href="#">
         <img class="img-fluid" src="http://placehold.it/500x300" alt="">
       </a>
-    </div>
+		</div>
 
-    <div class="col-md-3 col-sm-6 mb-4">
-      <a href="#">
+		<div class="col-md-3 col-sm-6 mb-4">
+			<a href="#">
         <img class="img-fluid" src="http://placehold.it/500x300" alt="">
       </a>
-    </div>
+		</div>
 
-    <div class="col-md-3 col-sm-6 mb-4">
-      <a href="#">
+		<div class="col-md-3 col-sm-6 mb-4">
+			<a href="#">
         <img class="img-fluid" src="http://placehold.it/500x300" alt="">
       </a>
-    </div>
+		</div>
 
-    <div class="col-md-3 col-sm-6 mb-4">
-      <a href="#">
+		<div class="col-md-3 col-sm-6 mb-4">
+			<a href="#">
         <img class="img-fluid" src="http://placehold.it/500x300" alt="">
       </a>
-    </div>
+		</div>
 
-  </div>
-  <!-- /.row -->
+	</div>
+	<!-- /.row -->
 
 </div>
 <!-- /.container -->
-

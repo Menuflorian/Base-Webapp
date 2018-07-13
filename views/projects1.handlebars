@@ -1,33 +1,33 @@
 <div class="container">
-  <h1 class="mt-4 mb-3">Projets
+	<h1 class="mt-4 mb-3">Projets
     {{#if admin}}
       <small>You are an admin.</small>
     {{/if}}
 
   </h1>
 
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item">
-      <a href="/">Home</a>
-    </li>
-    <li class="breadcrumb-item active">Projects version portfolio 1</li>
-  </ol>
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a href="/">Home</a>
+		</li>
+		<li class="breadcrumb-item active">Projects version portfolio 1</li>
+	</ol>
 
-  {{#each dbData}}
-    <div class="row">
-        <div class="col-md-7">
-          <a href="#">
+	{{#each dbData}}
+		<div class="row">
+			<div class="col-md-7">
+				<a href="#">
             <img class="card-img-top" src="http://placehold.it/700x300" alt="">
           </a>
-        </div>
-        <div class="col-md-5">
-          <h3>Name: {{this.name}}</h3>
-          <p >Corp: {{this.corp}}</p>
-          <p >Creation date: {{this.creationdate}}</p>
-          <p >Last edit: {{this.lastedit}}</p>
-          <a class="btn btn-primary" href="/exports/{{this._id}}">Edit</a>
-        </div>
-    </div>
-    <hr>
-  {{/each}}
+			</div>
+			<div class="col-md-5">
+				<h3>Name: {{this.name}}</h3>
+				<p>Corp: {{this.corp}}</p>
+				<p>Creation date: {{this.creationdate}}</p>
+				<p>Last edit: {{this.lastedit}}</p>
+				<a class="btn btn-primary" href="/exports/{{this._id}}">Edit</a>
+			</div>
+		</div>
+		<hr>
+	{{/each}}
 </div>

@@ -51,16 +51,22 @@ router.get('/register', function(req, res) { //  redirection to Register
   res.render('register');
 });
 
-router.get('/profile', ensureAuthenticated,  function(req, res) { //  redirection to profile
-  res.render('profile', {layout:'layout2'});
+router.get('/profile', ensureAuthenticated, function(req, res) { //  redirection to profile
+  res.render('profile', {
+    layout: 'layout2'
+  });
 });
 
-router.get('/eprofile', ensureAuthenticated,  function(req, res) {  //  redirection to edit profile
-  res.render('eprofile', {layout:'layout2'});
+router.get('/eprofile', ensureAuthenticated, function(req, res) { //  redirection to edit profile
+  res.render('eprofile', {
+    layout: 'layout2'
+  });
 });
 
-router.get('/change-password', ensureAuthenticated,  function(req, res) {  //  redirection to change password
-  res.render('change-password', {layout:'layout2'});
+router.get('/change-password', ensureAuthenticated, function(req, res) { //  redirection to change password
+  res.render('change-password', {
+    layout: 'layout2'
+  });
 });
 
 // Register fonction
@@ -176,7 +182,7 @@ router.get('/logout', function(req, res) {
 
 //Edit profile
 router.post('/eprofile', function(req, res) {
-  var Id= req.user._id;
+  var Id = req.user._id;
   var name = req.body.name;
   var email = req.body.email;
   var username = req.body.username;
@@ -186,12 +192,21 @@ router.post('/eprofile', function(req, res) {
     },
     function(err, db_user) {
       if (err) res.send(err);
-      if (name == "") { name = req.user.name;}
-      else {db_user.name = req.body.name;}
-      if (username == "") { username = req.user.username;}
-      else {db_user.username = req.body.username;}
-      if (email == "") { email = req.user.email;}
-      else {db_user.email = req.body.email;}
+      if (name == "") {
+        name = req.user.name;
+      } else {
+        db_user.name = req.body.name;
+      }
+      if (username == "") {
+        username = req.user.username;
+      } else {
+        db_user.username = req.body.username;
+      }
+      if (email == "") {
+        email = req.user.email;
+      } else {
+        db_user.email = req.body.email;
+      }
       db_user.save(function(err, majdata) {
         if (err) {
           res.send(err);
