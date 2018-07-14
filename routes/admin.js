@@ -8,6 +8,9 @@ var User = require('../models/user');
 var DualboxExports = require('../models/DualboxExports');
 var bcrypt = require('bcryptjs');
 
+
+//-------------------------Function----------------------------
+
 //Check Auth
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -27,6 +30,8 @@ function ensureAdmin(req, res, next) {
     res.redirect('/users/login');
   }
 }
+
+//-------------------------get----------------------------
 
 //Get access to a specific user profile.
 router.get('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, function(req, res) {
@@ -113,6 +118,8 @@ router.get('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, funct
       res.render('admin-change-password', data);
     });
 });
+
+//-------------------------post----------------------------
 
 //Change the users information in Db.
 router.post('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, function(req, res) {

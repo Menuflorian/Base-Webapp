@@ -8,20 +8,7 @@ var User = require('../models/user');
 var DualboxExports = require('../models/DualboxExports');
 var bcrypt = require('bcryptjs');
 
-//Transformation format date.
-var formaDate = function formatDate(date) {
-  var monthNames = [
-    "January", "February", "March",
-    "April", "May", "June", "July",
-    "August", "September", "October",
-    "November", "December"
-  ];
-  var day = date.getDate();
-  var monthIndex = date.getMonth();
-  var year = date.getFullYear();
-
-  return day + ' ' + monthNames[monthIndex] + ' ' + year;
-};
+//-------------------------Function----------------------------
 
 //Check Auth
 function ensureAuthenticated(req, res, next) {
@@ -43,31 +30,40 @@ function ensureAdmin(req, res, next) {
   }
 }
 
-router.get('/login', function(req, res) { // redirection toLogin
+//-------------------------get----------------------------
+
+ // redirection toLogin
+router.get('/login', function(req, res) {
   res.render('login');
 });
 
-router.get('/register', function(req, res) { //  redirection to Register
+//  redirection to Register
+router.get('/register', function(req, res) {
   res.render('register');
 });
 
-router.get('/user-profile', ensureAuthenticated, function(req, res) { //  redirection to profile
+//  redirection to profile
+router.get('/user-profile', ensureAuthenticated, function(req, res) {
   res.render('user-profile', {
     layout: 'layout2'
   });
 });
 
-router.get('/user-edit-profile', ensureAuthenticated, function(req, res) { //  redirection to edit profile
+//  redirection to edit profile
+router.get('/user-edit-profile', ensureAuthenticated, function(req, res) {
   res.render('user-edit-profile', {
     layout: 'layout2'
   });
 });
 
-router.get('/user-change-password', ensureAuthenticated, function(req, res) { //  redirection to change password
+//  redirection to change password
+router.get('/user-change-password', ensureAuthenticated, function(req, res) {
   res.render('user-change-password', {
     layout: 'layout2'
   });
 });
+
+//-------------------------post----------------------------
 
 // Register fonction
 router.post('/register', function(req, res) {
@@ -129,6 +125,7 @@ router.post('/register', function(req, res) {
   }
 });
 
+//Login validation
 passport.use(new LocalStrategy(
   function(username, password, done) {
     User.getUserByUsername(username, function(err, user) {
@@ -257,4 +254,5 @@ router.post('/change-password', ensureAuthenticated, function(req, res) {
     }
   );
 });
+
 module.exports = router;

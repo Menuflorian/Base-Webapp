@@ -6,6 +6,8 @@ var session = require('express-session');
 var DualboxExports = require('../models/DualboxExports');
 
 
+//-------------------------Function----------------------------
+
 //Check auth
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
@@ -16,6 +18,7 @@ function ensureAuthenticated(req, res, next) {
   }
 }
 
+//Check admin
 function ensureAdmin(req, res, next) {
   if (req.isAuthenticated() && req.user.isAdmin == true) {
     return next();
@@ -25,6 +28,7 @@ function ensureAdmin(req, res, next) {
   }
 }
 
+//Factorisation funcion to edit: deleted, corp, lasedit argument on a project
 function dbfindAndUpdate(id, params) {
   DualboxExports.findById({
       _id: id
@@ -51,11 +55,14 @@ function dbfindAndUpdate(id, params) {
   );
 }
 
+//-------------------------get----------------------------
+
 // redirection to new project//
 router.get('/dual', ensureAuthenticated, function(req, res) {
   res.render('new-project');
 });
 
+//redirection on a portefolio with project
 router.get('/projects:folio', ensureAuthenticated, function(req, res) {
   var Id = req.params.id;
   var folio = req.params.folio;
@@ -83,6 +90,36 @@ router.get('/projects:folio', ensureAuthenticated, function(req, res) {
   }
 });
 
+//Edit project redirection.
+router.get('/:id', ensureAuthenticated, function(req, res) {
+  var Id = req.params.id;
+  var admin = req.user.isAdmin;
+  var dbfindOne = function dbfindOne(selectors) {
+    DualboxExports.findOne(selectors, {}, {},
+      function(err, db_export) {
+        if (err) {
+          res.send(err);
+        }
+        res.render('Edit', {
+          dbData: db_export
+        });
+      });
+  };
+  if (admin == true) {
+    dbfindOne({
+      _id: Id
+    }); // To edit page admin side
+  } else {
+    dbfindOne({ // To edit page client side.
+      _id: Id,
+      deleted: false
+    });
+  }
+});
+
+
+//-------------------------post----------------------------
+
 // Delete a project
 router.post('/admindelete/:id', ensureAdmin, function(req, res) {
   var id = req.params.id;
@@ -98,6 +135,7 @@ router.post('/admindelete/:id', ensureAdmin, function(req, res) {
     });
 });
 
+//Restore a project
 router.post('/restore/:id', ensureAuthenticated, function(req, res) {
   var id = req.params.id;
   dbfindAndUpdate(
@@ -107,9 +145,9 @@ router.post('/restore/:id', ensureAuthenticated, function(req, res) {
   );
   req.flash('success_msg', 'Project restored successfully.');
   res.redirect('/exports/projects3');
-
 });
 
+//user delet
 router.post('/userdelete/:id', ensureAuthenticated, function(req, res) {
   var id = req.params.id;
   dbfindAndUpdate(
@@ -153,32 +191,6 @@ router.post('/', ensureAuthenticated, function(req, res) {
   });
 });
 
-//Edit project redirection.
-router.get('/:id', ensureAuthenticated, function(req, res) {
-  var Id = req.params.id;
-  var admin = req.user.isAdmin;
-  var dbfindOne = function dbfindOne(selectors) {
-    DualboxExports.findOne(selectors, {}, {},
-      function(err, db_export) {
-        if (err) {
-          res.send(err);
-        }
-        res.render('Edit', {
-          dbData: db_export
-        });
-      });
-  };
 
-  if (admin == true) {
-    dbfindOne({
-      _id: Id
-    }); // To edit page admin side
-  } else {
-    dbfindOne({ // To edit page client side.
-      _id: Id,
-      deleted: false
-    });
-  }
-});
 
 module.exports = router;
