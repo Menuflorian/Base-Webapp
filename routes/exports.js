@@ -83,26 +83,6 @@ router.get('/projects:folio', ensureAuthenticated, function(req, res) {
   }
 });
 
-
-//save new project//
-router.post('/', ensureAuthenticated, function(req, res) {
-  var db_export = new DualboxExports({
-    name: req.body.name,
-    corp: req.body.corp,
-    ownerId: req.user._id,
-    ownerName: req.user.name,
-    lastedit: Date(),
-    creationdate: Date()
-  });
-  db_export.save(function(err) {
-    if (err) {
-      res.send(err);
-    }
-    req.flash('success_msg', 'File saved successfuly');
-    res.redirect('/exports/dual');
-  });
-});
-
 // Delete a project
 router.post('/admindelete/:id', ensureAdmin, function(req, res) {
   var id = req.params.id;

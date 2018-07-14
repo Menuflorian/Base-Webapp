@@ -51,20 +51,20 @@ router.get('/register', function(req, res) { //  redirection to Register
   res.render('register');
 });
 
-router.get('/profile', ensureAuthenticated, function(req, res) { //  redirection to profile
-  res.render('profile', {
+router.get('/user-profile', ensureAuthenticated, function(req, res) { //  redirection to profile
+  res.render('user-profile', {
     layout: 'layout2'
   });
 });
 
-router.get('/eprofile', ensureAuthenticated, function(req, res) { //  redirection to edit profile
-  res.render('eprofile', {
+router.get('/user-edit-profile', ensureAuthenticated, function(req, res) { //  redirection to edit profile
+  res.render('user-edit-profile', {
     layout: 'layout2'
   });
 });
 
-router.get('/change-password', ensureAuthenticated, function(req, res) { //  redirection to change password
-  res.render('change-password', {
+router.get('/user-change-password', ensureAuthenticated, function(req, res) { //  redirection to change password
+  res.render('user-change-password', {
     layout: 'layout2'
   });
 });
@@ -181,7 +181,7 @@ router.get('/logout', function(req, res) {
 });
 
 //Edit profile
-router.post('/eprofile', function(req, res) {
+router.post('/user-edit-profile', function(req, res) {
   var Id = req.user._id;
   var name = req.body.name;
   var email = req.body.email;
@@ -212,7 +212,7 @@ router.post('/eprofile', function(req, res) {
           res.send(err);
         }
         req.flash('success_msg', 'Modicication terminer');
-        res.redirect('/users/profile');
+        res.redirect('/users/user-profile');
       });
     });
 });

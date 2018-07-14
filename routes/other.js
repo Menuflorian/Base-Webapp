@@ -52,13 +52,4 @@ router.get('/full-width', function(req, res) { //  redirection to full-wigth
   res.render('full-width');
 });
 
-
-function ensureAdmin(req, res, next) { // Check if admin
-  if (req.user && req.user.isAdmin == true) {
-    return next();
-  } else {
-    req.flash('error_msg', 'This part is reserved to admin');
-    res.redirect('/users/login');
-  }
-}
 module.exports = router;
