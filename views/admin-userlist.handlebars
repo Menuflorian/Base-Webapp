@@ -1,42 +1,45 @@
-
-<div class="card">
-    <h4 class="card-header">User list</h4>
-    <div class="card-body d-flex justify-content-between">
+<div class="container">
+  {{> breadcrumb}}
+  <div class="row ">
+    {{> admin-link}}
+    <div class="card">
+      <h4 class="card-header">User list</h4>
+      <div class="card-body d-flex justify-content-between">
         <table class="table table-responsive">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Role</th>
-                    <th scope="col"></th>
-                </tr>
-            </thead>
-            {{#each db_user}}
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>{{this.name}}</td>
-                        <td>{{this.username}}</td>
-                        <td>{{this.email}}</td>
-                        {{#if this.isAdmin}}
-                            <td>Admin</td>
-                        {{else}}
-                            <td>User</td>
-                        {{/if}}
-                        <td><a href="/admin/admin-edit-user/{{this._id}}" class="btn btn-primary">See profile</a></td>
-                    </tr>
-                </tbody>
-            {{/each}}
+          <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Username</th>
-                <th scope="col">Email</th>
-                <th scope="col">Role</th>
-                <th scope="col"></th>
+              <th scope="col">#</th>
+              <th scope="col">Name</th>
+              <th scope="col">Username</th>
+              <th scope="col">Email</th>
+              <th scope="col">Role</th>
+              <th scope="col"></th>
             </tr>
+          </thead>
+          {{#each db_user}}
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td>{{this.name}}</td>
+                <td>{{this.username}}</td>
+                <td>{{this.email}}</td>
+                {{#if this.isAdmin}}
+                  <td>Admin</td>
+                {{else}}
+                  <td>User</td>
+                {{/if}}
+                <td><a href="/admin/admin-edit-user/{{this._id}}" class="btn btn-primary">See profile</a></td>
+              </tr>
+            </tbody>
+          {{/each}}
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Username</th>
+            <th scope="col">Email</th>
+            <th scope="col">Role</th>
+            <th scope="col"></th>
+          </tr>
         </table>
+      </div>
     </div>
-</div>

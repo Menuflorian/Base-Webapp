@@ -37,11 +37,9 @@ router.get('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, function
       if (err) {
         res.send(err);
       }
-      var data = {
-        layout: 'layout3',
-        db_User: db_user
-      };
-      res.render('admin-edit-profile', data);
+      var data = db_user;
+
+      res.render('admin-edit-profile', db_user);
     });
 });
 
@@ -82,9 +80,7 @@ router.post('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, functio
 
 
 router.get('/admin', ensureAuthenticated, ensureAdmin, function(req, res) { //  redirection to administration
-  res.render('admin', {
-    layout: 'layout3'
-  });
+  res.render('admin');
 });
 
 router.get('/admin-userlist', ensureAuthenticated, ensureAdmin, function(req, res) { //  redirection to the list of users
@@ -94,7 +90,6 @@ router.get('/admin-userlist', ensureAuthenticated, ensureAdmin, function(req, re
         res.send(err);
       }
       var data = {
-        layout: 'layout3',
         db_user: userlist
       };
       res.render('admin-userlist', data);
@@ -119,7 +114,6 @@ router.get('/admin-edit-user/:id', ensureAuthenticated, ensureAdmin, function(re
             res.send(err);
           }
           var data = {
-            layout: 'layout3',
             db_user: userdetail,
             db_data: db_export
           };
@@ -139,7 +133,6 @@ router.get('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, funct
         res.send(err);
       }
       var data = {
-        layout: 'layout3',
         db_user: userdetail,
       };
       res.render('admin-change-password', data);
@@ -160,9 +153,7 @@ router.post('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, func
       }
       if (password != password2) {
         req.flash('error_msg', "New password don't match with cofirm password");
-        res.render('admin-change-password', {
-          layout: 'layout3'
-        });
+        res.render('admin-change-password');
       } else {
         db_user.password = bcrypt.hashSync(password, 10);
         db_user.save(function(err) {
@@ -170,9 +161,7 @@ router.post('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, func
             res.send(err);
           }
           req.flash('success_msg', "Password has been changed");
-          res.render('admin-change-password', {
-            layout: 'layout3'
-          });
+          res.render('admin-change-password');
         });
       }
     }
