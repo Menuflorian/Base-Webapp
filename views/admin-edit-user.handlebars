@@ -48,7 +48,7 @@
 					</tr>
 					<tr>
 						<td><b>Register date:</b></td>
-						<td>{{db_user.[0].registerdate}} </td>
+						<td>{{formaDate db_user.[0].registerdate}} </td>
 					</tr>
 					<tr>
 						<td><b>Email</b></td>
@@ -83,9 +83,9 @@
 			</div>
 		</div>
 	</div>
-
+	<div><br></div>
 	<div class="containerfluid">
-		<div class="card ">
+		<div class="card">
 			<h3 class="card-header">Project</h3>
 			<div class="card-body">
 				<div class="container">
@@ -104,10 +104,10 @@
 					{{#each db_data}}
 						<tbody>
 							<tr>
-								<th scope="row">{{@index}}</th>
+								<th scope="row">{{math @index "+" "1"}}</th>
 								<td>{{this.name}}</td>
-								<td>{{this.creationdate}}</td>
-								<td>{{../date.lastedit}}</td>
+								<td>{{formaDate this.creationdate}}</td>
+								<td>{{formaDate this.lastedit}}</td>
 								{{#if this.deleted}}
 									<td>Yes</td>
 								{{else}}

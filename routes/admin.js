@@ -28,6 +28,7 @@ function ensureAdmin(req, res, next) {
   }
 }
 
+//Get access to a specific user profile.
 router.get('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, function(req, res) {
   var id = req.params.id;
   User.find({
@@ -45,13 +46,15 @@ router.get('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, function
     });
 });
 
-router.get('/admin', ensureAuthenticated, ensureAdmin, function(req, res) { //  redirection to administration
+//Redirection to index admin
+router.get('/admin', ensureAuthenticated, ensureAdmin, function(req, res) {
   res.render('admin', {
     layout: 'layout3'
   });
 });
 
-router.get('/admin-userlist', ensureAuthenticated, ensureAdmin, function(req, res) { //  redirection to the list of users
+//Redirection to the table user list.
+router.get('/admin-userlist', ensureAuthenticated, ensureAdmin, function(req, res) {
   User.find({},
     function(err, userlist) {
       if (err) {
@@ -65,6 +68,8 @@ router.get('/admin-userlist', ensureAuthenticated, ensureAdmin, function(req, re
     });
 });
 
+
+//Render a menu to administrate a profile.
 router.get('/admin-edit-user/:id', ensureAuthenticated, ensureAdmin, function(req, res) {
   var id = req.params.id;
   User.find({
@@ -74,7 +79,6 @@ router.get('/admin-edit-user/:id', ensureAuthenticated, ensureAdmin, function(re
       if (err) {
         res.send(err);
       }
-
     DualboxExports.find({
      	ownerId: id
         },
@@ -92,8 +96,8 @@ router.get('/admin-edit-user/:id', ensureAuthenticated, ensureAdmin, function(re
     });
 });
 
-
-router.get('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, function(req, res) { //  redirection to administration
+//Redirection to change password of a specific user.
+router.get('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, function(req, res) {
   var id = req.params.id;
   User.find({
       _id: id
@@ -110,6 +114,7 @@ router.get('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, funct
     });
 });
 
+//Change the users information in Db.
 router.post('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, function(req, res) {
   var id = req.params.id;
   var name = req.body.name;
@@ -145,7 +150,7 @@ router.post('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, functio
     });
 });
 
-//change password of a user
+//Change password userpassword in Db.
 router.post('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, function(req, res) {
   var id = req.params.id;
   var password = req.body.password;
@@ -198,7 +203,7 @@ router.post('/admin-validate-user/:id', ensureAuthenticated, function(req, res) 
     });
 });
 
-//Make a user ans admin
+//Make a user an admin.
 router.post('/admin-makeadmin-user/:id', ensureAuthenticated, function(req, res) {
   var id = req.params.id;
   User.findById({
@@ -219,7 +224,7 @@ router.post('/admin-makeadmin-user/:id', ensureAuthenticated, function(req, res)
     });
 });
 
-//Remove admin
+//Remove admin right.
 router.post('/admin-removeadmin-user/:id', ensureAuthenticated, function(req, res) {
   var id = req.params.id;
   User.findById({
@@ -240,7 +245,7 @@ router.post('/admin-removeadmin-user/:id', ensureAuthenticated, function(req, re
     });
 });
 
-// Delete a project
+// Delete a user.
 router.post('/admin-delete-user/:id', ensureAuthenticated, ensureAdmin, function(req, res) {
   var id = req.params.id;
   User.remove({

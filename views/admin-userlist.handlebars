@@ -1,5 +1,4 @@
-<div class="container col-lg-9 ">
-    <div class="card">
+{{> card-header}}
         <h4 class="card-header">User list</h4>
         <div class="card-body">
 
@@ -17,7 +16,7 @@
                 {{#each db_user}}
                     <tbody>
                         <tr>
-                            <th scope="row">{{@index}}</th>
+                            <th scope="row">{{math @index "+" "1"}}</th>
                             <td>{{this.name}}</td>
                             <td>{{this.username}}</td>
                             <td>{{this.email}}</td>
