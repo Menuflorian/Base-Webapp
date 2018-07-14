@@ -11,7 +11,7 @@
 					</form>
 				</div>
 			</div>
-
+<!--
 			<div class="containerfluid">
 				{{#if db_user.[0].isAdmin}}
 				<form method="post" action="/admin/admin-removeadmin-user/{{db_user.[0]._id}}">
@@ -25,41 +25,41 @@
 				</form>
 				{{/if}}
 			</div>
-
+-->
 
 		<div class="card-body">
 			<table class="table table-user-information">
 				<tbody>
 					<tr>
-						<td>Role:</td>
+						<td><b>Role:</b></td>
 						{{#if db_user.[0].isAdmin}}
 							<td>Admin</td>
 						{{else}}
-							<td>User</td>
+							<td><b>User</b></td>
 						{{/if}}
 					</tr>
 					<tr>
-						<td>Name:</td>
+						<td><b>Name:</b></td>
 						<td>{{db_user.[0].name}}</td>
 					</tr>
 					<tr>
-						<td>Username:</td>
+						<td><b>Username:</b></td>
 						<td>{{db_user.[0].username}}</td>
 					</tr>
 					<tr>
-						<td>Register date:</td>
+						<td><b>Register date:</b></td>
 						<td>{{db_user.[0].registerdate}} </td>
 					</tr>
 					<tr>
-						<td>Email</td>
+						<td><b>Email</b></td>
 						<td><a href="mailto:{{db_user.[0].email}}">{{db_user.[0].email}}</a></td>
 					</tr>
 					<tr>
-						<td>Number of projects:</td>
-						<td>{{db_data.length}}</td>
+						<td><b>Number of projects:</b></td>
+						<td>{{db_data.length}}</b></td>
 					</tr>
 					<tr>
-						<td>Validated user:</td>
+						<td><b>Validated user:</b></td>
 						<td>
 							<div class="form-check">
 								<form method="post" action="/admin/admin-validate-user/{{db_user.[0]._id}}">

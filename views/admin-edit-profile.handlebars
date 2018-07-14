@@ -2,24 +2,22 @@
 	<div class="card">
 		<h4 class="card-header">Edit profile</h4>
 		<div class="card-body">
-			<form method="post" action="/admin/admin-edit-profile/{{db_User.[0]._id}}">
-	            <div class="container">
+			<form method="post" action="/admin/admin-edit-profile/{{db_user.[0].id}}">
 				<fieldset>
 					<div class="form-group">
 						<label>Name</label>
-						<input type="text" class="form-control" placeholder="{{db_User.[0].name}}" name="name">
+						<input type="text" class="form-control" placeholder="{{db_user.[0].name}}" name="name">
 					</div>
 					<div class="form-group">
 						<label>Username</label>
-						<input type="text" class="form-control" placeholder="{{db_User.[0].username}}" name="username">
+						<input type="text" class="form-control" placeholder="{{db_user.[0].username}}" name="username">
 					</div>
 					<div class="form-group">
 						<label>Email</label>
-						<input type="email" class="form-control" placeholder="{{db_User.[0].email}}" name="email">
+						<input type="email" class="form-control" placeholder="{{db_user.[0].email}}" name="email">
 					</div>
 					<input class="btn btn-primary btn-lg  btn-block" type="submit">
 				</fieldset>
-				</div>
 			</form>
 		</div>
 	</div>

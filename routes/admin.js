@@ -39,7 +39,7 @@ router.get('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, function
       }
       var data = {
         layout: 'layout3',
-        db_User: db_user
+        db_user: db_user
       };
       res.render('admin-edit-profile', data);
     });
@@ -140,7 +140,7 @@ router.post('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, functio
           res.send(err);
         }
         req.flash('success_msg', 'Modicication terminer');
-        res.redirect('/admin/admin-edit-profile' + id);
+        res.redirect('/admin/admin-edit-profile/'+id);
       });
     });
 });
@@ -169,9 +169,7 @@ router.post('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, func
             res.send(err);
           }
           req.flash('success_msg', "Password has been changed");
-          res.render('admin-change-password', {
-            layout: 'layout3'
-          });
+          res.redirect('/admin/admin-edit-use/'+id);
         });
       }
     }
