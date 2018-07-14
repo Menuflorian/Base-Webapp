@@ -4,17 +4,17 @@
 			<h3>{{this.name}} Profile</h3>
 		</div>
 		<div class="containerfluid">
-			<form method="post" action="/admin/admin-delete-user{{db_User.[0]._id}}">
+			<form method="post" action="/admin/admin-delete-user/{{db_user.[0]._id}}">
 				<button class="btn btn-danger btn-lg ">Delet user</button>
 			</form>
 		</div>
 		<div class="containerfluid">
-			{{#if db_User.[0].isAdmin}}
-				<form method="post" action="/admin/admin-removeadmin-user{{db_User.[0]._id}}">
+			{{#if db_user.[0].isAdmin}}
+				<form method="post" action="/admin/admin-removeadmin-user/{{db_user.[0]._id}}">
 					<button class="btn btn-danger btn-lg ">Remove admin right</button>
 				</form>
 			{{else}}
-				<form method="post" action="/admin/admin-makeadmin-user{{db_User.[0]._id}}">
+				<form method="post" action="/admin/admin-makeadmin-user/{{db_user.[0]._id}}">
 					<button class="btn btn-danger btn-lg ">Make admin this user</button>
 				</form>
 			{{/if}}
@@ -25,7 +25,7 @@
 			<tbody>
 				<tr>
 					<td>Role:</td>
-					{{#if db_User.[0].isAdmin}}
+					{{#if db_user.[0].isAdmin}}
 						<td>Admin</td>
 					{{else}}
 						<td>User</td>
@@ -33,36 +33,44 @@
 				</tr>
 				<tr>
 					<td>Name:</td>
-					<td>{{db_User.[0].name}}</td>
+					<td>{{db_user.[0].name}}</td>
 				</tr>
 				<tr>
 					<td>Username:</td>
-					<td>{{db_User.[0].username}}</td>
+					<td>{{db_user.[0].username}}</td>
 				</tr>
 				<tr>
 					<td>Register date:</td>
-					<td>{{db_User.[0].registerdate}} </td>
+					<td>{{db_user.[0].registerdate}} </td>
 				</tr>
 				<tr>
 					<td>Email</td>
-					<td><a href="mailto:{{db_User.[0].email}}">{{db_User.[0].email}}</a></td>
+					<td><a href="mailto:{{db_user.[0].email}}">{{db_user.[0].email}}</a></td>
 				</tr>
 				<tr>
 					<td>Number of projects:</td>
-					<td>{{db_Data.length}}</td>
+					<td>{{db_data.length}}</td>
 				</tr>
 				<tr>
 					<td>Validated user:</td>
-					<td>{{db_User.[0].validated}} </td>
+					<td><div class="form-check" >
+						<form method="post" action="/admin/admin-validate-user/{{db_user.[0]._id}}">
+						{{#if db_user.[0].validated}}
+						<input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked>
+						{{else}}
+					  	<input class="form-check-input" type="checkbox" value="" id="defaultCheck1" onClick="this.form.submit();" >
+						{{/if}}
+					  	<label class="form-check-label" for="defaultCheck1">
+					    Validate
+					  	</label>
+						</form>
+					</td>
 				</tr>
 			</tbody>
 		</table>
 		<div class="container d-flex justify-content-between">
-			<a href="/admin/admin-edit-profile{{db_User.[0].id}}" class="btn btn-primary btn-lg  ">Edit {{this.name}} profile</a>
-			<form method="post" action="/admin/admin-validate-user{{db_User.[0]._id}}">
-				<button class="btn btn-primary btn-lg ">Validate user</button>
-			</form>
-			<a href="/admin/admin-change-password{{db_User.[0]._id}}" class="btn btn-primary btn-lg  ">Change {{this.name}} password</a>
+			<a href="/admin/admin-edit-profile/{{db_user.[0].id}}" class="btn btn-primary btn-lg  ">Edit {{this.name}} profile</a>
+			<a href="/admin/admin-change-password/{{db_user.[0]._id}}" class="btn btn-primary btn-lg  ">Change {{this.name}} password</a>
 		</div>
 	</div>
 </div>
@@ -84,13 +92,13 @@
 
 				</tr>
 			</thead>
-			{{#each db_Data}}
+			{{#each db_data}}
 				<tbody>
 					<tr>
 						<th scope="row">{{@index}}</th>
 						<td>{{this.name}}</td>
 						<td>{{this.creationdate}}</td>
-						<td>{{this.lastedit}}</td>
+						<td>{{../date.lastedit}}</td>
 						{{#if this.deleted}}
 							<td>Yes</td>
 						{{else}}

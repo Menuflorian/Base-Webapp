@@ -28,7 +28,7 @@ function ensureAdmin(req, res, next) {
   }
 }
 
-router.get('/admin-edit-profile:id', ensureAuthenticated, ensureAdmin, function(req, res) {
+router.get('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, function(req, res) {
   var id = req.params.id;
   User.find({
       _id: id
@@ -45,7 +45,7 @@ router.get('/admin-edit-profile:id', ensureAuthenticated, ensureAdmin, function(
     });
 });
 
-router.post('/admin-edit-profile:id', ensureAuthenticated, ensureAdmin, function(req, res) {
+router.post('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, function(req, res) {
   var id = req.params.id;
   var name = req.body.name;
   var email = req.body.email;
@@ -87,7 +87,7 @@ router.get('/admin', ensureAuthenticated, ensureAdmin, function(req, res) { //  
   });
 });
 
-router.get('/userlist', ensureAuthenticated, ensureAdmin, function(req, res) { //  redirection to the list of users
+router.get('/admin-userlist', ensureAuthenticated, ensureAdmin, function(req, res) { //  redirection to the list of users
   User.find({},
     function(err, userlist) {
       if (err) {
@@ -95,9 +95,9 @@ router.get('/userlist', ensureAuthenticated, ensureAdmin, function(req, res) { /
       }
       var data = {
         layout: 'layout3',
-        db_User: userlist
+        db_user: userlist
       };
-      res.render('userlist', data);
+      res.render('admin-userlist', data);
     });
 });
 
@@ -110,8 +110,9 @@ router.get('/admin-edit-user/:id', ensureAuthenticated, ensureAdmin, function(re
       if (err) {
         res.send(err);
       }
-      DualboxExports.find({
-          ownerId: id
+
+    DualboxExports.find({
+     	ownerId: id
         },
         function(err, db_export) {
           if (err) {
@@ -119,15 +120,16 @@ router.get('/admin-edit-user/:id', ensureAuthenticated, ensureAdmin, function(re
           }
           var data = {
             layout: 'layout3',
-            db_User: userdetail,
-            db_Data: db_export
+            db_user: userdetail,
+            db_data: db_export
           };
           res.render('admin-edit-user', data);
         });
     });
 });
 
-router.get('/admin-change-password:id', ensureAuthenticated, ensureAdmin, function(req, res) { //  redirection to administration
+
+router.get('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, function(req, res) { //  redirection to administration
   var id = req.params.id;
   User.find({
       _id: id
@@ -138,14 +140,14 @@ router.get('/admin-change-password:id', ensureAuthenticated, ensureAdmin, functi
       }
       var data = {
         layout: 'layout3',
-        db_User: userdetail,
+        db_user: userdetail,
       };
       res.render('admin-change-password', data);
     });
 });
 
 //change password of a user
-router.post('/admin-change-password:id', ensureAuthenticated, ensureAdmin, function(req, res) {
+router.post('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, function(req, res) {
   var id = req.params.id;
   var password = req.body.password;
   var password2 = req.body.password2;
@@ -178,7 +180,7 @@ router.post('/admin-change-password:id', ensureAuthenticated, ensureAdmin, funct
 });
 
 //validate users
-router.post('/admin-validate-user:id', ensureAuthenticated, function(req, res) {
+router.post('/admin-validate-user/:id', ensureAuthenticated, function(req, res) {
   var id = req.params.id;
   User.findById({
       _id: id
@@ -193,13 +195,13 @@ router.post('/admin-validate-user:id', ensureAuthenticated, function(req, res) {
           res.send(err);
         }
         req.flash('success_msg', 'User is now validated');
-        res.redirect('/admin/userlist');
+        res.redirect('/admin/admin-userlist');
       });
     });
 });
 
 //Make a user ans admin
-router.post('/admin-makeadmin-user:id', ensureAuthenticated, function(req, res) {
+router.post('/admin-makeadmin-user/:id', ensureAuthenticated, function(req, res) {
   var id = req.params.id;
   User.findById({
       _id: id
@@ -214,13 +216,13 @@ router.post('/admin-makeadmin-user:id', ensureAuthenticated, function(req, res) 
           res.send(err);
         }
         req.flash('success_msg', db_user.name + ' is now an admin');
-        res.redirect('/admin/userlist');
+        res.redirect('/admin/admin-userlist');
       });
     });
 });
 
 //Remove admin
-router.post('/admin-removeadmin-user:id', ensureAuthenticated, function(req, res) {
+router.post('/admin-removeadmin-user/:id', ensureAuthenticated, function(req, res) {
   var id = req.params.id;
   User.findById({
       _id: id
@@ -235,13 +237,13 @@ router.post('/admin-removeadmin-user:id', ensureAuthenticated, function(req, res
           res.send(err);
         }
         req.flash('success_msg', db_user.name + ' is not longer an admin');
-        res.redirect('/admin/userlist');
+        res.redirect('/admin/admin-userlist');
       });
     });
 });
 
 // Delete a project
-router.post('/admin-delete-user:id', ensureAuthenticated, ensureAdmin, function(req, res) {
+router.post('/admin-delete-user/:id', ensureAuthenticated, ensureAdmin, function(req, res) {
   var id = req.params.id;
   User.remove({
       _id: id
