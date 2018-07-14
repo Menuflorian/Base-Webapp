@@ -20,8 +20,8 @@
 					<div class="card-body">
 						<h3 class="card-title">Name: {{this.name}}</h3>
 						<p>Corp: {{this.corp}}</p>
-						<p>Creation date: {{this.creationdate}}</p>
-						<p>Last edit: {{this.lastedit}}</p>
+						<p>Creation date: {{formaDate this.creationdate}}</p>
+						<p>Last edit: {{formaDate this.lastedit}}</p>
 					</div>
 					<div class="containerfluid d-flex justify-content-center">
 						<a type="button" href="/exports/{{this._id}}" class="btn btn-primary" style=" margin-bottom: 10px">Edit</a>
