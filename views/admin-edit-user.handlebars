@@ -1,7 +1,7 @@
 <div class="container col-lg-9 flex justify-content-end">
 	<div class="containerfluid">
 		<div class="card">
-			<div class="card-header d-flex justify-content-between">
+			<div class="card-header align-items-center d-flex justify-content-between">
 				<div class="containerfluid">
 					<h3>Profile</h3>
 				</div>
@@ -32,11 +32,13 @@
 				<tbody>
 					<tr>
 						<td><b>Role:</b></td>
-						{{#if db_user.[0].isAdmin}}
-							<td>Admin</td>
-						{{else}}
-							<td><b>User</b></td>
-						{{/if}}
+						<td><div class="form-group">
+								<select class="form-control form-control-sm"  style="width:10" >
+									<option>Admin</option>
+									<option>User</option>
+								</select>
+							</div>
+						</td>
 					</tr>
 					<tr>
 						<td><b>Name:</b></td>

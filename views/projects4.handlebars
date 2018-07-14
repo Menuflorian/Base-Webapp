@@ -18,10 +18,11 @@
 				<div class="card h-100">
 					<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
 					<div class="card-body">
-						<h3 class="card-title">Name: {{this.name}}</h3>
-						<p>Corp: {{this.corp}}</p>
-						<p>Creation date: {{formaDate this.creationdate}}</p>
-						<p>Last edit: {{formaDate this.lastedit}}</p>
+						<h3 class="card-title"><b>Name project:</b> {{this.name}}</h3>
+                        <p><b>Owner Name:</b>  {{this.ownerName}}</p>
+						<p><b>Corp:</b> {{this.corp}}</p>
+						<p><b>Creation date</b>: {{formaDate this.creationdate}}</p>
+						<p><b>Last edit:</b> {{formaDate this.lastedit}}</p>
 					</div>
 					<div class="containerfluid d-flex justify-content-center">
 						<a type="button" href="/exports/{{this._id}}" class="btn btn-primary" style=" margin-bottom: 10px">Edit</a>
