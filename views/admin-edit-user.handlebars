@@ -64,7 +64,7 @@
 							<div class="form-check">
 								<form method="post" action="/admin/admin-validate-user/{{db_user.[0]._id}}">
 									{{#if db_user.[0].validated}}
-										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked>
+										<input class="form-check-input"  disabled="disabled" type="checkbox" value="" id="defaultCheck1" checked>
 									{{else}}
 										<input class="form-check-input" type="checkbox" value="" id="defaultCheck1" onClick="this.form.submit();">
 									{{/if}}

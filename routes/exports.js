@@ -134,6 +134,24 @@ router.post('/edit/:id', ensureAuthenticated, function(req, res) {
   res.redirect('/exports/' + id);
 });
 
+//save new project//
+router.post('/', ensureAuthenticated, function(req, res) {
+  var db_export = new DualboxExports({
+    name: req.body.name,
+    corp: req.body.corp,
+    ownerId: req.user._id,
+    ownerName: req.user.name,
+    lastedit: Date(),
+    creationdate: Date()
+  });
+  db_export.save(function(err) {
+    if (err) {
+      res.send(err);
+    }
+    req.flash('success_msg', 'File saved successfuly');
+    res.redirect('/exports/dual');
+  });
+});
 
 //Edit project redirection.
 router.get('/:id', ensureAuthenticated, function(req, res) {
