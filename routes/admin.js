@@ -45,42 +45,6 @@ router.get('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, function
     });
 });
 
-router.post('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, function(req, res) {
-  var id = req.params.id;
-  var name = req.body.name;
-  var email = req.body.email;
-  var username = req.body.username;
-  User.findById({
-      _id: id
-    },
-    function(err, db_user) {
-      if (err) res.send(err);
-      if (name == "") {
-        name = db_user.name;
-      } else {
-        db_user.name = req.body.name;
-      }
-      if (username == "") {
-        username = db_user.username;
-      } else {
-        db_user.username = req.body.username;
-      }
-      if (email == "") {
-        email = db_user.email;
-      } else {
-        db_user.email = req.body.email;
-      }
-      db_user.save(function(err, majdata) {
-        if (err) {
-          res.send(err);
-        }
-        req.flash('success_msg', 'Modicication terminer');
-        res.redirect('/admin/admin-edit-profile' + id);
-      });
-    });
-});
-
-
 router.get('/admin', ensureAuthenticated, ensureAdmin, function(req, res) { //  redirection to administration
   res.render('admin', {
     layout: 'layout3'
@@ -146,6 +110,41 @@ router.get('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, funct
     });
 });
 
+router.post('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, function(req, res) {
+  var id = req.params.id;
+  var name = req.body.name;
+  var email = req.body.email;
+  var username = req.body.username;
+  User.findById({
+      _id: id
+    },
+    function(err, db_user) {
+      if (err) res.send(err);
+      if (name == "") {
+        name = db_user.name;
+      } else {
+        db_user.name = req.body.name;
+      }
+      if (username == "") {
+        username = db_user.username;
+      } else {
+        db_user.username = req.body.username;
+      }
+      if (email == "") {
+        email = db_user.email;
+      } else {
+        db_user.email = req.body.email;
+      }
+      db_user.save(function(err, majdata) {
+        if (err) {
+          res.send(err);
+        }
+        req.flash('success_msg', 'Modicication terminer');
+        res.redirect('/admin/admin-edit-profile' + id);
+      });
+    });
+});
+
 //change password of a user
 router.post('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, function(req, res) {
   var id = req.params.id;
@@ -178,6 +177,7 @@ router.post('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, func
     }
   );
 });
+
 
 //validate users
 router.post('/admin-validate-user/:id', ensureAuthenticated, function(req, res) {
