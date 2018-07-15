@@ -60,7 +60,6 @@
             var name = $('#nameTextArea').val();
             var exp = window.iphoneCaseEngraveApp.export();
             delete exp.input.file;
-			console.log(name);
             $.ajax({
                 type: 'post',
                 data: JSON.stringify({
@@ -70,9 +69,7 @@
                 contentType: 'application/json',
                 url: 'http://localhost:3000/exports/save',
                 success: function(data) {
-                    if(data.success){
                         console.log('success');
-                    }
                 }
             });
 
