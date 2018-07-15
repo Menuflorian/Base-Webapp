@@ -33,10 +33,10 @@
 					<tr>
 						<td><b>Role:</b></td>
 						<td><div class="form-group">
-								<select class="form-control form-control-sm">
-									<option>Admin</option>
-									<option>User</option>
-								</select>
+							<select  id="multiSelect1" class="form-control form-control-sm">
+								<option value="1">Admin</option>
+								<option value="2">User</option>
+							</select>
 							</div>
 						</td>
 					</tr>
@@ -125,3 +125,44 @@
 		</div>
 	</div>
 </div>
+
+<script>
+
+$('#multiSelect1').multiselect({
+
+    onChange: function() {
+        var selected = $('#multiSelect1 option:selected').val();
+        console.log(selected);
+        if (selected == 1) {
+            $.ajax({
+                type: "post",
+                url: 'http://localhost:3000/admin/admin-makeadmin-user/{{db_user.[0]._id}}',
+                contentType: "application/json",
+                success: function(data) {
+                    console.log('yatta');
+                },
+                error: function(data) {
+                    console.log(data);
+                }
+            })
+        }
+        if (selected == 2) {
+            $.ajax({
+                type: "post",
+                url: 'http://localhost:3000/admin/admin-removeadmin-user/{{db_user.[0]._id}}',
+                contentType: "application/json",
+                success: function(data) {
+                    console.log('yatta');
+                },
+                error: function(data) {
+                    console.log('erreur');
+                }
+            })
+        }
+    }
+});
+
+
+
+
+</script>
