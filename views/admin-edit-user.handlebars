@@ -1,3 +1,4 @@
+
 <div class="container col-lg-9 flex justify-content-end">
 	<div class="containerfluid">
 		<div class="card">
@@ -11,21 +12,6 @@
 					</form>
 				</div>
 			</div>
-<!--
-			<div class="containerfluid">
-				{{#if db_user.[0].isAdmin}}
-				<form method="post" action="/admin/admin-removeadmin-user/{{db_user.[0]._id}}">
-					<button class="btn btn-danger btn-lg ">Remove admin right</button>
-				</form>
-			</div>
-			<div class="containerfluid">
-				{{else}}
-				<form method="post" action="/admin/admin-makeadmin-user/{{db_user.[0]._id}}">
-					<button class="btn btn-danger btn-lg ">Make admin this user</button>
-				</form>
-				{{/if}}
-			</div>
--->
 
 		<div class="card-body">
 			<table class="table table-user-information">
@@ -34,8 +20,13 @@
 						<td><b>Role:</b></td>
 						<td><div class="form-group">
 							<select  id="multiSelect1" class="form-control form-control-sm">
-								<option value="1">Admin</option>
+								{{#if db_user.[0].isAdmin}}
+								<option selected value="1">Admin</option>
 								<option value="2">User</option>
+								{{else}}
+								<option value="1">Admin</option>
+								<option selected value="2">User</option>
+								{{/if}}
 							</select>
 							</div>
 						</td>
@@ -125,6 +116,7 @@
 		</div>
 	</div>
 </div>
+</div>
 
 <script>
 
@@ -145,6 +137,7 @@ $('#multiSelect1').multiselect({
                 }
             })
         }
+
         if (selected == 2) {
             $.ajax({
                 type: "post",
