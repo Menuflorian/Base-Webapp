@@ -213,7 +213,6 @@ router.post('/admin-validate-user/:id', ensureAuthenticated, function(req, res) 
 //Make a user an admin.
 router.post('/admin-makeadmin-user/:id', ensureAuthenticated, function(req, res) {
   var id = req.params.id;
-  console.log('titi');
   User.findById({
       _id: id
     },

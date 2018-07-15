@@ -132,17 +132,16 @@ $('#multiSelect1').multiselect({
 
     onChange: function() {
         var selected = $('#multiSelect1 option:selected').val();
-        console.log(selected);
         if (selected == 1) {
             $.ajax({
                 type: "post",
                 url: 'http://localhost:3000/admin/admin-makeadmin-user/{{db_user.[0]._id}}',
                 contentType: "application/json",
                 success: function(data) {
-                    console.log('yatta');
+                    alert("{{db_user.[0].name}} is now Admin")
                 },
                 error: function(data) {
-                    console.log(data);
+                    console.log('erreur');
                 }
             })
         }
@@ -152,7 +151,7 @@ $('#multiSelect1').multiselect({
                 url: 'http://localhost:3000/admin/admin-removeadmin-user/{{db_user.[0]._id}}',
                 contentType: "application/json",
                 success: function(data) {
-                    console.log('yatta');
+                    alert("{{db_user.[0].name}} is now User")
                 },
                 error: function(data) {
                     console.log('erreur');
