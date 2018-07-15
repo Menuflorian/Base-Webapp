@@ -173,7 +173,7 @@ router.post('/edit/:id', ensureAuthenticated, function(req, res) {
 });
 
 //save new project//
-router.post('/', ensureAuthenticated, function(req, res) {
+router.post('/save', ensureAuthenticated, function(req, res) {
   var db_export = new DualboxExports({
     name: req.body.name,
     corp: req.body.corp,
@@ -186,8 +186,9 @@ router.post('/', ensureAuthenticated, function(req, res) {
     if (err) {
       res.send(err);
     }
-    req.flash('success_msg', 'File saved successfuly');
-    res.redirect('/exports/dual');
+    req.send(JSON.stringify({success:true}));
+    //req.flash('success_msg', 'File saved successfuly');
+    //res.redirect('/exports/dual');
   });
 });
 

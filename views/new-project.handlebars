@@ -20,7 +20,7 @@
 						<div class="form-group">
 							<div class="form-group">
 								<label>Name</label>
-								<input type="text" class="form-control" name="name">
+								<input id="nameTextArea" type="text" class="form-control" name="name">
 							</div>
 							<label>Corp</label>
 							<textarea id="corpTextArea" type="text" class="form-control" name="corp"></textarea>
@@ -56,7 +56,28 @@
 		});
 
 		$('#saveProjectButton').on("click", function() {
-			$('#saveFormSubmit').trigger('click');
+            var modal = $('#saveProjectModal');
+            var name = $('#nameTextArea').val();
+            var exp = window.iphoneCaseEngraveApp.export();
+            delete exp.input.file;
+
+            $.ajax({
+                type: 'POST',
+                data: JSON.stringify({
+                    name:name,
+                    corp:exp
+                }),
+                contentType: 'application/json',
+                url: 'http://localhost:3000/exports/save',
+                success: function(data) {
+                    if(data.success){
+                        console.log('success');
+                    }
+                }
+            });
+
+
+            //$('#saveFormSubmit').trigger('click');
 		});
 	</script>
 
