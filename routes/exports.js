@@ -182,11 +182,15 @@ router.post('/save', ensureAuthenticated, function(req, res) {
     lastedit: Date(),
     creationdate: Date()
   });
+  console.log(db_export.name);
+  console.log(db_export.corp);
+
   db_export.save(function(err) {
     if (err) {
       res.send(err);
+      console.log(res);
     }
-    req.send(JSON.stringify({success:true}));
+    res.send(JSON.stringify({success:true}));
     //req.flash('success_msg', 'File saved successfuly');
     //res.redirect('/exports/dual');
   });

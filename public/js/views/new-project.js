@@ -35,5 +35,4 @@ var loadDualboxApp = function(name){
             window[appName+"App"] = app;
         });
     });
-}
-
+};

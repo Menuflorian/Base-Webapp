@@ -63,6 +63,14 @@ router.get('/user-change-password', ensureAuthenticated, function(req, res) {
   });
 });
 
+//Logout
+router.get('/logout', function(req, res) {
+  req.logout();
+  req.flash('success_msg', 'You are logged out');
+  res.redirect('/users/login');
+});
+
+
 //-------------------------post----------------------------
 
 // Register fonction
@@ -127,8 +135,8 @@ router.post('/register', function(req, res) {
 
 //Login validation
 passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.getUserByUsername(username, function(err, user) {
+  function(email, password, done) {
+    User.getUserByEmail(email, function(err, user) {
       if (err) throw err;
       if (!user) {
         return done(null, false, {
@@ -169,13 +177,6 @@ router.post('/login',
   function(req, res) {
     res.redirect('/');
   });
-
-//Logout
-router.get('/logout', function(req, res) {
-  req.logout();
-  req.flash('success_msg', 'You are logged out');
-  res.redirect('/users/login');
-});
 
 //Edit profile
 router.post('/user-edit-profile', function(req, res) {
