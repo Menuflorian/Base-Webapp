@@ -74,10 +74,7 @@
 					{{> slide}}
                 error: function(data) {
 					document.getElementById("divalert").innerHTML = "<div class='alert alert-danger' style='position:relative'>"+"Error"+"</div>";
-					setTimeout(function() {
-						 document.getElementById("divalert").innerHTML = "";
-					 },1000);
-                }
+					{{> slide}}
             });
 
 
