@@ -190,7 +190,7 @@ router.post('/save', ensureAuthenticated, function(req, res) {
       res.send(err);
       console.log(res);
     }
-    res.send(JSON.stringify({success:true}));
+    res.send({success:true});
     //req.flash('success_msg', 'File saved successfuly');
     //res.redirect('/exports/dual');
   });

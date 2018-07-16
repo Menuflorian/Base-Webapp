@@ -1,3 +1,4 @@
+
 <div class="container">
 
 	<h2 class="mt-4 mb-3">Untitled Project</h2>
@@ -30,7 +31,7 @@
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-					<button id="saveProjectButton" type="button" class="btn btn-primary">Save</button>
+					<button id="saveProjectButton" type="button" data-dismiss="modal" class="btn btn-primary">Save</button>
 				</div>
 			</div>
 		</div>
@@ -68,8 +69,14 @@
                 }),
                 contentType: 'application/json',
                 url: 'http://localhost:3000/exports/save',
-                success: function(data) {
-                        alert('success');
+                success:    function(data) {
+                    document.getElementById("divalert").innerHTML = "<div class='alert alert-success' style='position:relative'>"+"File saved successfuly"+"</div>";
+					{{> slide}}
+                error: function(data) {
+					document.getElementById("divalert").innerHTML = "<div class='alert alert-danger' style='position:relative'>"+"Error"+"</div>";
+					setTimeout(function() {
+						 document.getElementById("divalert").innerHTML = "";
+					 },1000);
                 }
             });
 

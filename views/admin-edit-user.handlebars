@@ -130,11 +130,11 @@ $('#multiSelect1').multiselect({
                 url: 'http://localhost:3000/admin/admin-makeadmin-user/{{db_user.[0]._id}}',
                 contentType: "application/json",
                 success: function(data) {
-                    alert("{{db_user.[0].name}} is now Admin")
-                },
+						document.getElementById("divalert").innerHTML= "<div class='alert alert-success'>"+"{{db_user.[0].name}} is now Admin"+"</div>";
+						{{> slide}}
                 error: function(data) {
-                    console.log('erreur');
-                }
+					document.getElementById("divalert").innerHTML = "<div class='alert alert-danger'>"+"Error"+"</div>";
+					{{> slide}}
             })
         }
 
@@ -144,11 +144,11 @@ $('#multiSelect1').multiselect({
                 url: 'http://localhost:3000/admin/admin-removeadmin-user/{{db_user.[0]._id}}',
                 contentType: "application/json",
                 success: function(data) {
-                    alert("{{db_user.[0].name}} is now User")
-                },
+						document.getElementById("divalert").innerHTML= "<div class='alert alert-success'>"+"{{db_user.[0].name}} is now User"+"</div>";
+						{{> slide}}
                 error: function(data) {
-                    console.log('erreur');
-                }
+					document.getElementById("divalert").innerHTML = "<div class='alert alert-danger'>"+"Error"+"</div>";
+					{{> slide}}
             })
         }
     }
