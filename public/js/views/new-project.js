@@ -36,3 +36,42 @@ var loadDualboxApp = function(name){
         });
     });
 };
+
+// Fill corp with app export when clicking on save
+$('#saveProjectModal').on('show.bs.modal', function(event) {
+    var exp = window.iphoneCaseEngraveApp.export();
+    delete exp.input.file; // remove the file for now since it's too heavy
+    $('#corpTextArea').text(JSON.stringify(exp));
+
+    // Could be a useful jquery example if we decide to remove ids
+    // var modal = $(this)
+    // modal.find('.modal-title').text('New message to ' + recipient)
+    // modal.find('.modal-body input').val(recipient)
+});
+
+$('#saveProjectButton').on("click", function() {
+    var modal = $('#saveProjectModal');
+    var name = $('#nameTextArea').val();
+    var exp = window.iphoneCaseEngraveApp.export();
+    delete exp.input.file;
+    $.ajax({
+        type: 'post',
+        data: JSON.stringify({
+            name:name,
+            corp:JSON.stringify(exp)
+        }),
+        contentType: 'application/json',
+        url: URLUtils.getAbsoluteURL("/exports/save"),
+        success:    function(data) {
+            document.getElementById("divalert").innerHTML = "<div class='alert alert-success' style='position:relative'>"+"File saved successfuly"+"</div>";
+            {{> slide}}
+        },
+        error: function(data) {
+            document.getElementById("divalert").innerHTML = "<div class='alert alert-danger' style='position:relative'>"+"Error"+"</div>";
+            {{> slide}}
+        },
+    });
+
+});
+
+loadDualboxApp("iphone-case-engrave");
