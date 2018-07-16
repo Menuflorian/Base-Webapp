@@ -182,9 +182,6 @@ router.post('/save', ensureAuthenticated, function(req, res) {
     lastedit: Date(),
     creationdate: Date()
   });
-  console.log(db_export.name);
-  console.log(db_export.corp);
-
   db_export.save(function(err) {
     if (err) {
       res.send(err);

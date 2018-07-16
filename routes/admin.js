@@ -151,8 +151,9 @@ router.post('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, functio
         if (err) {
           res.send(err);
         }
-        req.flash('success_msg', 'Modicication terminer');
-        res.redirect('/admin/admin-edit-profile/'+id);
+      res.send({success:true});
+        //req.flash('success_msg', 'Modicication terminer');
+        //res.redirect('/admin/admin-edit-profile/'+id);
       });
     });
 });
