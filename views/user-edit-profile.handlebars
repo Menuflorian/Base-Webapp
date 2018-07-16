@@ -35,15 +35,12 @@ $('#submitButton').on("click", function() {
 			email:email
         }),
         contentType: 'application/json',
-        url: 'http://localhost:3000/admin/admin-edit-profile/{{db_user.[0].id}}',
-        error:    function(data) {
-			console.log(name);
-            document.getElementById("divalert").innerHTML = "<div class='alert alert-success'>"+"Change successfuly"+"</div>";
-            {{> slide}}
+        url: 'http://localhost:3000/users/user-edit-profile/',
+        success:    function(data) {
+            {{> alert-success}}
         },
-        success: function(data) {
-            document.getElementById("divalert").innerHTML = "<div class='alert alert-danger'>"+"Error"+"</div>";
-            {{> slide}}
+        error: function(data) {
+            {{> alert-error}}
         },
     });
 

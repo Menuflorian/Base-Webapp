@@ -181,8 +181,9 @@ router.post('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, func
           if (err) {
             res.send(err);
           }
-          req.flash('success_msg', "Password has been changed");
-          res.redirect('/admin/admin-edit-use/'+id);
+          res.send({success:true});
+          //req.flash('success_msg', "Password has been changed");
+          //res.redirect('/admin/admin-edit-use/'+id);
         });
       }
     }
@@ -205,8 +206,9 @@ router.post('/admin-validate-user/:id', ensureAuthenticated, function(req, res) 
         if (err) {
           res.send(err);
         }
-        req.flash('success_msg', 'User is now validated');
-        res.redirect('/admin/admin-userlist');
+        res.send({success:true});
+        //req.flash('success_msg', 'User is now validated');
+        //res.redirect('/admin/admin-userlist');
       });
     });
 });
@@ -226,8 +228,9 @@ router.post('/admin-makeadmin-user/:id', ensureAuthenticated, function(req, res)
         if (err) {
           res.send(err);
         }
-        req.flash('success_msg', db_user.name + ' is now an admin');
-        res.redirect('/admin/admin-userlist');
+        res.send({success:true});
+        //req.flash('success_msg', db_user.name + ' is now an admin');
+        //res.redirect('/admin/admin-userlist');
       });
     });
 });
@@ -247,8 +250,9 @@ router.post('/admin-removeadmin-user/:id', ensureAuthenticated, function(req, re
         if (err) {
           res.send(err);
         }
-        req.flash('success_msg', db_user.name + ' is not longer an admin');
-        res.redirect('/admin/admin-userlist');
+        res.send({success:true});
+        //req.flash('success_msg', db_user.name + ' is not longer an admin');
+        //res.redirect('/admin/admin-userlist');
       });
     });
 });

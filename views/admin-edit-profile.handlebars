@@ -20,7 +20,6 @@
 </div>
 
 <script>
-
 $('#submitButton').on("click", function() {
     var name = $('#nameTextArea').val();
     var username = $('#usernameTextArea').val();
@@ -35,15 +34,11 @@ $('#submitButton').on("click", function() {
         contentType: 'application/json',
         url: URLUtils.getAbsoluteURL("/admin/admin-edit-profile/{{db_user.[0].id}}"),
         success:    function(data) {
-			console.log(name);
-            document.getElementById("divalert").innerHTML = "<div class='alert alert-success'>"+"Change successfuly"+"</div>";
-            {{> slide}}
+            {{> alert-success}}
         },
         error: function(data) {
-            document.getElementById("divalert").innerHTML = "<div class='alert alert-danger'>"+"Error"+"</div>";
-            {{> slide}}
+            {{> alert-error}}
         },
     });
-
 });
 </script>

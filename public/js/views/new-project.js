@@ -63,12 +63,22 @@ $('#saveProjectButton').on("click", function() {
         contentType: 'application/json',
         url: URLUtils.getAbsoluteURL("/exports/save"),
         success:    function(data) {
-            document.getElementById("divalert").innerHTML = "<div class='alert alert-success' style='position:relative'>"+"File saved successfuly"+"</div>";
-            {{> slide}}
+            swal({
+              position: 'center',
+              type: 'success',
+              title: 'Your work has been saved',
+              showConfirmButton: false,
+              timer: 1500
+          });
         },
         error: function(data) {
-            document.getElementById("divalert").innerHTML = "<div class='alert alert-danger' style='position:relative'>"+"Error"+"</div>";
-            {{> slide}}
+            swal({
+              position: 'center',
+              type: 'error',
+              title: 'Error',
+              showConfirmButton: false,
+              timer: 1500
+          });
         },
     });
 

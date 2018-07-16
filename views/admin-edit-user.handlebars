@@ -119,9 +119,7 @@
 </div>
 
 <script>
-
 $('#multiSelect1').multiselect({
-
     onChange: function() {
         var selected = $('#multiSelect1 option:selected').val();
         if (selected == 1) {
@@ -129,34 +127,27 @@ $('#multiSelect1').multiselect({
                 type: "post",
                 url: 'http://localhost:3000/admin/admin-makeadmin-user/{{db_user.[0]._id}}',
                 contentType: "application/json",
-                success: function(data) {
-						document.getElementById("divalert").innerHTML= "<div class='alert alert-success'>"+"{{db_user.[0].name}} is now Admin"+"</div>";
-						{{> slide}}
-                error: function(data) {
-					document.getElementById("divalert").innerHTML = "<div class='alert alert-danger'>"+"Error"+"</div>";
-					{{> slide}}
+				success:    function(data) {
+		            {{> alert-success}}
+		        },
+		        error: function(data) {
+		            {{> alert-error}}
+		        },
             })
         }
-
         if (selected == 2) {
             $.ajax({
                 type: "post",
                 url: 'http://localhost:3000/admin/admin-removeadmin-user/{{db_user.[0]._id}}',
                 contentType: "application/json",
-                success: function(data) {
-					document.getElementById("divalert").innerHTML= "<div class='alert alert-success'>"+"{{db_user.[0].name}} is now User"+"</div>";
-                    {{> slide}}
-                },
-                error: function(data) {
-					document.getElementById("divalert").innerHTML = "<div class='alert alert-danger'>"+"Error"+"</div>";
-                    {{> slide}}
-                },
+				success:    function(data) {
+		            {{> alert-success}}
+		        },
+		        error: function(data) {
+		            {{> alert-error}}
+		        },
             })
         }
     }
 });
-
-
-
-
 </script>

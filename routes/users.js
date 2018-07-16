@@ -209,8 +209,9 @@ router.post('/user-edit-profile', function(req, res) {
         if (err) {
           res.send(err);
         }
-        req.flash('success_msg', 'Modicication terminer');
-        res.redirect('/users/user-profile');
+        res.send({success:true});
+        //req.flash('success_msg', 'Modicication terminer');
+        //res.redirect('/users/user-profile');
       });
     });
 });
@@ -235,20 +236,21 @@ router.post('/change-password', ensureAuthenticated, function(req, res) {
         });
       } else {
         if (password != password2) {
-          req.flash('error_msg', "New password don't match with cofirm password");
-          res.render('change-password', {
-            layout: 'layout2'
-          });
+          //req.flash('error_msg', "New password don't match with cofirm password");
+          //res.render('change-password', {
+          //  layout: 'layout2'
+          //});
         } else {
           db_user.password = bcrypt.hashSync(password, 10);
           db_user.save(function(err) {
             if (err) {
               res.send(err);
             }
-            req.flash('success_msg', "Password has been changed");
-            res.render('profile', {
-              layout: 'layout2'
-            });
+            res.send({success:true});
+            //req.flash('success_msg', "Password has been changed");
+            //res.render('profile', {
+            //  layout: 'layout2'
+            //});
           });
         }
       }
