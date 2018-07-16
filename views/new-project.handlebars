@@ -68,7 +68,7 @@
                     corp:JSON.stringify(exp)
                 }),
                 contentType: 'application/json',
-                url: 'http://localhost:3000/exports/save',
+                url: URLUtils.getAbsoluteURL("/exports/save"),
                 success:    function(data) {
                     document.getElementById("divalert").innerHTML = "<div class='alert alert-success' style='position:relative'>"+"File saved successfuly"+"</div>";
                     {{> slide}}
