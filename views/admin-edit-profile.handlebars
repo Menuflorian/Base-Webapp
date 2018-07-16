@@ -37,10 +37,12 @@ $('#submitButton').on("click", function() {
         success:    function(data) {
 			console.log(name);
             document.getElementById("divalert").innerHTML = "<div class='alert alert-success'>"+"Change successfuly"+"</div>";
-			{{> slide}}
+            {{> slide}}
+        },
         error: function(data) {
             document.getElementById("divalert").innerHTML = "<div class='alert alert-danger'>"+"Error"+"</div>";
-			{{> slide}}
+            {{> slide}}
+        },
     });
 
 });

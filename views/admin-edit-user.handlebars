@@ -144,11 +144,13 @@ $('#multiSelect1').multiselect({
                 url: 'http://localhost:3000/admin/admin-removeadmin-user/{{db_user.[0]._id}}',
                 contentType: "application/json",
                 success: function(data) {
-						document.getElementById("divalert").innerHTML= "<div class='alert alert-success'>"+"{{db_user.[0].name}} is now User"+"</div>";
-						{{> slide}}
+					document.getElementById("divalert").innerHTML= "<div class='alert alert-success'>"+"{{db_user.[0].name}} is now User"+"</div>";
+                    {{> slide}}
+                },
                 error: function(data) {
 					document.getElementById("divalert").innerHTML = "<div class='alert alert-danger'>"+"Error"+"</div>";
-					{{> slide}}
+                    {{> slide}}
+                },
             })
         }
     }

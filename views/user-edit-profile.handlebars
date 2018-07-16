@@ -2,23 +2,50 @@
     <div class="card">
     	<h4 class="card-header">Edit profile</h4>
     	<div class="card-body">
-    		<form method="post" action="/users/user-edit-profile">
-    			<fieldset>
-    				<div class="form-group">
-    					<label>Name</label>
-    					<input type="text" class="form-control" placeholder="{{user.name}}" name="name">
-    				</div>
-    				<div class="form-group">
-    					<label>Username</label>
-    					<input type="text" class="form-control" placeholder="{{user.username}}" name="username">
-    				</div>
-    				<div class="form-group">
-    					<label>Email</label>
-    					<input type="email" class="form-control" placeholder="{{user.email}}" name="email">
-    				</div>
-    				<input class="btn btn-primary btn-lg  btn-block" type="submit">
-    			</fieldset>
-    		</form>
-    	</div>
+            <div class="card-body">
+    			<div class="form-group">
+    				<label>Name</label>
+    				<input id="nameTextArea" type="text" class="form-control" placeholder="{{user.name}}" name="name">
+    			</div>
+    			<div class="form-group">
+    				<label>Username</label>
+    				<input id="usernameTextArea" type="text" class="form-control" placeholder="{{user.username}}" name="username">
+    			</div>
+    			<div class="form-group">
+    				<label>Email</label>
+    				<input id="emailTextArea" type="email" class="form-control" placeholder="{{user.email}}" name="email">
+    			</div>
+    			<button id="submitButton" class="btn btn-primary btn-lg " >Send</button>
+    		</div>
+        </div>
     </div>
 </div>
+
+<script>
+
+$('#submitButton').on("click", function() {
+    var name = $('#nameTextArea').val();
+    var username = $('#usernameTextArea').val();
+    var email = $('#emailTextArea').val();
+    $.ajax({
+        type: 'post',
+        data: JSON.stringify({
+            name:name,
+            username:username,
+			email:email
+        }),
+        contentType: 'application/json',
+        url: 'http://localhost:3000/admin/admin-edit-profile/{{db_user.[0].id}}',
+        error:    function(data) {
+			console.log(name);
+            document.getElementById("divalert").innerHTML = "<div class='alert alert-success'>"+"Change successfuly"+"</div>";
+            {{> slide}}
+        },
+        success: function(data) {
+            document.getElementById("divalert").innerHTML = "<div class='alert alert-danger'>"+"Error"+"</div>";
+            {{> slide}}
+        },
+    });
+
+});
+</script>
