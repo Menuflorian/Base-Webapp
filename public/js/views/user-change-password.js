@@ -3,6 +3,11 @@ $('#ChangePasswordButton').on("click", function() {
     var password = $('#PasswordTextArea').val();
     var password2 = $('#Password2TextArea').val();
     var id = $('#idArea').val();
+    var swalWithBootstrapButtons = swal.mixin({
+        confirmButtonClass: 'btn btn-danger',
+        cancelButtonClass: 'btn btn-primary',
+        buttonsStyling: false,
+    });
     $.ajax({
         type: 'post',
         data: JSON.stringify({
@@ -26,31 +31,40 @@ $('#ChangePasswordButton').on("click", function() {
         statusCode: {
 
             400: function(data) {
-                swal({
+                swalWithBootstrapButtons({
                     position: 'center',
                     type: 'error',
-                    title: "Error, Current password didn't match",
+                    title: "Error, Incorrect password",
                     showConfirmButton: false,
                     timer: 1500
-                });
-            },
-            500: function(data) {
-                swal({
-                    position: 'center',
-                    type: 'error',
-                    title: "Error, Changement failed",
-                    showConfirmButton: false,
-                    timer: 1500
-                });
+                }).catch(swal.noop);
             },
             401: function(data) {
-                swal({
+                swalWithBootstrapButtons({
                     position: 'center',
                     type: 'error',
-                    title: "Error, New and confirmed password didn't match",
+                    title: "Error, User unknown",
                     showConfirmButton: false,
                     timer: 1500
-                });
+                }).catch(swal.noop);
+            },
+            402: function(data) {
+                swalWithBootstrapButtons({
+                    position: 'center',
+                    type: 'error',
+                    title: "Error, New password don't match with cofirm password",
+                    showConfirmButton: false,
+                    timer: 1500
+                }).catch(swal.noop);
+            },
+            500: function(data) {
+                swalWithBootstrapButtons({
+                    position: 'center',
+                    type: 'error',
+                    title: "Error, Internal error",
+                    showConfirmButton: false,
+                    timer: 1500
+                }).catch(swal.noop);
             }
         }
     });

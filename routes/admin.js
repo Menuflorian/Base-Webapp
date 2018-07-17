@@ -149,7 +149,7 @@ router.post('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, functio
       }
       db_user.save(function(err, majdata) {
         if (err) {
-          res.sendStatus(404);
+          res.sendStatus(500);
         }
       res.sendStatus(200);
         //req.flash('success_msg', 'Modicication terminer');
@@ -168,23 +168,22 @@ router.post('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, func
     },
     function(err, db_user) {
       if (err) {
-        res.sendStatus(200);
+        res.sendStatus(500);
       }
-      if (password != password2) {
-        res.sendStatus(404);
-        //req.flash('error_msg', "New password don't match with cofirm password");
-        //res.render('admin-change-password', {
-        //  layout: 'layout3'
-        //});
-      } else {
+      else if (password == "" || password2 == "" ) {
+        res.sendStatus(400);
+      }
+      else if (password != password2 ) {
+        res.sendStatus(402);
+      }
+
+      else {
         db_user.password = bcrypt.hashSync(password, 10);
         db_user.save(function(err) {
           if (err) {
-            res.sendStatus(404);
+            res.sendStatus(500);
           }
           res.sendStatus(200);
-          //req.flash('success_msg', "Password has been changed");
-          //res.redirect('/admin/admin-edit-use/'+id);
         });
       }
     }
@@ -205,7 +204,7 @@ router.post('/admin-validate-user/:id', ensureAuthenticated, function(req, res) 
       db_user.validated = true;
       db_user.save(function(err) {
         if (err) {
-          res.sendStatus(404);
+          res.sendStatus(500);
         }
         res.sendStatus(200);
         //req.flash('success_msg', 'User is now validated');
@@ -227,7 +226,7 @@ router.post('/admin-makeadmin-user/:id', ensureAuthenticated, function(req, res)
       db_user.isAdmin = true;
       db_user.save(function(err) {
         if (err) {
-          res.sendStatus(404);
+          res.sendStatus(500);
         }
         res.sendStatus(200);
         //req.flash('success_msg', db_user.name + ' is now an admin');
@@ -249,7 +248,7 @@ router.post('/admin-removeadmin-user/:id', ensureAuthenticated, function(req, re
       db_user.isAdmin = false;
       db_user.save(function(err) {
         if (err) {
-          res.sendStatus(404);
+          res.sendStatus(500);
         }
         res.sendStatus(200);
         //req.flash('success_msg', db_user.name + ' is not longer an admin');
@@ -266,7 +265,7 @@ router.post('/admin-delete-user/:id', ensureAuthenticated, ensureAdmin, function
     },
     function(err) {
       if (err) {
-        res.sendStatus(404);
+        res.sendStatus(500);
       }
       res.sendStatus(200);
       //req.flash('success_msg', 'User has been deleted');

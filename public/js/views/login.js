@@ -56,11 +56,29 @@ $('#SubmitButton').on("click", function() {
                         timer: 1500
                     });
                 },
-                500: function(data) {
+                401: function(data) {
                     swalWithBootstrapButtons({
                         position: 'center',
                         type: 'error',
                         title: "Error, User unknown",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                },
+                402: function(data) {
+                    swalWithBootstrapButtons({
+                        position: 'center',
+                        type: 'error',
+                        title: "Error, New password don't match with cofirm password",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                },
+                500: function(data) {
+                    swalWithBootstrapButtons({
+                        position: 'center',
+                        type: 'error',
+                        title: "Error, Internal error",
                         showConfirmButton: false,
                         timer: 1500
                     });

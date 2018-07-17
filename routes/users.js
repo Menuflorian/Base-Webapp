@@ -79,6 +79,8 @@ router.post('/register', function(req, res) {
   var username = req.body.username;
   var password = req.body.password;
   var password2 = req.body.password2;
+  console.log(password);
+  console.log(username);
 
   // Validation
   req.checkBody('name', 'Name is required').notEmpty();
@@ -89,12 +91,14 @@ router.post('/register', function(req, res) {
   req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
   var errors = req.validationErrors();
-
+console.log(errors);
   if (errors) {
-    res.render('register', {
-      errors: errors
-    });
-  } else {
+    res.sendStatus(404);
+  }
+  else if(name ==""){
+
+  }
+  else {
     //checking for email and username are already taken
     User.findOne({
       username: {
@@ -109,10 +113,7 @@ router.post('/register', function(req, res) {
         }
       }, function(err, mail) {
         if (user || mail) {
-          res.render('register', {
-            user: user,
-            mail: mail
-          });
+          res.sendStatus(405);
         } else {
           var newUser = new User({
             name: name,
@@ -122,9 +123,11 @@ router.post('/register', function(req, res) {
             registerdate: Date(),
           });
           User.createUser(newUser, function(err, user) {
-            if (err) throw err;
+            if (err) {
+              res.sendStatus(500);
+            }
           });
-          res.redirect('/users/login');
+          res.sendStatus(200);
         }
       });
     });
@@ -138,7 +141,7 @@ passport.use(new LocalStrategy(
       if (err) throw err;
       if (!user) {
         return done(null, false, {
-          errorcode: 500
+          errorcode: 401
         });
       }
 
@@ -182,7 +185,7 @@ router.post('/login', function(req, res, next) {
     req.logIn(user,
       function(err) {
       if (err) {
-        return res.sendStatus(401);
+        return res.sendStatus(500);
       }
       return res.sendStatus(200);
     });
@@ -218,7 +221,7 @@ router.post('/user-edit-profile/:id', function(req, res) {
       }
       db_user.save(function(err, majdata) {
         if (err) {
-          res.sendStatus(404);
+          res.sendStatus(500);
         }
         res.sendStatus(200);
         //req.flash('success_msg', 'Modicication terminer');
@@ -240,18 +243,14 @@ router.post('/user-change-password', ensureAuthenticated, function(req, res) {
       if (err) {
         res.sendStatus(500);
       }
-      if (bcrypt.compareSync(userpassword, req.user.password) == false) {
+      else if (password == "" || password2 == "") {
         res.sendStatus(400);
-        //res.render('change-password', {
-        //  layout: 'layout2'
-        //});
+      }
+      else if (bcrypt.compareSync(userpassword, req.user.password) == false) {
+        res.sendStatus(400);
       } else {
         if (password != password2) {
-          res.sendStatus(401);
-          //req.flash('error_msg', "New password don't match with cofirm password");
-          //res.render('change-password', {
-          //  layout: 'layout2'
-          //});
+          res.sendStatus(402);
         } else {
           db_user.password = bcrypt.hashSync(password, 10);
           db_user.save(function(err) {
@@ -259,10 +258,6 @@ router.post('/user-change-password', ensureAuthenticated, function(req, res) {
               res.sendStatus(500);
             }
             res.sendStatus(200);
-            //req.flash('success_msg', "Password has been changed");
-            //res.render('profile', {
-            //  layout: 'layout2'
-            //});
           });
         }
       }

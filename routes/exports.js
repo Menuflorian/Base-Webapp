@@ -35,7 +35,7 @@ function dbfindAndUpdate(id, params) {
     },
     function(err, db_export) {
       if (err) {
-        res.sendStatus(404);
+        res.sendStatus(500);
       }
       if (params.deleted !== undefined) {
         db_export.deleted = params.deleted;
@@ -48,7 +48,7 @@ function dbfindAndUpdate(id, params) {
       }
       db_export.save(function(err, majdata) {
         if (err) {
-          res.sendStatus(404);
+          res.sendStatus(500);
         }
       });
     }
@@ -128,7 +128,7 @@ router.post('/admindelete/:id', ensureAdmin, function(req, res) {
     },
     function(err) {
       if (err) {
-        res.sendStatus(404);
+        res.sendStatus(500);
       }
       res.sendStatus(200);
       //req.flash('success_msg', 'Final delete finish');
@@ -188,7 +188,7 @@ router.post('/save', ensureAuthenticated, function(req, res) {
   });
   db_export.save(function(err) {
     if (err) {
-      res.sendStatus(404);
+      res.sendStatus(500);
     }
     res.sendStatus(200);
     //req.flash('success_msg', 'File saved successfuly');
