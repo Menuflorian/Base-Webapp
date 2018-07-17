@@ -6,30 +6,31 @@ $('#submitButton').on("click", function() {
     $.ajax({
         type: 'post',
         data: JSON.stringify({
-            name:name,
-            username:username,
-			email:email,
-            id:id
+            name: name,
+            username: username,
+            email: email,
+            id: id
         }),
         contentType: 'application/json',
         url: URLUtils.getAbsoluteURL('/admin/admin-edit-profile'),
-        success:    function(data) {
+        success: function(data) {
             swal({
-              position: 'center',
-              type: 'success',
-              title: 'Profile has been changed',
-              showConfirmButton: false,
-              timer: 1500
-          });
+                position: 'center',
+                type: 'success',
+                title: 'Profile has been changed',
+                showConfirmButton: false,
+                timer: 1500
+            });
+
         },
         error: function(data) {
             swal({
-              position: 'center',
-              type: 'error',
-              title: 'Error',
-              showConfirmButton: false,
-              timer: 1500
-          });
+                position: 'center',
+                type: 'error',
+                title: 'Error',
+                showConfirmButton: false,
+                timer: 1500
+            });
         },
     });
 });

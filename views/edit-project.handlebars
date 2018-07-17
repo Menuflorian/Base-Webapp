@@ -47,14 +47,12 @@
 
 			{{#if admin}}
 			<label for="name">Admin option</label>
-				<form method="post" action="/exports/admindelete/{{dbData._id}}">
 					<div class="form-group">
 						<div class="container">
-							<input type="hidden" class="form-control">
-							<button type="submit" class="btn btn-danger">Final delete</button>
+							<input id="IdFinalDeleteArea" type="hidden" value="{{dbData._id}}" name="id"></input>
+							<button id="btn-finaldelet" type="submit" class="btn btn-danger">Final delete</button>
 						</div>
 					</div>
-				</form>
 				<div class="form-group">
 					<div class="container">
 						<input id="IdRestoreArea" type="hidden" value="{{dbData._id}}" name="id"></input>

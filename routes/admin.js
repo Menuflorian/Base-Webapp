@@ -259,23 +259,18 @@ router.post('/admin-removeadmin-user', ensureAuthenticated, function(req, res) {
 });
 
 // Delete a user.
-router.post('/admin-delete-user/:id', ensureAuthenticated, ensureAdmin, function(req, res) {
-  var id = req.params.id;
+router.post('/admin-delete-user', ensureAuthenticated, ensureAdmin, function(req, res) {
+  var id = req.body.id;
   User.remove({
       _id: id
     },
     function(err) {
       if (err) {
-        res.sendStatus(err);
+        res.sendStatus(404);
       }
-      swal({
-              position: 'center',
-              type: 'success',
-              title: 'Your work has been saved',
-              showConfirmButton: false,
-              timer: 1500
-          });
-      res.redirect('/admin/admin');
+      res.sendStatus(200);
+      //req.flash('success_msg', 'User has been deleted');
+      //res.redirect('/admin/admin');
     });
 });
 

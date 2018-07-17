@@ -140,7 +140,7 @@ passport.use(new LocalStrategy(
       if (err) throw err;
       if (!user) {
         return done(null, false, {
-          message: 'Unknown User'
+          errorcode: 500
         });
       }
 
@@ -150,12 +150,15 @@ passport.use(new LocalStrategy(
           return done(null, user);
         } else {
           return done(null, false, {
-            message: 'Invalid password'
+            errorcode: 400
           });
         }
       });
     });
   }));
+
+
+
 
 passport.serializeUser(function(user, done) {
   done(null, user.id);
@@ -168,15 +171,25 @@ passport.deserializeUser(function(id, done) {
 });
 
 //Check if login is ok
-router.post('/login',
-  passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/users/login',
-    failureFlash: true
-  }),
-  function(req, res) {
-    res.redirect('/');
-  });
+router.post('/login', function(req, res, next) {
+  var username = req.body.username;
+  var password = req.body.password;
+  passport.authenticate('local', function(err, user, info) {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.sendStatus(info.errorcode);
+    }
+    req.logIn(user,
+      function(err) {
+      if (err) {
+        return res.sendStatus(401);
+      }
+      return res.sendStatus(200);
+    });
+  })(req, res, next);
+});
 
 //Edit profile
 router.post('/user-edit-profile', function(req, res) {
@@ -217,8 +230,8 @@ router.post('/user-edit-profile', function(req, res) {
 });
 
 //Change password
-router.post('/change-password', ensureAuthenticated, function(req, res) {
-  var id = req.user.id;
+router.post('/user-change-password', ensureAuthenticated, function(req, res) {
+  var id = req.body.id;
   var userpassword = req.body.userpassword;
   var password = req.body.password;
   var password2 = req.body.password2;
@@ -227,15 +240,16 @@ router.post('/change-password', ensureAuthenticated, function(req, res) {
     },
     function(err, db_user) {
       if (err) {
-        res.send(err);
+        res.sendStatus(500);
       }
       if (bcrypt.compareSync(userpassword, req.user.password) == false) {
-        req.flash('error_msg', 'The actual password is wrong');
-        res.render('change-password', {
-          layout: 'layout2'
-        });
+        res.sendStatus(400);
+        //res.render('change-password', {
+        //  layout: 'layout2'
+        //});
       } else {
         if (password != password2) {
+          res.sendStatus(401);
           //req.flash('error_msg', "New password don't match with cofirm password");
           //res.render('change-password', {
           //  layout: 'layout2'
@@ -244,9 +258,9 @@ router.post('/change-password', ensureAuthenticated, function(req, res) {
           db_user.password = bcrypt.hashSync(password, 10);
           db_user.save(function(err) {
             if (err) {
-              res.send(err);
+              res.sendStatus(500);
             }
-            res.send({success:true});
+            res.sendStatus(200);
             //req.flash('success_msg', "Password has been changed");
             //res.render('profile', {
             //  layout: 'layout2'

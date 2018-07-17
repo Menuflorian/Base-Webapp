@@ -1,14 +1,14 @@
-
-var loadDualboxApp = function(name){
+var loadDualboxApp = function(name) {
     (function(callback) {
         var s = document.createElement("script");
         s.setAttribute("src", "https://dualbox.com/loadapp.js");
-        s.onload=callback; document.body.appendChild(s);
+        s.onload = callback;
+        document.body.appendChild(s);
     })(function() {
         /* Dualbox loader code (will load the application nicely) */
         var div = $('#application');
         DualBox.load({
-            "app"  : name,
+            "app": name,
             "phase": "production",
             "loaderDiv": div,
         }, function() {
@@ -16,7 +16,7 @@ var loadDualboxApp = function(name){
             var app = DualBox.start({
                 "logLevel": "warn",
                 "profiler": false,
-                "div" : div
+                "div": div
             });
             app.start();
 
@@ -24,15 +24,15 @@ var loadDualboxApp = function(name){
             // ex : my-super-customizer --> mySuperCustomizerApp
             var appName = name;
             var i = appName.search("-");
-            while(i !== -1 && i !== appName.length-1){
-                appName = appName.replace(appName[i]+appName[i+1], appName[i+1].toUpperCase());
+            while (i !== -1 && i !== appName.length - 1) {
+                appName = appName.replace(appName[i] + appName[i + 1], appName[i + 1].toUpperCase());
                 i = appName.search("-");
             }
-            if(i === appName.length-1){
-                appName = appName.replace(i,"");
+            if (i === appName.length - 1) {
+                appName = appName.replace(i, "");
             }
 
-            window[appName+"App"] = app;
+            window[appName + "App"] = app;
         });
     });
 };
@@ -57,28 +57,28 @@ $('#saveProjectButton').on("click", function() {
     $.ajax({
         type: 'post',
         data: JSON.stringify({
-            name:name,
-            corp:JSON.stringify(exp)
+            name: name,
+            corp: JSON.stringify(exp)
         }),
         contentType: 'application/json',
         url: URLUtils.getAbsoluteURL("/exports/save"),
-        success:    function(data) {
+        success: function(data) {
             swal({
-              position: 'center',
-              type: 'success',
-              title: 'Your work has been saved',
-              showConfirmButton: false,
-              timer: 1500
-          });
+                position: 'center',
+                type: 'success',
+                title: 'Your work has been saved',
+                showConfirmButton: false,
+                timer: 1500
+            });
         },
         error: function(data) {
             swal({
-              position: 'center',
-              type: 'error',
-              title: 'Error',
-              showConfirmButton: false,
-              timer: 1500
-          });
+                position: 'center',
+                type: 'error',
+                title: 'Error',
+                showConfirmButton: false,
+                timer: 1500
+            });
         },
     });
 

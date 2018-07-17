@@ -19,7 +19,7 @@ var UserSchema = mongoose.Schema({
   },
   isAdmin: {
     type: Boolean,
-    default: true
+    default: false
   },
   registerdate: {
     type: Date,

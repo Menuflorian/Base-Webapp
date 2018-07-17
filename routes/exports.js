@@ -35,7 +35,7 @@ function dbfindAndUpdate(id, params) {
     },
     function(err, db_export) {
       if (err) {
-        res.send(err);
+        res.sendStatus(404);
       }
       if (params.deleted !== undefined) {
         db_export.deleted = params.deleted;
@@ -48,7 +48,7 @@ function dbfindAndUpdate(id, params) {
       }
       db_export.save(function(err, majdata) {
         if (err) {
-          res.send(err);
+          res.sendStatus(404);
         }
       });
     }
@@ -128,10 +128,11 @@ router.post('/admindelete/:id', ensureAdmin, function(req, res) {
     },
     function(err) {
       if (err) {
-        res.send(err);
+        res.sendStatus(404);
       }
-      req.flash('success_msg', 'Final delete finish');
-      res.redirect('/exports/projects3');
+      res.sendStatus(200);
+      //req.flash('success_msg', 'Final delete finish');
+      //res.redirect('/exports/projects3');
     });
 });
 
@@ -143,8 +144,9 @@ router.post('/restore/:id', ensureAuthenticated, function(req, res) {
       deleted: false
     }
   );
-  req.flash('success_msg', 'Project restored successfully.');
-  res.redirect('/exports/projects3');
+  res.sendStatus(200);
+  //req.flash('success_msg', 'Project restored successfully.');
+  //res.redirect('/exports/projects3');
 });
 
 //user delet
@@ -155,8 +157,9 @@ router.post('/userdelete/:id', ensureAuthenticated, function(req, res) {
       deleted: true
     }
   );
-  req.flash('success_msg', 'Project deleted.');
-  res.redirect('/exports/projects3');
+  res.sendStatus(200);
+  //req.flash('success_msg', 'Project deleted.');
+  //res.redirect('/exports/projects3');
 });
 
 //Delet from user and admin
@@ -168,8 +171,9 @@ router.post('/edit/:id', ensureAuthenticated, function(req, res) {
       lastedit: Date()
     }
   );
-  req.flash('success_msg', 'Edit finish');
-  res.redirect('/exports/' + id);
+  res.sendStatus(200);
+  //req.flash('success_msg', 'Edit finish');
+  //res.redirect('/exports/' + id);
 });
 
 //save new project//
@@ -184,10 +188,9 @@ router.post('/save', ensureAuthenticated, function(req, res) {
   });
   db_export.save(function(err) {
     if (err) {
-      res.send(err);
-      console.log(res);
+      res.sendStatus(404);
     }
-    res.send({success:true});
+    res.sendStatus(200);
     //req.flash('success_msg', 'File saved successfuly');
     //res.redirect('/exports/dual');
   });
