@@ -122,8 +122,8 @@ router.get('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, funct
 //-------------------------post----------------------------
 
 //Change the users information in Db.
-router.post('/admin-edit-profile', ensureAuthenticated, ensureAdmin, function(req, res) {
-  var id = req.body.id;
+router.post('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, function(req, res) {
+  var id = req.params.id;
   var name = req.body.name;
   var email = req.body.email;
   var username = req.body.username;
@@ -159,8 +159,8 @@ router.post('/admin-edit-profile', ensureAuthenticated, ensureAdmin, function(re
 });
 
 //Change password userpassword in Db.
-router.post('/admin-change-password/', ensureAuthenticated, ensureAdmin, function(req, res) {
-  var id = req.body.id;
+router.post('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, function(req, res) {
+  var id = req.params.id;
   var password = req.body.password;
   var password2 = req.body.password2;
   User.findById({
@@ -215,8 +215,8 @@ router.post('/admin-validate-user/:id', ensureAuthenticated, function(req, res) 
 });
 
 //Make a user an admin.
-router.post('/admin-makeadmin-user', ensureAuthenticated, function(req, res) {
-  var id = req.body.id;
+router.post('/admin-makeadmin-user/:id', ensureAuthenticated, function(req, res) {
+  var id = req.params.id;
   User.findById({
       _id: id
     },
@@ -237,8 +237,8 @@ router.post('/admin-makeadmin-user', ensureAuthenticated, function(req, res) {
 });
 
 //Remove admin right.
-router.post('/admin-removeadmin-user', ensureAuthenticated, function(req, res) {
-  var id = req.body.id;
+router.post('/admin-removeadmin-user/:id', ensureAuthenticated, function(req, res) {
+  var id = req.params.id;
   User.findById({
       _id: id
     },
@@ -259,8 +259,8 @@ router.post('/admin-removeadmin-user', ensureAuthenticated, function(req, res) {
 });
 
 // Delete a user.
-router.post('/admin-delete-user', ensureAuthenticated, ensureAdmin, function(req, res) {
-  var id = req.body.id;
+router.post('/admin-delete-user/:id', ensureAuthenticated, ensureAdmin, function(req, res) {
+  var id = req.params.id;
   User.remove({
       _id: id
     },

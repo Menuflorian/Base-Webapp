@@ -8,7 +8,7 @@ $('#multiSelect1').multiselect({
                 data: JSON.stringify({
                     id: id
                 }),
-                url: URLUtils.getAbsoluteURL("/admin/admin-makeadmin-user"),
+                url: URLUtils.getAbsoluteURL("/admin/admin-makeadmin-user/"+id),
                 contentType: "application/json",
                 success: function(data) {
                     swal({
@@ -36,7 +36,7 @@ $('#multiSelect1').multiselect({
                 data: JSON.stringify({
                     id: id
                 }),
-                url: URLUtils.getAbsoluteURL("/admin/admin-removeadmin-user"),
+                url: URLUtils.getAbsoluteURL("/admin/admin-removeadmin-user/"+id),
                 contentType: "application/json",
                 success: function(data) {
                     swal({
@@ -86,7 +86,7 @@ $('#Delet-user-button').on("click", function() {
                     id: id
                 }),
                 contentType: 'application/json',
-                url: URLUtils.getAbsoluteURL('/admin/admin-delete-user'),
+                url: URLUtils.getAbsoluteURL('/admin/admin-delete-user/'+id),
                 success: function(data) {
                     swal({
                         position: 'center',

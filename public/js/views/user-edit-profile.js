@@ -12,7 +12,7 @@ $('#submitButton').on("click", function() {
             id: id
         }),
         contentType: 'application/json',
-        url: 'http://localhost:3000/users/user-edit-profile/',
+        url: URLUtils.getAbsoluteURL('/users/user-edit-profile/'+id),
         success: function(data) {
             swal({
                 position: 'center',

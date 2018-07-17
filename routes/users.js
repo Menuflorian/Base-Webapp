@@ -66,7 +66,6 @@ router.get('/user-change-password', ensureAuthenticated, function(req, res) {
 //Logout
 router.get('/logout', function(req, res) {
   req.logout();
-  req.flash('success_msg', 'You are logged out');
   res.redirect('/users/login');
 });
 
@@ -125,7 +124,6 @@ router.post('/register', function(req, res) {
           User.createUser(newUser, function(err, user) {
             if (err) throw err;
           });
-          req.flash('success_msg', 'You are registered and can now login');
           res.redirect('/users/login');
         }
       });
@@ -192,7 +190,7 @@ router.post('/login', function(req, res, next) {
 });
 
 //Edit profile
-router.post('/user-edit-profile', function(req, res) {
+router.post('/user-edit-profile/:id', function(req, res) {
   var Id = req.body.id;
   var name = req.body.name;
   var email = req.body.email;

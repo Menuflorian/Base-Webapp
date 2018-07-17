@@ -12,7 +12,7 @@ $('#submitButton').on("click", function() {
             id: id
         }),
         contentType: 'application/json',
-        url: URLUtils.getAbsoluteURL('/admin/admin-edit-profile'),
+        url: URLUtils.getAbsoluteURL('/admin/admin-edit-profile/'+id),
         success: function(data) {
             swal({
                 position: 'center',

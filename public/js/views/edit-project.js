@@ -50,7 +50,7 @@ $('#btn-delete-user').on("click", function() {
             $.ajax({
                 type: 'post',
                 contentType: 'application/json',
-                url: URLUtils.getAbsoluteURL('/exports/userdelete/' + id),
+                url: URLUtils.getAbsoluteURL('/exports/userdelete/'+ id),
                 success: function(data) {
                     swal({
                         position: 'center',
@@ -58,6 +58,8 @@ $('#btn-delete-user').on("click", function() {
                         title: 'Project is now deleted',
                         showConfirmButton: false,
                         timer: 1500
+                    }).then(function(result) {
+                        location.href = URLUtils.getAbsoluteURL('/');
                     });
                 },
                 error: function(data) {

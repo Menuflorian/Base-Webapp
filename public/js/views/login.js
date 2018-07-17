@@ -1,6 +1,11 @@
 $('#SubmitButton').on("click", function() {
+    var swalWithBootstrapButtons = swal.mixin({
+        confirmButtonClass: 'btn btn-danger',
+        cancelButtonClass: 'btn btn-primary',
+        buttonsStyling: false,
+    });
     if ($('#UsernameTextArea').val() == "") {
-        swal({
+        swalWithBootstrapButtons({
             position: 'center',
             type: 'error',
             title: "Error, E-mail can't be empty.",
@@ -9,7 +14,7 @@ $('#SubmitButton').on("click", function() {
         }).catch(swal.noop);
     }
     if ($('#PasswordTextArea').val() == "") {
-        swal({
+        swalWithBootstrapButtons({
             position: 'center',
             type: 'error',
             title: "Error, Password can't be empty.",
@@ -27,7 +32,7 @@ $('#SubmitButton').on("click", function() {
                 password: pass
             }),
             contentType: 'application/json',
-            url: 'http://localhost:3000/users/login',
+            url: URLUtils.getAbsoluteURL('/users/login'),
             success: function(data) {
                 swal({
                     position: 'center',
@@ -43,7 +48,7 @@ $('#SubmitButton').on("click", function() {
             statusCode: {
 
                 400: function(data) {
-                    swal({
+                    swalWithBootstrapButtons({
                         position: 'center',
                         type: 'error',
                         title: "Error, Incorrect password",
@@ -52,7 +57,7 @@ $('#SubmitButton').on("click", function() {
                     });
                 },
                 500: function(data) {
-                    swal({
+                    swalWithBootstrapButtons({
                         position: 'center',
                         type: 'error',
                         title: "Error, User unknown",

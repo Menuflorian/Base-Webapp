@@ -10,7 +10,7 @@ $('#changePasswordButton').on("click", function() {
             id: id
         }),
         contentType: 'application/json',
-        url: URLUtils.getAbsoluteURL('/admin/admin-change-password'),
+        url: URLUtils.getAbsoluteURL('/admin/admin-change-password/'+id),
 
         success: function(data) {
             swal({
