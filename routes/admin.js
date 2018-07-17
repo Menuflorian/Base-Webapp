@@ -152,8 +152,6 @@ router.post('/admin-edit-profile/:id', ensureAuthenticated, ensureAdmin, functio
           res.sendStatus(500);
         }
       res.sendStatus(200);
-        //req.flash('success_msg', 'Modicication terminer');
-        //res.redirect('/admin/admin-edit-profile/'+id);
       });
     });
 });
@@ -207,8 +205,25 @@ router.post('/admin-validate-user/:id', ensureAuthenticated, function(req, res) 
           res.sendStatus(500);
         }
         res.sendStatus(200);
-        //req.flash('success_msg', 'User is now validated');
-        //res.redirect('/admin/admin-userlist');
+      });
+    });
+});
+
+router.post('/admin-unvalidate-user/:id', ensureAuthenticated, function(req, res) {
+  var id = req.params.id;
+  User.findById({
+      _id: id
+    },
+    function(err, db_user) {
+      if (err) {
+        res.sendStatus(500);
+      }
+      db_user.validated = true;
+      db_user.save(function(err) {
+        if (err) {
+          res.sendStatus(500);
+        }
+        res.sendStatus(200);
       });
     });
 });
@@ -229,8 +244,6 @@ router.post('/admin-makeadmin-user/:id', ensureAuthenticated, function(req, res)
           res.sendStatus(500);
         }
         res.sendStatus(200);
-        //req.flash('success_msg', db_user.name + ' is now an admin');
-        //res.redirect('/admin/admin-userlist');
       });
     });
 });
@@ -251,8 +264,6 @@ router.post('/admin-removeadmin-user/:id', ensureAuthenticated, function(req, re
           res.sendStatus(500);
         }
         res.sendStatus(200);
-        //req.flash('success_msg', db_user.name + ' is not longer an admin');
-        //res.redirect('/admin/admin-userlist');
       });
     });
 });
@@ -268,8 +279,6 @@ router.post('/admin-delete-user/:id', ensureAuthenticated, ensureAdmin, function
         res.sendStatus(500);
       }
       res.sendStatus(200);
-      //req.flash('success_msg', 'User has been deleted');
-      //res.redirect('/admin/admin');
     });
 });
 

@@ -131,8 +131,6 @@ router.post('/admindelete/:id', ensureAdmin, function(req, res) {
         res.sendStatus(500);
       }
       res.sendStatus(200);
-      //req.flash('success_msg', 'Final delete finish');
-      //res.redirect('/exports/projects3');
     });
 });
 
@@ -145,8 +143,6 @@ router.post('/restore/:id', ensureAuthenticated, function(req, res) {
     }
   );
   res.sendStatus(200);
-  //req.flash('success_msg', 'Project restored successfully.');
-  //res.redirect('/exports/projects3');
 });
 
 //user delet
@@ -158,8 +154,6 @@ router.post('/userdelete/:id', ensureAuthenticated, function(req, res) {
     }
   );
   res.sendStatus(200);
-  //req.flash('success_msg', 'Project deleted.');
-  //res.redirect('/exports/projects3');
 });
 
 //Delet from user and admin
@@ -172,8 +166,6 @@ router.post('/edit/:id', ensureAuthenticated, function(req, res) {
     }
   );
   res.sendStatus(200);
-  //req.flash('success_msg', 'Edit finish');
-  //res.redirect('/exports/' + id);
 });
 
 //save new project//
@@ -191,8 +183,6 @@ router.post('/save', ensureAuthenticated, function(req, res) {
       res.sendStatus(500);
     }
     res.sendStatus(200);
-    //req.flash('success_msg', 'File saved successfuly');
-    //res.redirect('/exports/dual');
   });
 });
 

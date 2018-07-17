@@ -1,7 +1,7 @@
-$('#changePasswordButton').on("click", function() {
-    var password = $('#passwordTextArea').val();
-    var password2 = $('#password2TextArea').val();
-    var id = $('#idArea').val();
+$('#ChangePasswordButton').on("click", function() {
+    var password = $('#PasswordTextArea').val();
+    var password2 = $('#Password2TextArea').val();
+    var id = $('#IdArea').val();
     var swalWithBootstrapButtons = swal.mixin({
         confirmButtonClass: 'btn btn-danger',
         cancelButtonClass: 'btn btn-primary',
@@ -21,7 +21,7 @@ $('#changePasswordButton').on("click", function() {
             swalWithBootstrapButtons({
                 position: 'center',
                 type: 'success',
-                title: 'Password has been changed',
+                title: 'Password has been changed.',
                 showConfirmButton: false,
                 timer: 1500
             });
@@ -32,7 +32,7 @@ $('#changePasswordButton').on("click", function() {
                 swalWithBootstrapButtons({
                     position: 'center',
                     type: 'error',
-                    title: "Error, Incorrect password",
+                    title: "Error, Incorrect password.",
                     showConfirmButton: false,
                     timer: 1500
                 }).catch(swal.noop);
@@ -41,7 +41,7 @@ $('#changePasswordButton').on("click", function() {
                 swalWithBootstrapButtons({
                     position: 'center',
                     type: 'error',
-                    title: "Error, User unknown",
+                    title: "Error, User unknown.",
                     showConfirmButton: false,
                     timer: 1500
                 }).catch(swal.noop);
@@ -50,7 +50,7 @@ $('#changePasswordButton').on("click", function() {
                 swalWithBootstrapButtons({
                     position: 'center',
                     type: 'error',
-                    title: "Error, New password don't match with cofirm password",
+                    title: "Error, New password don't match with cofirm password.",
                     showConfirmButton: false,
                     timer: 1500
                 }).catch(swal.noop);
