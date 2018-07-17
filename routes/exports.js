@@ -100,7 +100,7 @@ router.get('/:id', ensureAuthenticated, function(req, res) {
         if (err) {
           res.send(err);
         }
-        res.render('Edit', {
+        res.render('edit-project', {
           dbData: db_export
         });
       });

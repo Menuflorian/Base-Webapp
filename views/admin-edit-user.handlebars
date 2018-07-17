@@ -29,6 +29,9 @@
 								{{/if}}
 							</select>
 							</div>
+                            <div class="form-group">
+                                <input id="idArea" type="hidden" value="{{db_user.[0].id}}" name="id"></input>
+                            </div>
 						</td>
 					</tr>
 					<tr>
@@ -118,36 +121,4 @@
 </div>
 </div>
 
-<script>
-$('#multiSelect1').multiselect({
-    onChange: function() {
-        var selected = $('#multiSelect1 option:selected').val();
-        if (selected == 1) {
-            $.ajax({
-                type: "post",
-                url: 'http://localhost:3000/admin/admin-makeadmin-user/{{db_user.[0]._id}}',
-                contentType: "application/json",
-				success:    function(data) {
-		            {{> alert-success}}
-		        },
-		        error: function(data) {
-		            {{> alert-error}}
-		        },
-            })
-        }
-        if (selected == 2) {
-            $.ajax({
-                type: "post",
-                url: 'http://localhost:3000/admin/admin-removeadmin-user/{{db_user.[0]._id}}',
-                contentType: "application/json",
-				success:    function(data) {
-		            {{> alert-success}}
-		        },
-		        error: function(data) {
-		            {{> alert-error}}
-		        },
-            })
-        }
-    }
-});
-</script>
+<script src="/js/views/admin-edit-user.js"></script>

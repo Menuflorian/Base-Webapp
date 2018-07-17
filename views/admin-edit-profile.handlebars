@@ -14,31 +14,12 @@
 				<label>Email</label>
 				<input id="emailTextArea" type="email" class="form-control" placeholder="{{db_user.[0].email}}" name="email">
 			</div>
+			<div class="form-group">
+				<input id="idArea" type="hidden" value="{{db_user.[0].id}}" name="id"></input>
+			</div>
 			<button id="submitButton" class="btn btn-primary btn-lg " >Send</button>
 		</div>
 	</div>
 </div>
 
-<script>
-$('#submitButton').on("click", function() {
-    var name = $('#nameTextArea').val();
-    var username = $('#usernameTextArea').val();
-    var email = $('#emailTextArea').val();
-    $.ajax({
-        type: 'post',
-        data: JSON.stringify({
-            name:name,
-            username:username,
-			email:email
-        }),
-        contentType: 'application/json',
-        url: URLUtils.getAbsoluteURL("/admin/admin-edit-profile/{{db_user.[0].id}}"),
-        success:    function(data) {
-            {{> alert-success}}
-        },
-        error: function(data) {
-            {{> alert-error}}
-        },
-    });
-});
-</script>
+<script src="/js/views/admin-edit-profile.js"></script>

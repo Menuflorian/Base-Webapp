@@ -180,7 +180,7 @@ router.post('/login',
 
 //Edit profile
 router.post('/user-edit-profile', function(req, res) {
-  var Id = req.user._id;
+  var Id = req.body.id;
   var name = req.body.name;
   var email = req.body.email;
   var username = req.body.username;
@@ -207,9 +207,9 @@ router.post('/user-edit-profile', function(req, res) {
       }
       db_user.save(function(err, majdata) {
         if (err) {
-          res.send(err);
+          res.sendStatus(404);
         }
-        res.send({success:true});
+        res.sendStatus(200);
         //req.flash('success_msg', 'Modicication terminer');
         //res.redirect('/users/user-profile');
       });

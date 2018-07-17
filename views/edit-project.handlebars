@@ -1,0 +1,105 @@
+</div>
+<!-- Page Content -->
+<div class="container">
+
+	<!-- Page Heading/Breadcrumbs -->
+	<h1 class="mt-4 mb-3">Portfolio Item
+    <small>Subheading</small>
+  </h1>
+
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item">
+			<a href="/">Home</a>
+		</li>
+		<li class="breadcrumb-item active">Portfolio Item</li>
+	</ol>
+
+	<!-- Portfolio Item Row -->
+	<div class="row">
+
+		<div class="col-md-8">
+			<img class="img-fluid" src="http://placehold.it/750x500" alt="">
+		</div>
+
+		<div class="col-md-4">
+			<div class="container ">
+
+					<div class="form-group">
+						<label for="name"><h2>Name : {{dbData.name}}</h2></label>
+						<div class="form-group">
+							<textarea id='CorpTextArea' type="text" class="form-control" name="corp">{{dbData.corp}}</textarea>
+							<input id="IdSaveArea" type="hidden" value="{{dbData._id}}" name="id"></input>
+							<button  id="btn-save" class="btn btn-primary" name="sauve">Save</button>
+						</div>
+					</div>
+			</div>
+
+
+
+				<div class="form-group">
+					<label for="name">Project options</label>
+					<div class="container">
+						<input id="IdDeletArea" type="hidden" value="{{dbData._id}}" name="id"></input>
+						<button id="btn-delete-user" type="button" class="btn btn-warning">Delete project</button>
+					</div>
+				</div>
+
+
+			{{#if admin}}
+			<label for="name">Admin option</label>
+				<form method="post" action="/exports/admindelete/{{dbData._id}}">
+					<div class="form-group">
+						<div class="container">
+							<input type="hidden" class="form-control">
+							<button type="submit" class="btn btn-danger">Final delete</button>
+						</div>
+					</div>
+				</form>
+				<div class="form-group">
+					<div class="container">
+						<input id="IdRestoreArea" type="hidden" value="{{dbData._id}}" name="id"></input>
+						<button id="btn-restore" type="button" class="btn btn-danger">Restore project.</button>
+					</div>
+				</div>
+			{{/if}}
+		</div>
+
+
+	</div>
+	<!-- /.row -->
+
+	<!-- Related Projects Row -->
+	<h3 class="my-4">Related Projects</h3>
+
+	<div class="row">
+
+		<div class="col-md-3 col-sm-6 mb-4">
+			<a href="#">
+        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+      </a>
+		</div>
+
+		<div class="col-md-3 col-sm-6 mb-4">
+			<a href="#">
+        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+      </a>
+		</div>
+
+		<div class="col-md-3 col-sm-6 mb-4">
+			<a href="#">
+        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+      </a>
+		</div>
+
+		<div class="col-md-3 col-sm-6 mb-4">
+			<a href="#">
+        <img class="img-fluid" src="http://placehold.it/500x300" alt="">
+      </a>
+		</div>
+
+	</div>
+	<!-- /.row -->
+
+</div>
+<!-- /.container -->
+<script src="/js/views/edit-project.js"></script>
