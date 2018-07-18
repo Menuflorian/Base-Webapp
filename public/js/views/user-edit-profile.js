@@ -35,7 +35,7 @@ $('#SubmitButton').on("click", function() {
             contentType: 'application/json',
             url: URLUtils.getAbsoluteURL('/users/user-edit-profile/'+id),
             success: function(data) {
-                swal({
+                swalWithBootstrapButtons({
                     position: 'center',
                     type: 'success',
                     title: 'Profile has been changed',
@@ -45,7 +45,7 @@ $('#SubmitButton').on("click", function() {
 
             },
             error: function(data) {
-                swal({
+                swalWithBootstrapButtons({
                     position: 'center',
                     type: 'error',
                     title: 'Error, Username and/or Email is already use.',

@@ -20,7 +20,7 @@ $('#ChangePasswordButton').on("click", function() {
         url: URLUtils.getAbsoluteURL('/users/user-change-password'),
 
         success: function(data) {
-            swal({
+            swalWithBootstrapButtons({
                 position: 'center',
                 type: 'success',
                 title: 'Password has been changed',

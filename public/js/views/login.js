@@ -1,3 +1,9 @@
+var swalWithBootstrapButtons = swal.mixin({
+    confirmButtonClass: 'btn btn-danger',
+    cancelButtonClass: 'btn btn-primary',
+    buttonsStyling: false,
+});
+
 $('#SubmitButton').on("click", function() {
     var swalWithBootstrapButtons = swal.mixin({
         confirmButtonClass: 'btn btn-danger',
@@ -34,7 +40,7 @@ $('#SubmitButton').on("click", function() {
             contentType: 'application/json',
             url: URLUtils.getAbsoluteURL('/users/login'),
             success: function(data) {
-                swal({
+                swalWithBootstrapButtons({
                     position: 'center',
                     showCancelButton: false,
                     type: 'success',

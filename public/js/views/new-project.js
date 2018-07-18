@@ -1,3 +1,9 @@
+var swalWithBootstrapButtons = swal.mixin({
+    confirmButtonClass: 'btn btn-danger',
+    cancelButtonClass: 'btn btn-primary',
+    buttonsStyling: false,
+});
+
 var loadDualboxApp = function(name) {
     (function(callback) {
         var s = document.createElement("script");
@@ -63,7 +69,7 @@ $('#saveProjectButton').on("click", function() {
         contentType: 'application/json',
         url: URLUtils.getAbsoluteURL("/exports/save"),
         success: function(data) {
-            swal({
+            swalWithBootstrapButtons({
                 position: 'center',
                 type: 'success',
                 title: 'Your work has been saved',
@@ -72,7 +78,7 @@ $('#saveProjectButton').on("click", function() {
             });
         },
         error: function(data) {
-            swal({
+            swalWithBootstrapButtons({
                 position: 'center',
                 type: 'error',
                 title: 'Error',

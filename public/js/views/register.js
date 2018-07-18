@@ -92,7 +92,7 @@ $('#SubmitButton').on("click", function() {
             url: URLUtils.getAbsoluteURL('/users/register'),
 
             success: function(data) {
-                swal({
+                swalWithBootstrapButtons({
                     position: 'center',
                     type: 'success',
                     title: 'Password has been changed',

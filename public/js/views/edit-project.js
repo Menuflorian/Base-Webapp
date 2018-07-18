@@ -9,7 +9,7 @@ $('#btn-save').on("click", function() {
         contentType: 'application/json',
         url: URLUtils.getAbsoluteURL('/exports/edit/' + id),
         success: function(data) {
-            swal({
+            swalWithBootstrapButtons({
                 position: 'center',
                 type: 'success',
                 title: 'Project has been changed',
@@ -18,7 +18,7 @@ $('#btn-save').on("click", function() {
             });
         },
         error: function(data) {
-            swal({
+            swalWithBootstrapButtons({
                 position: 'center',
                 type: 'error',
                 title: 'Error',
@@ -52,7 +52,7 @@ $('#btn-delete-user').on("click", function() {
                 contentType: 'application/json',
                 url: URLUtils.getAbsoluteURL('/exports/userdelete/'+ id),
                 success: function(data) {
-                    swal({
+                    swalWithBootstrapButtons({
                         position: 'center',
                         type: 'success',
                         title: 'Project is now deleted',
@@ -63,7 +63,7 @@ $('#btn-delete-user').on("click", function() {
                     });
                 },
                 error: function(data) {
-                    swal({
+                    swalWithBootstrapButtons({
                         position: 'center',
                         type: 'error',
                         title: 'Error',
@@ -95,7 +95,7 @@ $('#btn-restore').on("click", function() {
         contentType: 'application/json',
         url: URLUtils.getAbsoluteURL('/exports/restore/' + id),
         success: function(data) {
-            swal({
+            swalWithBootstrapButtons({
                 position: 'center',
                 type: 'success',
                 title: 'Project is restored',
@@ -104,7 +104,7 @@ $('#btn-restore').on("click", function() {
             });
         },
         error: function(data) {
-            swal({
+            swalWithBootstrapButtons({
                 position: 'center',
                 type: 'error',
                 title: 'Error',
@@ -138,7 +138,7 @@ $('#btn-finaldelet').on("click", function() {
                 contentType: 'application/json',
                 url: URLUtils.getAbsoluteURL('/exports/admindelete/' + id),
                 success: function(data) {
-                    swal({
+                    swalWithBootstrapButtons({
                         position: 'center',
                         showCancelButton: false,
                         type: 'success',
@@ -150,7 +150,7 @@ $('#btn-finaldelet').on("click", function() {
                     });
                 },
                 error: function(data) {
-                    swal({
+                    swalWithBootstrapButtons({
                         position: 'center',
                         type: 'error',
                         title: 'Error',

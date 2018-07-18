@@ -11,7 +11,7 @@ $('#MultiSelect1').multiselect({
                 url: URLUtils.getAbsoluteURL("/admin/admin-makeadmin-user/"+id),
                 contentType: "application/json",
                 success: function(data) {
-                    swal({
+                    swalWithBootstrapButtons({
                         position: 'center',
                         type: 'success',
                         title: 'User is now admin.',
@@ -20,7 +20,7 @@ $('#MultiSelect1').multiselect({
                     });
                 },
                 error: function(data) {
-                    swal({
+                    swalWithBootstrapButtons({
                         position: 'center',
                         type: 'error',
                         title: 'Error',
@@ -39,7 +39,7 @@ $('#MultiSelect1').multiselect({
                 url: URLUtils.getAbsoluteURL("/admin/admin-removeadmin-user/"+id),
                 contentType: "application/json",
                 success: function(data) {
-                    swal({
+                    swalWithBootstrapButtons({
                         position: 'center',
                         type: 'success',
                         title: 'Admin is now user',
@@ -48,7 +48,7 @@ $('#MultiSelect1').multiselect({
                     });
                 },
                 error: function(data) {
-                    swal({
+                    swalWithBootstrapButtons({
                         position: 'center',
                         type: 'error',
                         title: 'Error',
@@ -74,7 +74,7 @@ $('#MultiSelect2').multiselect({
                 url: URLUtils.getAbsoluteURL("/admin/admin-validate-user/"+id),
                 contentType: "application/json",
                 success: function(data) {
-                    swal({
+                    swalWithBootstrapButtons({
                         position: 'center',
                         type: 'success',
                         title: 'User is now valedated.',
@@ -83,7 +83,7 @@ $('#MultiSelect2').multiselect({
                     });
                 },
                 error: function(data) {
-                    swal({
+                    swalWithBootstrapButtons({
                         position: 'center',
                         type: 'error',
                         title: 'Error',
@@ -102,7 +102,7 @@ $('#MultiSelect2').multiselect({
                 url: URLUtils.getAbsoluteURL("/admin/admin-unvalidate-user/"+id),
                 contentType: "application/json",
                 success: function(data) {
-                    swal({
+                    swalWithBootstrapButtons({
                         position: 'center',
                         type: 'success',
                         title: 'User no longer validated',
@@ -111,7 +111,7 @@ $('#MultiSelect2').multiselect({
                     });
                 },
                 error: function(data) {
-                    swal({
+                    swalWithBootstrapButtons({
                         position: 'center',
                         type: 'error',
                         title: 'Error',
@@ -151,7 +151,7 @@ $('#Delet-user-button').on("click", function() {
                 contentType: 'application/json',
                 url: URLUtils.getAbsoluteURL('/admin/admin-delete-user/'+id),
                 success: function(data) {
-                    swal({
+                    swalWithBootstrapButtons({
                         position: 'center',
                         showCancelButton: false,
                         type: 'success',
@@ -164,7 +164,7 @@ $('#Delet-user-button').on("click", function() {
 
                 },
                 error: function(data) {
-                    swal({
+                    swalWithBootstrapButtons({
                         position: 'center',
                         type: 'error',
                         title: 'Error',
