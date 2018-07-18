@@ -197,33 +197,59 @@ router.post('/user-edit-profile/:id', function(req, res) {
     var email = req.body.email;
     var username = req.body.username;
 
-    User.findById({
-            _id: Id
+
+
+    User.findOne({
+            username: {
+                "$regex": "^" + username + "\\b",
+                "$options": "i"
+            }
         },
-        function(err, db_user) {
-            if (err) res.send(err);
-            if (name == "") {
-                name = req.user.name;
-            } else {
-                db_user.name = req.body.name;
-            }
-            if (username == "") {
-                username = req.user.username;
-            } else {
-                db_user.username = req.body.username;
-            }
-            if (email == "") {
-                email = req.user.email;
-            } else {
-                db_user.email = req.body.email;
-            }
-            db_user.save(function(err, majdata) {
-                if (err) {
-                    res.sendStatus(500);
+        function(err, user) {
+            console.log(user);
+            User.findOne({
+                    email: {
+                        "$regex": "^" + email + "\\b",
+                        "$options": "i"
+                    }
+                },
+                function(err, mail) {
+                    console.log(mail);
+                    if ((user || mail) && ((user.name !== req.user.name) || (mail.email !== req.user.email))) {
+                        res.sendStatus(405);
+                    } else {
+                        User.findById({
+                                _id: Id
+                            },
+                            function(err, db_user) {
+                                if (err) res.send(err);
+                                if (name == "") {
+                                    name = req.user.name;
+                                } else {
+                                    db_user.name = req.body.name;
+                                }
+                                if (username == "") {
+                                    username = req.user.username;
+                                } else {
+                                    db_user.username = req.body.username;
+                                }
+                                if (email == "") {
+                                    email = req.user.email;
+                                } else {
+                                    db_user.email = req.body.email;
+                                }
+                                db_user.save(function(err, majdata) {
+                                    if (err) {
+                                        res.sendStatus(500);
+                                    }
+                                    res.sendStatus(200);
+                                });
+                            });
+                    }
                 }
-                res.sendStatus(200);
-            });
-        });
+            );
+        }
+    );
 });
 
 //Change password
