@@ -3,7 +3,6 @@ function isEmail(email) {
     return regex.test(email);
 }
 
-
 $('#SubmitButton').on("click", function() {
     var swalWithBootstrapButtons = swal.mixin({
         confirmButtonClass: 'btn btn-danger',
@@ -11,7 +10,7 @@ $('#SubmitButton').on("click", function() {
         buttonsStyling: false,
     });
 
-    if (isEmail($('#EmailTextArea').val()) != true) {
+    if ((isEmail($('#EmailTextArea').val()) != true)&&($('#EmailTextArea').val()) !== "") {
         swalWithBootstrapButtons({
             position: 'center',
             type: 'error',
@@ -19,41 +18,40 @@ $('#SubmitButton').on("click", function() {
             showConfirmButton: false,
             showCancelButton: true,
         }).catch(swal.noop);
-    }
-    else{
-    var name = $('#NameTextArea').val();
-    var username = $('#UsernameTextArea').val();
-    var email = $('#EmailTextArea').val();
-    var id = $('#IdArea').val();
-    $.ajax({
-        type: 'post',
-        data: JSON.stringify({
-            name: name,
-            username: username,
-            email: email,
-            id: id
-        }),
-        contentType: 'application/json',
-        url: URLUtils.getAbsoluteURL('/admin/admin-edit-profile/'+id),
-        success: function(data) {
-            swal({
-                position: 'center',
-                type: 'success',
-                title: 'Profile has been changed',
-                showConfirmButton: false,
-                timer: 1500
-            });
+    } else {
+        var name = $('#NameTextArea').val();
+        var username = $('#UsernameTextArea').val();
+        var email = $('#EmailTextArea').val();
+        var id = $('#IdArea').val();
+        $.ajax({
+            type: 'post',
+            data: JSON.stringify({
+                name: name,
+                username: username,
+                email: email,
+                id: id
+            }),
+            contentType: 'application/json',
+            url: URLUtils.getAbsoluteURL('/admin/admin-edit-profile/'+id),
+            success: function(data) {
+                swal({
+                    position: 'center',
+                    type: 'success',
+                    title: 'Profile has been changed',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
 
-        },
-        error: function(data) {
-            swal({
-                position: 'center',
-                type: 'error',
-                title: 'Error',
-                showConfirmButton: false,
-                timer: 1500
-            });
-        },
-    });
+            },
+            error: function(data) {
+                swal({
+                    position: 'center',
+                    type: 'error',
+                    title: 'Error, Username and/or Email is already use.',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            },
+        });
     }
 });

@@ -79,8 +79,7 @@ router.post('/register', function(req, res) {
     var username = req.body.username;
     var password = req.body.password;
     var password2 = req.body.password2;
-    console.log(password);
-    console.log(username);
+
 
     // Validation
     req.checkBody('name', 'Name is required').notEmpty();
@@ -91,7 +90,7 @@ router.post('/register', function(req, res) {
     req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
     var errors = req.validationErrors();
-    console.log(errors);
+
     if (errors) {
         res.sendStatus(404);
     } else if (name == "") {
@@ -192,13 +191,10 @@ router.post('/login', function(req, res, next) {
 
 //Edit profile
 router.post('/user-edit-profile/:id', function(req, res) {
-    var Id = req.body.id;
+    var id = req.params.id;
     var name = req.body.name;
     var email = req.body.email;
     var username = req.body.username;
-
-
-
     User.findOne({
             username: {
                 "$regex": "^" + username + "\\b",
@@ -206,7 +202,9 @@ router.post('/user-edit-profile/:id', function(req, res) {
             }
         },
         function(err, user) {
-            console.log(user);
+            if (user == null) {
+                user = {id:1};
+            }
             User.findOne({
                     email: {
                         "$regex": "^" + email + "\\b",
@@ -214,12 +212,18 @@ router.post('/user-edit-profile/:id', function(req, res) {
                     }
                 },
                 function(err, mail) {
-                    console.log(mail);
-                    if ((user || mail) && ((user.name !== req.user.name) || (mail.email !== req.user.email))) {
-                        res.sendStatus(405);
-                    } else {
-                        User.findById({
-                                _id: Id
+                    if (mail == null) {
+                        mail = {id:1};
+                    }
+                    if ( (user.id == 1) && ( mail.id == 1 )   ||
+                        ((user.id == 1) && (mail.id==req.user.id))  ||
+                        ((mail.id == 1) && (user.id==req.user.id))  ||
+                        ((user.id==req.user.id) && (mail.id==req.user.id))
+                    )
+                        {
+                        User.findById(
+                            {
+                                _id: id
                             },
                             function(err, db_user) {
                                 if (err) res.send(err);
@@ -245,12 +249,15 @@ router.post('/user-edit-profile/:id', function(req, res) {
                                     res.sendStatus(200);
                                 });
                             });
+                    } else {
+                        res.sendStatus(405);
                     }
                 }
             );
         }
     );
 });
+
 
 //Change password
 router.post('/user-change-password', ensureAuthenticated, function(req, res) {

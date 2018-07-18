@@ -4,11 +4,26 @@ function isEmail(email) {
 }
 
 $('#SubmitButton').on("click", function() {
-    var name = $('#NameTextArea').val();
-    var username = $('#UsernameTextArea').val();
-    var email = $('#EmailTextArea').val();
-    var id = $('#IdArea').val();
+    var swalWithBootstrapButtons = swal.mixin({
+        confirmButtonClass: 'btn btn-danger',
+        cancelButtonClass: 'btn btn-primary',
+        buttonsStyling: false,
+    });
 
+    if ((isEmail($('#EmailTextArea').val()) != true)&&($('#EmailTextArea').val()) !== "") {
+        console.log(isEmail($('#EmailTextArea').val()));
+        swalWithBootstrapButtons({
+            position: 'center',
+            type: 'error',
+            title: "Error, Email Must be an email form valid",
+            showConfirmButton: false,
+            showCancelButton: true,
+        }).catch(swal.noop);
+    } else {
+        var name = $('#NameTextArea').val();
+        var username = $('#UsernameTextArea').val();
+        var email = $('#EmailTextArea').val();
+        var id = $('#IdArea').val();
         $.ajax({
             type: 'post',
             data: JSON.stringify({
@@ -18,7 +33,7 @@ $('#SubmitButton').on("click", function() {
                 id: id
             }),
             contentType: 'application/json',
-            url: URLUtils.getAbsoluteURL('/users/user-edit-profile/' + id),
+            url: URLUtils.getAbsoluteURL('/users/user-edit-profile/'+id),
             success: function(data) {
                 swal({
                     position: 'center',
@@ -33,10 +48,11 @@ $('#SubmitButton').on("click", function() {
                 swal({
                     position: 'center',
                     type: 'error',
-                    title: 'Error, Username or Email already taken',
+                    title: 'Error, Username and/or Email is already use.',
                     showConfirmButton: false,
                     timer: 1500
                 });
             },
         });
+    }
 });
