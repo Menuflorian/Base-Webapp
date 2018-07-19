@@ -1,7 +1,14 @@
+var swalWithBootstrapButtons = swal.mixin({
+    confirmButtonClass: 'btn btn-danger',
+    cancelButtonClass: 'btn btn-primary',
+    buttonsStyling: false,
+});
+
 $('#MultiSelect1').multiselect({
     onChange: function() {
         var selected = $('#MultiSelect1 option:selected').val();
         var id = $('#MultiSelect1idArea').val();
+        console.log(id);
         if (selected == 1) {
             $.ajax({
                 type: "post",
@@ -127,11 +134,6 @@ $('#MultiSelect2').multiselect({
 
 $('#Delet-user-button').on("click", function() {
     var id = $('#DeletidArea').val();
-    var swalWithBootstrapButtons = swal.mixin({
-        confirmButtonClass: 'btn btn-danger',
-        cancelButtonClass: 'btn btn-primary',
-        buttonsStyling: false,
-    });
 
     swalWithBootstrapButtons({
         title: 'Are you sure?',

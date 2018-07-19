@@ -1,3 +1,9 @@
+var swalWithBootstrapButtons = swal.mixin({
+    confirmButtonClass: 'btn btn-warning',
+    cancelButtonClass: 'btn btn-primary',
+    buttonsStyling: false,
+});
+
 $('#btn-save').on("click", function() {
     var corp = $('#CorpTextArea').val();
     var id = $('#IdSaveArea').val();
@@ -31,11 +37,7 @@ $('#btn-save').on("click", function() {
 
 $('#btn-delete-user').on("click", function() {
     var id = $('#IdDeletArea').val();
-    var swalWithBootstrapButtons = swal.mixin({
-        confirmButtonClass: 'btn btn-warning',
-        cancelButtonClass: 'btn btn-primary',
-        buttonsStyling: false,
-    });
+
 
     swalWithBootstrapButtons({
         title: 'Are you sure?',
@@ -117,11 +119,6 @@ $('#btn-restore').on("click", function() {
 
 $('#btn-finaldelet').on("click", function() {
     var id = $('#IdFinalDeleteArea').val();
-    var swalWithBootstrapButtons = swal.mixin({
-        confirmButtonClass: 'btn btn-primary',
-        cancelButtonClass: 'btn btn-danger',
-        buttonsStyling: false,
-    });
 
     swalWithBootstrapButtons({
         title: 'Are you sure?',
