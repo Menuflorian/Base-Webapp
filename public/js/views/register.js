@@ -99,8 +99,8 @@ $('#SubmitButton').on("click", function() {
                     showConfirmButton: false,
                     timer: 1500
                 }).then(function(result) {
-					location.href = URLUtils.getAbsoluteURL('/users/login');
-				});
+                    location.href = URLUtils.getAbsoluteURL('/users/login');
+                });
             },
             statusCode: {
                 400: function(data) {
@@ -130,15 +130,15 @@ $('#SubmitButton').on("click", function() {
                         timer: 1500
                     }).catch(swal.noop);
                 },
-				405: function(data) {
-					swalWithBootstrapButtons({
-						position: 'center',
-						type: 'error',
-						title: "Error, User or email already used",
-						showConfirmButton: false,
-						timer: 1500
-					}).catch(swal.noop);
-				},
+                405: function(data) {
+                    swalWithBootstrapButtons({
+                        position: 'center',
+                        type: 'error',
+                        title: "Error, User or email already used",
+                        showConfirmButton: false,
+                        timer: 1500
+                    }).catch(swal.noop);
+                },
                 500: function(data) {
                     swalWithBootstrapButtons({
                         position: 'center',

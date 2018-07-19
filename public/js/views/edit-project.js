@@ -4,6 +4,7 @@ var swalWithBootstrapButtons = swal.mixin({
     buttonsStyling: false,
 });
 
+//Save edit
 $('#btn-save').on("click", function() {
     var corp = $('#CorpTextArea').val();
     var id = $('#IdSaveArea').val();
@@ -35,6 +36,8 @@ $('#btn-save').on("click", function() {
     });
 });
 
+
+//Delet project from user (change argument in database)
 $('#btn-delete-user').on("click", function() {
     var id = $('#IdDeletArea').val();
 
@@ -52,7 +55,7 @@ $('#btn-delete-user').on("click", function() {
             $.ajax({
                 type: 'post',
                 contentType: 'application/json',
-                url: URLUtils.getAbsoluteURL('/exports/userdelete/'+ id),
+                url: URLUtils.getAbsoluteURL('/exports/userdelete/' + id),
                 success: function(data) {
                     swalWithBootstrapButtons({
                         position: 'center',
@@ -88,8 +91,7 @@ $('#btn-delete-user').on("click", function() {
 });
 
 
-
-
+//Restor project
 $('#btn-restore').on("click", function() {
     var id = $('#IdRestoreArea').val();
     $.ajax({
@@ -117,6 +119,8 @@ $('#btn-restore').on("click", function() {
     });
 });
 
+
+//delet project from admin (delet from database)
 $('#btn-finaldelet').on("click", function() {
     var id = $('#IdFinalDeleteArea').val();
 

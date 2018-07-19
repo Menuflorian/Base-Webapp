@@ -203,7 +203,9 @@ router.post('/user-edit-profile/:id', function(req, res) {
         },
         function(err, user) {
             if (user == null) {
-                user = {id:1};
+                user = {
+                    id: 1
+                };
             }
             User.findOne({
                     email: {
@@ -213,16 +215,16 @@ router.post('/user-edit-profile/:id', function(req, res) {
                 },
                 function(err, mail) {
                     if (mail == null) {
-                        mail = {id:1};
+                        mail = {
+                            id: 1
+                        };
                     }
-                    if ( (user.id == 1) && ( mail.id == 1 )   ||
-                        ((user.id == 1) && (mail.id==req.user.id))  ||
-                        ((mail.id == 1) && (user.id==req.user.id))  ||
-                        ((user.id==req.user.id) && (mail.id==req.user.id))
-                    )
-                        {
-                        User.findById(
-                            {
+                    if ((user.id == 1) && (mail.id == 1) ||
+                        ((user.id == 1) && (mail.id == req.user.id)) ||
+                        ((mail.id == 1) && (user.id == req.user.id)) ||
+                        ((user.id == req.user.id) && (mail.id == req.user.id))
+                    ) {
+                        User.findById({
                                 _id: id
                             },
                             function(err, db_user) {

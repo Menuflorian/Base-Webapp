@@ -4,18 +4,20 @@ var swalWithBootstrapButtons = swal.mixin({
     buttonsStyling: false,
 });
 
+
+//Select admin/user
 $('#MultiSelect1').multiselect({
     onChange: function() {
         var selected = $('#MultiSelect1 option:selected').val();
         var id = $('#MultiSelect1idArea').val();
         console.log(id);
-        if (selected == 1) {
+        if (selected == 1) { //select on admin
             $.ajax({
                 type: "post",
                 data: JSON.stringify({
                     id: id
                 }),
-                url: URLUtils.getAbsoluteURL("/admin/admin-makeadmin-user/"+id),
+                url: URLUtils.getAbsoluteURL("/admin/admin-makeadmin-user/" + id),
                 contentType: "application/json",
                 success: function(data) {
                     swalWithBootstrapButtons({
@@ -37,13 +39,13 @@ $('#MultiSelect1').multiselect({
                 },
             });
         }
-        if (selected == 2) {
+        if (selected == 2) { //select on user
             $.ajax({
                 type: "post",
                 data: JSON.stringify({
                     id: id
                 }),
-                url: URLUtils.getAbsoluteURL("/admin/admin-removeadmin-user/"+id),
+                url: URLUtils.getAbsoluteURL("/admin/admin-removeadmin-user/" + id),
                 contentType: "application/json",
                 success: function(data) {
                     swalWithBootstrapButtons({
@@ -68,17 +70,19 @@ $('#MultiSelect1').multiselect({
     }
 });
 
+
+//select validated/unvalidated
 $('#MultiSelect2').multiselect({
     onChange: function() {
         var selected = $('#MultiSelect2 option:selected').val();
         var id = $('#MultiSelect1idArea').val();
-        if (selected == 3) {
+        if (selected == 3) { //select on validatred
             $.ajax({
                 type: "post",
                 data: JSON.stringify({
                     id: id
                 }),
-                url: URLUtils.getAbsoluteURL("/admin/admin-validate-user/"+id),
+                url: URLUtils.getAbsoluteURL("/admin/admin-validate-user/" + id),
                 contentType: "application/json",
                 success: function(data) {
                     swalWithBootstrapButtons({
@@ -100,13 +104,13 @@ $('#MultiSelect2').multiselect({
                 },
             });
         }
-        if (selected == 4) {
+        if (selected == 4) { //select on unvalidated
             $.ajax({
                 type: "post",
                 data: JSON.stringify({
                     id: id
                 }),
-                url: URLUtils.getAbsoluteURL("/admin/admin-unvalidate-user/"+id),
+                url: URLUtils.getAbsoluteURL("/admin/admin-unvalidate-user/" + id),
                 contentType: "application/json",
                 success: function(data) {
                     swalWithBootstrapButtons({
@@ -131,7 +135,7 @@ $('#MultiSelect2').multiselect({
     }
 });
 
-
+//Delet user
 $('#Delet-user-button').on("click", function() {
     var id = $('#DeletidArea').val();
 
@@ -151,7 +155,7 @@ $('#Delet-user-button').on("click", function() {
                     id: id
                 }),
                 contentType: 'application/json',
-                url: URLUtils.getAbsoluteURL('/admin/admin-delete-user/'+id),
+                url: URLUtils.getAbsoluteURL('/admin/admin-delete-user/' + id),
                 success: function(data) {
                     swalWithBootstrapButtons({
                         position: 'center',

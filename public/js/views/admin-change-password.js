@@ -26,8 +26,8 @@ $('#ChangePasswordButton').on("click", function() {
                 timer: 1500
             });
         },
-        statusCode: {
 
+        statusCode: {
             400: function(data) {
                 swalWithBootstrapButtons({
                     position: 'center',

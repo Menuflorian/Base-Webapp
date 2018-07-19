@@ -55,6 +55,7 @@ $('#saveProjectModal').on('show.bs.modal', function(event) {
     // modal.find('.modal-body input').val(recipient)
 });
 
+//save new project
 $('#saveProjectButton').on("click", function() {
     var modal = $('#saveProjectModal');
     var name = $('#nameTextArea').val();

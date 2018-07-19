@@ -123,7 +123,7 @@ router.get('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, funct
 
 //Change the users information in Db.
 router.post('/admin-edit-profile/:id', function(req, res) {
-	var id = req.body.id;
+    var id = req.body.id;
     var name = req.body.name;
     var email = req.body.email;
     var username = req.body.username;
@@ -136,7 +136,9 @@ router.post('/admin-edit-profile/:id', function(req, res) {
         function(err, user) {
 
             if (user == null) {
-                user = {id:1};
+                user = {
+                    id: 1
+                };
             }
 
             User.findOne({
@@ -147,17 +149,17 @@ router.post('/admin-edit-profile/:id', function(req, res) {
                 },
                 function(err, mail) {
                     if (mail == null) {
-                        mail = {id:1};
+                        mail = {
+                            id: 1
+                        };
                     }
 
-                    if ( (user.id == 1) && ( mail.id == 1 )   ||
-                        ((user.id == 1) && (mail.id==req.user.id))  ||
-                        ((mail.id == 1) && (user.id==req.user.id))  ||
-                        ((user.id==req.user.id) && (mail.id==req.user.id))
-                    )
-                        {
-                        User.findById(
-                            {
+                    if ((user.id == 1) && (mail.id == 1) ||
+                        ((user.id == 1) && (mail.id == req.user.id)) ||
+                        ((mail.id == 1) && (user.id == req.user.id)) ||
+                        ((user.id == req.user.id) && (mail.id == req.user.id))
+                    ) {
+                        User.findById({
                                 _id: id
                             },
                             function(err, db_user) {

@@ -1,4 +1,3 @@
-
 <div class="container col-lg-9 flex justify-content-end">
 	<div class="containerfluid">
 		<div class="card">
@@ -7,19 +6,20 @@
 					<h3>Profile</h3>
 				</div>
 				<div class="containerfluid">
-					    <input id="DeletidArea" type="hidden" value="{{db_user.[0].id}}" name="id"></input>
-						<button id="Delet-user-button" class="btn btn-danger">Delet user</button>
+					<input id="DeletidArea" type="hidden" value="{{db_user.[0].id}}" name="id"></input>
+					<button id="Delet-user-button" class="btn btn-danger">Delet user</button>
 
 				</div>
 			</div>
 
-		<div class="card-body">
-			<table class="table table-user-information">
-				<tbody>
-					<tr>
-						<td><b>Role:</b></td>
-						<td><div class="form-group">
-							<select  id="MultiSelect1" class="form-control form-control-sm">
+			<div class="card-body">
+				<table class="table table-user-information">
+					<tbody>
+						<tr>
+							<td><b>Role:</b></td>
+							<td>
+								<div class="form-group">
+									<select id="MultiSelect1" class="form-control form-control-sm">
 								{{#if db_user.[0].isAdmin}}
 								<option selected value="1">Admin</option>
 								<option value="2">User</option>
@@ -28,37 +28,38 @@
 								<option selected value="2">User</option>
 								{{/if}}
 							</select>
-							</div>
-                            <div class="form-group">
-                                <input id="MultiSelect1idArea" type="hidden" value="{{db_user.[0].id}}" name="id"></input>
-                            </div>
-						</td>
-					</tr>
-					<tr>
-						<td><b>Name:</b></td>
-						<td>{{db_user.[0].name}}</td>
-					</tr>
-					<tr>
-						<td><b>Username:</b></td>
-						<td>{{db_user.[0].username}}</td>
-					</tr>
-					<tr>
-						<td><b>Register date:</b></td>
-						<td>{{formaDate db_user.[0].registerdate}} </td>
-					</tr>
-					<tr>
-						<td><b>Email</b></td>
-						<td><a href="mailto:{{db_user.[0].email}}">{{db_user.[0].email}}</a></td>
-					</tr>
-					<tr>
-						<td><b>Number of projects:</b></td>
-						<td>{{db_data.length}}</b></td>
-					</tr>
-					<tr>
-						<td><b>Validated user:</b></td>
-						<td>
-							<div class="form-check">
-								<select  id="MultiSelect2" class="form-control form-control-sm">
+								</div>
+								<div class="form-group">
+									<input id="MultiSelect1idArea" type="hidden" value="{{db_user.[0].id}}" name="id"></input>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td><b>Name:</b></td>
+							<td>{{db_user.[0].name}}</td>
+						</tr>
+						<tr>
+							<td><b>Username:</b></td>
+							<td>{{db_user.[0].username}}</td>
+						</tr>
+						<tr>
+							<td><b>Register date:</b></td>
+							<td>{{formaDate db_user.[0].registerdate}} </td>
+						</tr>
+						<tr>
+							<td><b>Email</b></td>
+							<td><a href="mailto:{{db_user.[0].email}}">{{db_user.[0].email}}</a></td>
+						</tr>
+						<tr>
+							<td><b>Number of projects:</b></td>
+							<td>{{db_data.length}}</b>
+							</td>
+						</tr>
+						<tr>
+							<td><b>Validated user:</b></td>
+							<td>
+								<div class="form-check">
+									<select id="MultiSelect2" class="form-control form-control-sm">
 									{{#if db_user.[0].isValedated}}
 									<option selected value="3">Valedated</option>
 									<option value="4">Not validated</option>
@@ -67,57 +68,57 @@
 									<option selected value="4">Not validated</option>
 									{{/if}}
 								</select>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<div class="container d-flex justify-content-between">
-				<a href="/admin/admin-edit-profile/{{db_user.[0].id}}" class="btn btn-primary ">Edit {{this.name}} profile</a>
-				<a href="/admin/admin-change-password/{{db_user.[0]._id}}" class="btn btn-primary ">Change {{this.name}} password</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="container d-flex justify-content-between">
+					<a href="/admin/admin-edit-profile/{{db_user.[0].id}}" class="btn btn-primary ">Edit {{this.name}} profile</a>
+					<a href="/admin/admin-change-password/{{db_user.[0]._id}}" class="btn btn-primary ">Change {{this.name}} password</a>
+				</div>
 			</div>
 		</div>
-	</div>
-	<div><br></div>
-	<div class="containerfluid">
-		<div class="card">
-			<h3 class="card-header">Project</h3>
-			<div class="card-body">
-				<div class="container">
-					<table class="table table-hover table-responsive-xl ">
-		                <thead class="thead-dark">
-						<tr>
-							<th scope="col">#</th>
-							<th scope="col">Name</th>
-							<th scope="col">Creation</th>
-							<th scope="col">Lastedit</th>
-							<th scope="col">Deleted</th>
-							<th scope="col"></th>
+		<div><br></div>
+		<div class="containerfluid">
+			<div class="card">
+				<h3 class="card-header">Project</h3>
+				<div class="card-body">
+					<div class="container">
+						<table class="table table-hover table-responsive-xl ">
+							<thead class="thead-dark">
+								<tr>
+									<th scope="col">#</th>
+									<th scope="col">Name</th>
+									<th scope="col">Creation</th>
+									<th scope="col">Lastedit</th>
+									<th scope="col">Deleted</th>
+									<th scope="col"></th>
 
-						</tr>
-					</thead>
-					{{#each db_data}}
-						<tbody>
-							<tr>
-								<th scope="row">{{math @index "+" "1"}}</th>
-								<td>{{this.name}}</td>
-								<td>{{formaDate this.creationdate}}</td>
-								<td>{{formaDate this.lastedit}}</td>
-								{{#if this.deleted}}
-									<td>Yes</td>
-								{{else}}
-									<td>No</td>
-								{{/if}}
-								<td><a href="/exports/{{this._id}}" class="btn btn-primary">Edit</a></td>
-							</tr>
-						</tbody>
-					{{/each}}
-				</table>
+								</tr>
+							</thead>
+							{{#each db_data}}
+								<tbody>
+									<tr>
+										<th scope="row">{{math @index "+" "1"}}</th>
+										<td>{{this.name}}</td>
+										<td>{{formaDate this.creationdate}}</td>
+										<td>{{formaDate this.lastedit}}</td>
+										{{#if this.deleted}}
+											<td>Yes</td>
+										{{else}}
+											<td>No</td>
+										{{/if}}
+										<td><a href="/exports/{{this._id}}" class="btn btn-primary">Edit</a></td>
+									</tr>
+								</tbody>
+							{{/each}}
+						</table>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </div>
 
 <script src="/js/views/admin-edit-user.js"></script>

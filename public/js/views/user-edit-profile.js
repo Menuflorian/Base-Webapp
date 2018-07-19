@@ -3,6 +3,7 @@ function isEmail(email) {
     return regex.test(email);
 }
 
+//Edit profile from user.
 $('#SubmitButton').on("click", function() {
     var swalWithBootstrapButtons = swal.mixin({
         confirmButtonClass: 'btn btn-danger',
@@ -10,7 +11,7 @@ $('#SubmitButton').on("click", function() {
         buttonsStyling: false,
     });
 
-    if ((isEmail($('#EmailTextArea').val()) != true)&&($('#EmailTextArea').val()) !== "") {
+    if ((isEmail($('#EmailTextArea').val()) != true) && ($('#EmailTextArea').val()) !== "") {
         console.log(isEmail($('#EmailTextArea').val()));
         swalWithBootstrapButtons({
             position: 'center',
@@ -33,7 +34,7 @@ $('#SubmitButton').on("click", function() {
                 id: id
             }),
             contentType: 'application/json',
-            url: URLUtils.getAbsoluteURL('/users/user-edit-profile/'+id),
+            url: URLUtils.getAbsoluteURL('/users/user-edit-profile/' + id),
             success: function(data) {
                 swalWithBootstrapButtons({
                     position: 'center',

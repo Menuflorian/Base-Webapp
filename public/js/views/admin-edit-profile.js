@@ -10,7 +10,7 @@ $('#SubmitButton').on("click", function() {
         buttonsStyling: false,
     });
 
-    if ((isEmail($('#EmailTextArea').val()) != true)&&($('#EmailTextArea').val()) !== "") {
+    if ((isEmail($('#EmailTextArea').val()) != true) && ($('#EmailTextArea').val()) !== "") {
         swalWithBootstrapButtons({
             position: 'center',
             type: 'error',
@@ -32,7 +32,8 @@ $('#SubmitButton').on("click", function() {
                 id: id
             }),
             contentType: 'application/json',
-            url: URLUtils.getAbsoluteURL('/admin/admin-edit-profile/'+id),
+            url: URLUtils.getAbsoluteURL('/admin/admin-edit-profile/' + id),
+
             success: function(data) {
                 swalWithBootstrapButtons({
                     position: 'center',
@@ -41,8 +42,8 @@ $('#SubmitButton').on("click", function() {
                     showConfirmButton: false,
                     timer: 1500
                 });
-
             },
+
             error: function(data) {
                 swalWithBootstrapButtons({
                     position: 'center',
