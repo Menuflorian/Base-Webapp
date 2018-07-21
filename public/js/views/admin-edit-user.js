@@ -125,8 +125,8 @@ $('#MultiSelect2').change(function () {
 
 
 //Delet user
-$('#Delet-user-button').on("click", function() {
-    var id = $('#DeletidArea').val();
+$('#Delete-user-button').on("click", function() {
+    var id = $('#DeleteidArea').val();
 
     swalWithBootstrapButtons({
         title: 'Are you sure?',

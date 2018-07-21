@@ -37,7 +37,7 @@ $('#btn-save').on("click", function() {
 
 //Delet project from user (change argument in database)
 $('#btn-delete-user').on("click", function() {
-    var id = $('#IdDeletArea').val();
+    var id = $('#IdDeleteArea').val();
 
 
     swalWithBootstrapButtons({
@@ -115,7 +115,7 @@ $('#btn-restore').on("click", function() {
 
 
 //delet project from admin (delet from database)
-$('#btn-finaldelet').on("click", function() {
+$('#btn-finaldelete').on("click", function() {
     var id = $('#IdFinalDeleteArea').val();
 
     swalWithBootstrapButtons({
