@@ -15,7 +15,7 @@ $('#SubmitButton').on("click", function() {
             position: 'center',
             type: 'error',
             title: "Error, Email Must be an email form valid",
-            showConfirmButton: true,
+            showConfirmButton: false,
             showCancelButton: true,
         }).catch(swal.noop);
     } else {

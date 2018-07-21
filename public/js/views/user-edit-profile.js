@@ -12,7 +12,6 @@ $('#SubmitButton').on("click", function() {
     });
 
     if ((isEmail($('#EmailTextArea').val()) != true) && ($('#EmailTextArea').val()) !== "") {
-        console.log(isEmail($('#EmailTextArea').val()));
         swalWithBootstrapButtons({
             position: 'center',
             type: 'error',

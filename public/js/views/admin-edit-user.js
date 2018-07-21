@@ -6,11 +6,9 @@ var swalWithBootstrapButtons = swal.mixin({
 
 
 //Select admin/user
-$('#MultiSelect1').multiselect({
-    onChange: function() {
+$('#MultiSelect1').change(function () {
         var selected = $('#MultiSelect1 option:selected').val();
         var id = $('#MultiSelect1idArea').val();
-        console.log(id);
         if (selected == 1) { //select on admin
             $.ajax({
                 type: "post",
@@ -63,13 +61,12 @@ $('#MultiSelect1').multiselect({
                 },
             });
         }
-    }
-});
+    });
+
 
 
 //select validated/unvalidated
-$('#MultiSelect2').multiselect({
-    onChange: function() {
+$('#MultiSelect2').change(function () {
         var selected = $('#MultiSelect2 option:selected').val();
         var id = $('#MultiSelect1idArea').val();
         if (selected == 3) { //select on validatred
@@ -124,8 +121,8 @@ $('#MultiSelect2').multiselect({
                 },
             });
         }
-    }
-});
+    });
+
 
 //Delet user
 $('#Delet-user-button').on("click", function() {
