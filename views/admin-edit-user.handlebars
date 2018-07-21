@@ -19,15 +19,15 @@
 							<td><b>Role:</b></td>
 							<td>
 								<div class="form-group">
-									<select id="MultiSelect1" class="form-control form-control-sm">
-								{{#if db_user.[0].isAdmin}}
-								<option selected value="1">Admin</option>
-								<option value="2">User</option>
-								{{else}}
-								<option value="1">Admin</option>
-								<option selected value="2">User</option>
-								{{/if}}
-							</select>
+									<div id="MultiSelect1" class="btn-group boostrap-select">
+										{{#if db_user.[0].isAdmin}}
+										<option selected value="1">Admin</option>
+										<option value="2">User</option>
+										{{else}}
+										<option value="1">Admin</option>
+										<option selected value="2">User</option>
+										{{/if}}
+									</div>
 								</div>
 								<div class="form-group">
 									<input id="MultiSelect1idArea" type="hidden" value="{{db_user.[0].id}}" name="id"></input>

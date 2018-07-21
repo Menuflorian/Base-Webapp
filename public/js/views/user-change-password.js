@@ -24,8 +24,7 @@ $('#ChangePasswordButton').on("click", function() {
                 position: 'center',
                 type: 'success',
                 title: 'Password has been changed',
-                showConfirmButton: false,
-                timer: 1500
+                showConfirmButton: true,
             });
         },
         statusCode: {
@@ -35,8 +34,7 @@ $('#ChangePasswordButton').on("click", function() {
                     position: 'center',
                     type: 'error',
                     title: "Error, Incorrect password",
-                    showConfirmButton: false,
-                    timer: 1500
+                    showConfirmButton: true,
                 }).catch(swal.noop);
             },
             401: function(data) {
@@ -44,8 +42,7 @@ $('#ChangePasswordButton').on("click", function() {
                     position: 'center',
                     type: 'error',
                     title: "Error, User unknown",
-                    showConfirmButton: false,
-                    timer: 1500
+                    showConfirmButton: true,
                 }).catch(swal.noop);
             },
             402: function(data) {
@@ -53,8 +50,7 @@ $('#ChangePasswordButton').on("click", function() {
                     position: 'center',
                     type: 'error',
                     title: "Error, New password don't match with cofirm password",
-                    showConfirmButton: false,
-                    timer: 1500
+                    showConfirmButton: true,
                 }).catch(swal.noop);
             },
             500: function(data) {
@@ -62,8 +58,7 @@ $('#ChangePasswordButton').on("click", function() {
                     position: 'center',
                     type: 'error',
                     title: "Error, Internal error",
-                    showConfirmButton: false,
-                    timer: 1500
+                    showConfirmButton: true,
                 }).catch(swal.noop);
             }
         }

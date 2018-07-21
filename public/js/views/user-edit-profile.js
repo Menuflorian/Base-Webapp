@@ -6,8 +6,8 @@ function isEmail(email) {
 //Edit profile from user.
 $('#SubmitButton').on("click", function() {
     var swalWithBootstrapButtons = swal.mixin({
-        confirmButtonClass: 'btn btn-danger',
-        cancelButtonClass: 'btn btn-primary',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
         buttonsStyling: false,
     });
 
@@ -17,7 +17,7 @@ $('#SubmitButton').on("click", function() {
             position: 'center',
             type: 'error',
             title: "Error, Email Must be an email form valid",
-            showConfirmButton: false,
+            confirmButtonClass: 'btn btn-danger',
             showCancelButton: true,
         }).catch(swal.noop);
     } else {
@@ -40,8 +40,7 @@ $('#SubmitButton').on("click", function() {
                     position: 'center',
                     type: 'success',
                     title: 'Profile has been changed',
-                    showConfirmButton: false,
-                    timer: 1500
+                    showConfirmButton: true,
                 });
 
             },
@@ -50,8 +49,8 @@ $('#SubmitButton').on("click", function() {
                     position: 'center',
                     type: 'error',
                     title: 'Error, Username and/or Email is already use.',
-                    showConfirmButton: false,
-                    timer: 1500
+                    showConfirmButton: true,
+                    confirmButtonClass: 'btn btn-danger'
                 });
             },
         });

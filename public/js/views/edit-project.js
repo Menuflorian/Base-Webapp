@@ -20,8 +20,7 @@ $('#btn-save').on("click", function() {
                 position: 'center',
                 type: 'success',
                 title: 'Project has been changed',
-                showConfirmButton: false,
-                timer: 1500
+                showConfirmButton: true,
             });
         },
         error: function(data) {
@@ -29,8 +28,7 @@ $('#btn-save').on("click", function() {
                 position: 'center',
                 type: 'error',
                 title: 'Error',
-                showConfirmButton: false,
-                timer: 1500
+                showConfirmButton: true,
             });
         },
     });
@@ -61,8 +59,7 @@ $('#btn-delete-user').on("click", function() {
                         position: 'center',
                         type: 'success',
                         title: 'Project is now deleted',
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     }).then(function(result) {
                         location.href = URLUtils.getAbsoluteURL('/');
                     });
@@ -72,8 +69,7 @@ $('#btn-delete-user').on("click", function() {
                         position: 'center',
                         type: 'error',
                         title: 'Error',
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     });
                 },
             });
@@ -103,8 +99,7 @@ $('#btn-restore').on("click", function() {
                 position: 'center',
                 type: 'success',
                 title: 'Project is restored',
-                showConfirmButton: false,
-                timer: 1500
+                showConfirmButton: true,
             });
         },
         error: function(data) {
@@ -112,8 +107,7 @@ $('#btn-restore').on("click", function() {
                 position: 'center',
                 type: 'error',
                 title: 'Error',
-                showConfirmButton: false,
-                timer: 1500
+                showConfirmButton: true,
             });
         },
     });
@@ -144,8 +138,7 @@ $('#btn-finaldelet').on("click", function() {
                         showCancelButton: false,
                         type: 'success',
                         title: 'Project has been extarminated.',
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     }).then(function(result) {
                         location.href = URLUtils.getAbsoluteURL('/exports/projects4');
                     });
@@ -155,8 +148,7 @@ $('#btn-finaldelet').on("click", function() {
                         position: 'center',
                         type: 'error',
                         title: 'Error',
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     });
                 },
             });

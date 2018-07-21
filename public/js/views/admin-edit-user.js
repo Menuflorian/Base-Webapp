@@ -24,8 +24,7 @@ $('#MultiSelect1').multiselect({
                         position: 'center',
                         type: 'success',
                         title: 'User is now admin.',
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     });
                 },
                 error: function(data) {
@@ -33,8 +32,7 @@ $('#MultiSelect1').multiselect({
                         position: 'center',
                         type: 'error',
                         title: 'Error',
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     });
                 },
             });
@@ -52,8 +50,7 @@ $('#MultiSelect1').multiselect({
                         position: 'center',
                         type: 'success',
                         title: 'Admin is now user',
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     });
                 },
                 error: function(data) {
@@ -61,8 +58,7 @@ $('#MultiSelect1').multiselect({
                         position: 'center',
                         type: 'error',
                         title: 'Error',
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     });
                 },
             });
@@ -89,8 +85,7 @@ $('#MultiSelect2').multiselect({
                         position: 'center',
                         type: 'success',
                         title: 'User is now valedated.',
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     });
                 },
                 error: function(data) {
@@ -98,8 +93,7 @@ $('#MultiSelect2').multiselect({
                         position: 'center',
                         type: 'error',
                         title: 'Error',
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     });
                 },
             });
@@ -117,8 +111,7 @@ $('#MultiSelect2').multiselect({
                         position: 'center',
                         type: 'success',
                         title: 'User no longer validated',
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     });
                 },
                 error: function(data) {
@@ -126,8 +119,7 @@ $('#MultiSelect2').multiselect({
                         position: 'center',
                         type: 'error',
                         title: 'Error',
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     });
                 },
             });
@@ -162,8 +154,7 @@ $('#Delet-user-button').on("click", function() {
                         showCancelButton: false,
                         type: 'success',
                         title: 'User has been deleted',
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     }).then(function(result) {
                         location.href = URLUtils.getAbsoluteURL('/admin/admin');
                     });
@@ -174,8 +165,7 @@ $('#Delet-user-button').on("click", function() {
                         position: 'center',
                         type: 'error',
                         title: 'Error',
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     });
                 },
             });

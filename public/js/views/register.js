@@ -15,7 +15,7 @@ $('#SubmitButton').on("click", function() {
             position: 'center',
             type: 'error',
             title: "Error, Password and confirm password don't match.",
-            showConfirmButton: false,
+            showConfirmButton: true,
             showCancelButton: true,
         }).catch(swal.noop);
     }
@@ -24,7 +24,7 @@ $('#SubmitButton').on("click", function() {
             position: 'center',
             type: 'error',
             title: "Error, Confirm password can't be empty.",
-            showConfirmButton: false,
+            showConfirmButton: true,
             showCancelButton: true,
         }).catch(swal.noop);
     }
@@ -33,7 +33,7 @@ $('#SubmitButton').on("click", function() {
             position: 'center',
             type: 'error',
             title: "Error, Password can't be empty.",
-            showConfirmButton: false,
+            showConfirmButton: true,
             showCancelButton: true,
         }).catch(swal.noop);
     }
@@ -42,7 +42,7 @@ $('#SubmitButton').on("click", function() {
             position: 'center',
             type: 'error',
             title: "Error, Email Must be an email form valid",
-            showConfirmButton: false,
+            showConfirmButton: true,
             showCancelButton: true,
         }).catch(swal.noop);
     }
@@ -51,7 +51,7 @@ $('#SubmitButton').on("click", function() {
             position: 'center',
             type: 'error',
             title: "Error, Email can't be empty.",
-            showConfirmButton: false,
+            showConfirmButton: true,
             showCancelButton: true,
         }).catch(swal.noop);
     }
@@ -60,7 +60,7 @@ $('#SubmitButton').on("click", function() {
             position: 'center',
             type: 'error',
             title: "Error, Username can't be empty.",
-            showConfirmButton: false,
+            showConfirmButton: true,
             showCancelButton: true,
         }).catch(swal.noop);
     }
@@ -69,7 +69,7 @@ $('#SubmitButton').on("click", function() {
             position: 'center',
             type: 'error',
             title: "Error, Name can't be empty.",
-            showConfirmButton: false,
+            showConfirmButton: true,
             showCancelButton: true,
         }).catch(swal.noop);
     }
@@ -96,8 +96,7 @@ $('#SubmitButton').on("click", function() {
                     position: 'center',
                     type: 'success',
                     title: 'Password has been changed',
-                    showConfirmButton: false,
-                    timer: 1500
+                    showConfirmButton: true,
                 }).then(function(result) {
                     location.href = URLUtils.getAbsoluteURL('/users/login');
                 });
@@ -108,8 +107,7 @@ $('#SubmitButton').on("click", function() {
                         position: 'center',
                         type: 'error',
                         title: "Error, Incorrect password",
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     }).catch(swal.noop);
                 },
                 401: function(data) {
@@ -117,8 +115,7 @@ $('#SubmitButton').on("click", function() {
                         position: 'center',
                         type: 'error',
                         title: "Error, User unknown",
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     }).catch(swal.noop);
                 },
                 402: function(data) {
@@ -126,8 +123,7 @@ $('#SubmitButton').on("click", function() {
                         position: 'center',
                         type: 'error',
                         title: "Error, New password don't match with cofirm password",
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     }).catch(swal.noop);
                 },
                 405: function(data) {
@@ -135,8 +131,7 @@ $('#SubmitButton').on("click", function() {
                         position: 'center',
                         type: 'error',
                         title: "Error, User or email already used",
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     }).catch(swal.noop);
                 },
                 500: function(data) {
@@ -144,8 +139,7 @@ $('#SubmitButton').on("click", function() {
                         position: 'center',
                         type: 'error',
                         title: "Error, Internal error",
-                        showConfirmButton: false,
-                        timer: 1500
+                        showConfirmButton: true,
                     }).catch(swal.noop);
                 }
             }

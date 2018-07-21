@@ -74,8 +74,7 @@ $('#saveProjectButton').on("click", function() {
                 position: 'center',
                 type: 'success',
                 title: 'Your work has been saved',
-                showConfirmButton: false,
-                timer: 1500
+                showConfirmButton: true,
             });
         },
         error: function(data) {
@@ -83,8 +82,7 @@ $('#saveProjectButton').on("click", function() {
                 position: 'center',
                 type: 'error',
                 title: 'Error',
-                showConfirmButton: false,
-                timer: 1500
+                showConfirmButton: true,
             });
         },
     });
