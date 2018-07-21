@@ -70,23 +70,10 @@ $('#saveProjectButton').on("click", function() {
         contentType: 'application/json',
         url: URLUtils.getAbsoluteURL("/exports/save"),
         success: function(data) {
-            swalWithBootstrapButtons({
-                position: 'center',
-                type: 'success',
-                title: 'Your work has been saved',
-                showConfirmButton: true,
-            });
+            swalsuccess('Your work has been saved');
         },
-        error: function(data) {
-            swalWithBootstrapButtons({
-                position: 'center',
-                type: 'error',
-                title: 'Error',
-                showConfirmButton: true,
-            });
-        },
+        error: function(data) {swalerror500();},
     });
-
 });
 
 loadDualboxApp("iphone-case-engrave");

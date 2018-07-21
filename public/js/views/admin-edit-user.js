@@ -1,10 +1,3 @@
-var swalWithBootstrapButtons = swal.mixin({
-    confirmButtonClass: 'btn btn-danger swal-btn-last',
-    cancelButtonClass: 'btn btn-primary swal-btn-not-last',
-    buttonsStyling: false,
-});
-
-
 //Select admin/user
 $('#MultiSelect1').change(function () {
         var selected = $('#MultiSelect1 option:selected').val();
@@ -17,21 +10,9 @@ $('#MultiSelect1').change(function () {
                 }),
                 url: URLUtils.getAbsoluteURL("/admin/admin-makeadmin-user/" + id),
                 contentType: "application/json",
-                success: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'success',
-                        title: 'User is now admin.',
-                        showConfirmButton: true,
-                    });
-                },
+                success: swalsuccess('User is now admin.'),
                 error: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'error',
-                        title: 'Error',
-                        showConfirmButton: true,
-                    });
+                    swalerrorgen();
                 },
             });
         }
@@ -43,27 +24,13 @@ $('#MultiSelect1').change(function () {
                 }),
                 url: URLUtils.getAbsoluteURL("/admin/admin-removeadmin-user/" + id),
                 contentType: "application/json",
-                success: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'success',
-                        title: 'Admin is now user',
-                        showConfirmButton: true,
-                    });
-                },
+                success: swalsuccess('Admin is now user'),
                 error: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'error',
-                        title: 'Error',
-                        showConfirmButton: true,
-                    });
+                    swalerrorgen();
                 },
             });
         }
     });
-
-
 
 //select validated/unvalidated
 $('#MultiSelect2').change(function () {
@@ -77,21 +44,9 @@ $('#MultiSelect2').change(function () {
                 }),
                 url: URLUtils.getAbsoluteURL("/admin/admin-validate-user/" + id),
                 contentType: "application/json",
-                success: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'success',
-                        title: 'User is now valedated.',
-                        showConfirmButton: true,
-                    });
-                },
+                success: swalsuccess('User is now validated.'),
                 error: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'error',
-                        title: 'Error',
-                        showConfirmButton: true,
-                    });
+                    swalerrorgen();
                 },
             });
         }
@@ -103,21 +58,9 @@ $('#MultiSelect2').change(function () {
                 }),
                 url: URLUtils.getAbsoluteURL("/admin/admin-unvalidate-user/" + id),
                 contentType: "application/json",
-                success: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'success',
-                        title: 'User no longer validated',
-                        showConfirmButton: true,
-                    });
-                },
+                success: swalsuccess('User no longer validated'),
                 error: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'error',
-                        title: 'Error',
-                        showConfirmButton: true,
-                    });
+                    swalerrorgen();
                 },
             });
         }
@@ -145,25 +88,11 @@ $('#Delete-user-button').on("click", function() {
                 }),
                 contentType: 'application/json',
                 url: URLUtils.getAbsoluteURL('/admin/admin-delete-user/' + id),
-                success: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        showCancelButton: false,
-                        type: 'success',
-                        title: 'User has been deleted',
-                        showConfirmButton: true,
-                    }).then(function(result) {
+                success: swalsuccess('User has been deleted').then(function(result) {
                         location.href = URLUtils.getAbsoluteURL('/admin/admin');
-                    });
-
-                },
+                    }),
                 error: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'error',
-                        title: 'Error',
-                        showConfirmButton: true,
-                    });
+                    swalerrorgen();
                 },
             });
         } else if (

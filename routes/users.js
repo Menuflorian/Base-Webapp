@@ -110,7 +110,7 @@ router.post('/register', function(req, res) {
                 }
             }, function(err, mail) {
                 if (user || mail) {
-                    res.sendStatus(405);
+                    res.sendStatus(406);
                 } else {
                     var newUser = new User({
                         name: name,
@@ -135,7 +135,9 @@ router.post('/register', function(req, res) {
 passport.use(new LocalStrategy(
     function(email, password, done) {
         User.getUserByEmail(email, function(err, user) {
-            if (err) throw err;
+            if (err) {
+                return res.sendStatus(500);
+            }
             if (!user) {
                 return done(null, false, {
                     errorcode: 401
@@ -143,7 +145,9 @@ passport.use(new LocalStrategy(
             }
 
             User.comparePassword(password, user.password, function(err, isMatch) {
-                if (err) throw err;
+                if (err) {
+                    return res.sendStatus(500);
+                }
                 if (isMatch) {
                     return done(null, user);
                 } else {
@@ -154,9 +158,6 @@ passport.use(new LocalStrategy(
             });
         });
     }));
-
-
-
 
 passport.serializeUser(function(user, done) {
     done(null, user.id);
@@ -274,7 +275,7 @@ router.post('/user-change-password', ensureAuthenticated, function(req, res) {
             if (err) {
                 res.sendStatus(500);
             } else if (password == "" || password2 == "") {
-                res.sendStatus(400);
+                res.sendStatus(404);
             } else if (bcrypt.compareSync(userpassword, req.user.password) == false) {
                 res.sendStatus(400);
             } else {

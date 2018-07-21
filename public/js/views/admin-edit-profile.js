@@ -1,23 +1,7 @@
-function isEmail(email) {
-    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    return regex.test(email);
-}
-
+//Edit profile from admin.
 $('#SubmitButton').on("click", function() {
-    var swalWithBootstrapButtons = swal.mixin({
-        confirmButtonClass: 'btn btn-danger',
-        cancelButtonClass: 'btn btn-primary',
-        buttonsStyling: false,
-    });
-
     if ((isEmail($('#EmailTextArea').val()) != true) && ($('#EmailTextArea').val()) !== "") {
-        swalWithBootstrapButtons({
-            position: 'center',
-            type: 'error',
-            title: "Error, Email Must be an email form valid",
-            showConfirmButton: false,
-            showCancelButton: true,
-        }).catch(swal.noop);
+        swalerror405();
     } else {
         var name = $('#NameTextArea').val();
         var username = $('#UsernameTextArea').val();
@@ -33,24 +17,10 @@ $('#SubmitButton').on("click", function() {
             }),
             contentType: 'application/json',
             url: URLUtils.getAbsoluteURL('/admin/admin-edit-profile/' + id),
-
-            success: function(data) {
-                swalWithBootstrapButtons({
-                    position: 'center',
-                    type: 'success',
-                    title: 'Profile has been changed',
-                    showConfirmButton: true,
-                });
-            },
-
+            success: function(data) {swalsuccess('Profile has been changed');},
             error: function(data) {
-                swalWithBootstrapButtons({
-                    position: 'center',
-                    type: 'error',
-                    title: 'Error, Username and/or Email is already use.',
-                    showConfirmButton: true,
-                });
-            },
+                    swalerror406();
+                },
         });
     }
 });

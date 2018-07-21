@@ -1,9 +1,3 @@
-var swalWithBootstrapButtons = swal.mixin({
-    confirmButtonClass: 'btn btn-warning',
-    cancelButtonClass: 'btn btn-primary',
-    buttonsStyling: false,
-});
-
 //Save edit
 $('#btn-save').on("click", function() {
     var corp = $('#CorpTextArea').val();
@@ -15,31 +9,16 @@ $('#btn-save').on("click", function() {
         }),
         contentType: 'application/json',
         url: URLUtils.getAbsoluteURL('/exports/edit/' + id),
-        success: function(data) {
-            swalWithBootstrapButtons({
-                position: 'center',
-                type: 'success',
-                title: 'Project has been changed',
-                showConfirmButton: true,
-            });
-        },
-        error: function(data) {
-            swalWithBootstrapButtons({
-                position: 'center',
-                type: 'error',
-                title: 'Error',
-                showConfirmButton: true,
-            });
-        },
+            success: function(data) {swalsuccess('Project has been changed');},
+            error: function(data) {
+                    swalerrorgen();
+                },
     });
 });
-
 
 //Delet project from user (change argument in database)
 $('#btn-delete-user').on("click", function() {
     var id = $('#IdDeleteArea').val();
-
-
     swalWithBootstrapButtons({
         title: 'Are you sure?',
         text: "You won't be able to revert this!",
@@ -54,24 +33,12 @@ $('#btn-delete-user').on("click", function() {
                 type: 'post',
                 contentType: 'application/json',
                 url: URLUtils.getAbsoluteURL('/exports/userdelete/' + id),
-                success: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'success',
-                        title: 'Project is now deleted',
-                        showConfirmButton: true,
-                    }).then(function(result) {
+                success: swalsuccess('Project is now deleted').then(function(result) {
                         location.href = URLUtils.getAbsoluteURL('/');
-                    });
-                },
+                    }),
                 error: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'error',
-                        title: 'Error',
-                        showConfirmButton: true,
-                    });
-                },
+                        swalerrorgen();
+                    },
             });
         } else if (
             // Read more about handling dismissals
@@ -86,7 +53,6 @@ $('#btn-delete-user').on("click", function() {
     });
 });
 
-
 //Restor project
 $('#btn-restore').on("click", function() {
     var id = $('#IdRestoreArea').val();
@@ -94,25 +60,12 @@ $('#btn-restore').on("click", function() {
         type: 'post',
         contentType: 'application/json',
         url: URLUtils.getAbsoluteURL('/exports/restore/' + id),
-        success: function(data) {
-            swalWithBootstrapButtons({
-                position: 'center',
-                type: 'success',
-                title: 'Project is restored',
-                showConfirmButton: true,
-            });
-        },
+        success: function(data) {swalsuccess('Project is restored');},
         error: function(data) {
-            swalWithBootstrapButtons({
-                position: 'center',
-                type: 'error',
-                title: 'Error',
-                showConfirmButton: true,
-            });
-        },
+                swalerror406();
+            },
     });
 });
-
 
 //delet project from admin (delet from database)
 $('#btn-finaldelete').on("click", function() {
@@ -132,24 +85,11 @@ $('#btn-finaldelete').on("click", function() {
                 type: 'post',
                 contentType: 'application/json',
                 url: URLUtils.getAbsoluteURL('/exports/admindelete/' + id),
-                success: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        showCancelButton: false,
-                        type: 'success',
-                        title: 'Project has been extarminated.',
-                        showConfirmButton: true,
-                    }).then(function(result) {
+                success: swalsuccess('Project has been extarminated.').then(function(result) {
                         location.href = URLUtils.getAbsoluteURL('/exports/projects4');
-                    });
-                },
+                    }),
                 error: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'error',
-                        title: 'Error',
-                        showConfirmButton: true,
-                    });
+                    swalerrorgen();
                 },
             });
         } else if (

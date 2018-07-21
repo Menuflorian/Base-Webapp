@@ -1,77 +1,24 @@
-function isEmail(email) {
-    var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    return regex.test(email);
-}
-
 $('#SubmitButton').on("click", function() {
-    var swalWithBootstrapButtons = swal.mixin({
-        confirmButtonClass: 'btn btn-danger',
-        cancelButtonClass: 'btn btn-primary',
-        buttonsStyling: false,
-    });
-
     if ($('#Password2TextArea').val() != $('#PasswordTextArea').val()) {
-        swalWithBootstrapButtons({
-            position: 'center',
-            type: 'error',
-            title: "Error, Password and confirm password don't match.",
-            showConfirmButton: true,
-            showCancelButton: true,
-        }).catch(swal.noop);
+        swalerror410();
     }
     if ($('#Password2TextArea').val() == "") {
-        swalWithBootstrapButtons({
-            position: 'center',
-            type: 'error',
-            title: "Error, Confirm password can't be empty.",
-            showConfirmButton: true,
-            showCancelButton: true,
-        }).catch(swal.noop);
+        swalerror409();
     }
     if ($('#PasswordTextArea').val() == "") {
-        swalWithBootstrapButtons({
-            position: 'center',
-            type: 'error',
-            title: "Error, Password can't be empty.",
-            showConfirmButton: true,
-            showCancelButton: true,
-        }).catch(swal.noop);
+        swalerror404();
     }
     if (isEmail($('#EmailTextArea').val()) != true) {
-        swalWithBootstrapButtons({
-            position: 'center',
-            type: 'error',
-            title: "Error, Email Must be an email form valid",
-            showConfirmButton: true,
-            showCancelButton: true,
-        }).catch(swal.noop);
+        swalerror405();
     }
     if ($('#EmailTextArea').val() == "") {
-        swalWithBootstrapButtons({
-            position: 'center',
-            type: 'error',
-            title: "Error, Email can't be empty.",
-            showConfirmButton: true,
-            showCancelButton: true,
-        }).catch(swal.noop);
+        swalerror403();
     }
     if ($('#UsernameTextArea').val() == "") {
-        swalWithBootstrapButtons({
-            position: 'center',
-            type: 'error',
-            title: "Error, Username can't be empty.",
-            showConfirmButton: true,
-            showCancelButton: true,
-        }).catch(swal.noop);
+        swalerror408();
     }
     if ($('#NameTextArea').val() == "") {
-        swalWithBootstrapButtons({
-            position: 'center',
-            type: 'error',
-            title: "Error, Name can't be empty.",
-            showConfirmButton: true,
-            showCancelButton: true,
-        }).catch(swal.noop);
+        swalerror407();
     }
     if ($('#NameTextArea').val() && $('#UsernameTextArea').val() && $('#EmailTextArea').val() && $('#PasswordTextArea').val() && $('#Password2TextArea').val() != "") {
         var name = $('#NameTextArea').val();
@@ -91,57 +38,15 @@ $('#SubmitButton').on("click", function() {
             contentType: 'application/json',
             url: URLUtils.getAbsoluteURL('/users/register'),
 
-            success: function(data) {
-                swalWithBootstrapButtons({
-                    position: 'center',
-                    type: 'success',
-                    title: 'Password has been changed',
-                    showConfirmButton: true,
-                }).then(function(result) {
-                    location.href = URLUtils.getAbsoluteURL('/users/login');
-                });
+            success: function(result) {
+                        location.href = URLUtils.getAbsoluteURL('/users/login');
             },
             statusCode: {
-                400: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'error',
-                        title: "Error, Incorrect password",
-                        showConfirmButton: true,
-                    }).catch(swal.noop);
-                },
-                401: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'error',
-                        title: "Error, User unknown",
-                        showConfirmButton: true,
-                    }).catch(swal.noop);
-                },
-                402: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'error',
-                        title: "Error, New password don't match with cofirm password",
-                        showConfirmButton: true,
-                    }).catch(swal.noop);
-                },
-                405: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'error',
-                        title: "Error, User or email already used",
-                        showConfirmButton: true,
-                    }).catch(swal.noop);
-                },
-                500: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'error',
-                        title: "Error, Internal error",
-                        showConfirmButton: true,
-                    }).catch(swal.noop);
-                }
+                400: function(data) {swalerror400();},
+                401: function(data) {swalerror401();},
+                402: function(data) {swalerror402();},
+                406: function(data) {swalerror406();},
+                500: function(data) {swalerror500();},
             }
         });
     }

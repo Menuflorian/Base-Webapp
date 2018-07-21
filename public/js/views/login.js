@@ -1,32 +1,9 @@
-var swalWithBootstrapButtons = swal.mixin({
-    confirmButtonClass: 'btn btn-danger',
-    cancelButtonClass: 'btn btn-primary',
-    buttonsStyling: false,
-});
-
 $('#SubmitButton').on("click", function() {
-    var swalWithBootstrapButtons = swal.mixin({
-        confirmButtonClass: 'btn btn-danger',
-        cancelButtonClass: 'btn btn-primary',
-        buttonsStyling: false,
-    });
     if ($('#UsernameTextArea').val() == "") {
-        swalWithBootstrapButtons({
-            position: 'center',
-            type: 'error',
-            title: "Error, E-mail can't be empty.",
-            showConfirmButton: true,
-            showCancelButton: true,
-        }).catch(swal.noop);
+        swalerror403();
     }
     if ($('#PasswordTextArea').val() == "") {
-        swalWithBootstrapButtons({
-            position: 'center',
-            type: 'error',
-            title: "Error, Password can't be empty.",
-            showConfirmButton: true,
-            showCancelButton: true,
-        }).catch(swal.noop);
+        swalerror404();
     }
     if ($('#PasswordTextArea').val() && $('#UsernameTextArea').val() != "") {
         var pass = $('#PasswordTextArea').val();
@@ -39,45 +16,14 @@ $('#SubmitButton').on("click", function() {
             }),
             contentType: 'application/json',
             url: URLUtils.getAbsoluteURL('/users/login'),
-            success: function(data) {
-                        location.href = URLUtils.getAbsoluteURL('/');
-                    },
             statusCode: {
 
-                400: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'error',
-                        title: "Error, Incorrect password",
-                        showConfirmButton: true,
-                    });
-                },
-                401: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'error',
-                        title: "Error, User unknown",
-                        showConfirmButton: true,
-                    });
-                },
-                402: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'error',
-                        title: "Error, New password don't match with cofirm password",
-                        showConfirmButton: true,
-                    });
-                },
-                500: function(data) {
-                    swalWithBootstrapButtons({
-                        position: 'center',
-                        type: 'error',
-                        title: "Error, Internal error",
-                        showConfirmButton: true,
-                    });
-                }
+                200: function(data) {location.href = URLUtils.getAbsoluteURL('/');},
+                400: function(data) {swalerror400();},
+                401: function(data) {swalerror401();},
+                402: function(data) {swalerror402();},
+                500: function(data) {swalerror500();},
             }
         });
     }
-
 });
