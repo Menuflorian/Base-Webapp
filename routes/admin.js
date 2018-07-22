@@ -123,10 +123,13 @@ router.get('/admin-change-password/:id', ensureAuthenticated, ensureAdmin, funct
 
 //Change the users information in Db.
 router.post('/admin-edit-profile/:id', function(req, res) {
-    var id = req.body.id;
+    var id = req.params.id;
     var name = req.body.name;
+    if (name == ""){name = req.user.name;}
     var email = req.body.email;
+    if (email == ""){email = req.user.email;}
     var username = req.body.username;
+    if (username == ""){username = req.user.username;}
     User.findOne({
             username: {
                 "$regex": "^" + username + "\\b",
@@ -134,13 +137,6 @@ router.post('/admin-edit-profile/:id', function(req, res) {
             }
         },
         function(err, user) {
-
-            if (user == null) {
-                user = {
-                    id: 1
-                };
-            }
-
             User.findOne({
                     email: {
                         "$regex": "^" + email + "\\b",
@@ -148,12 +144,6 @@ router.post('/admin-edit-profile/:id', function(req, res) {
                     }
                 },
                 function(err, mail) {
-                    if (mail == null) {
-                        mail = {
-                            id: 1
-                        };
-                    }
-
                     if ((user.id == 1) && (mail.id == 1) ||
                         ((user.id == 1) && (mail.id == req.user.id)) ||
                         ((mail.id == 1) && (user.id == req.user.id)) ||
@@ -164,21 +154,9 @@ router.post('/admin-edit-profile/:id', function(req, res) {
                             },
                             function(err, db_user) {
                                 if (err) res.send(err);
-                                if (name == "") {
-                                    name = db_user.name;
-                                } else {
-                                    db_user.name = req.body.name;
-                                }
-                                if (username == "") {
-                                    username = db_user.username;
-                                } else {
-                                    db_user.username = req.body.username;
-                                }
-                                if (email == "") {
-                                    email = db_user.email;
-                                } else {
-                                    db_user.email = req.body.email;
-                                }
+                                db_user.name = name;
+                                db_user.username = username;
+                                db_user.email = email;
                                 db_user.save(function(err, majdata) {
                                     if (err) {
                                         res.sendStatus(500);
@@ -187,7 +165,11 @@ router.post('/admin-edit-profile/:id', function(req, res) {
                                 });
                             });
                     } else {
-                        res.sendStatus(405);
+                        if (user||mail) {
+                            res.sendStatus(406);
+                        } else{
+                            res.sendStatus(405);
+                        }
                     }
                 }
             );

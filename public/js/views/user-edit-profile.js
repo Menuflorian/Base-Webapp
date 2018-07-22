@@ -18,9 +18,15 @@ $('#SubmitButton').on("click", function() {
             contentType: 'application/json',
             url: URLUtils.getAbsoluteURL('/users/user-edit-profile/' + id),
             success: function(data) {swalsuccess('Profile has been changed');},
-            error: function(data) {
-                    swalerror406();
-                },
+            statusCode: {
+                400: function(data) {swalerror400();},
+                401: function(data) {swalerror401();},
+                402: function(data) {swalerror402();},
+                404: function(data) {swalerror404();},
+                405: function(data) {swalerror405();},
+                406: function(data) {swalerror406();},
+                500: function(data) {swalerror500();},
+            }
         });
     }
 });
