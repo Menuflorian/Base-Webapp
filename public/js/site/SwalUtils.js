@@ -1,10 +1,3 @@
-
-var swalWithBootstrapButtons = swal.mixin({
-    confirmButtonClass: 'btn btn-danger swal-btn-last',
-    cancelButtonClass: 'btn btn-primary swal-btn-not-last',
-    buttonsStyling: false,
-});
-
 //Pop-up Success
 var swalsuccess = function(title) {
     swalsuccessbutton({
@@ -211,26 +204,37 @@ var swalerror500button = swal.mixin({
 });
 
 
-//pop-up prompt delete User project
-var promptdeleteuser = function(title) {
-    swalpromptdeleteuser({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-    });
-};
-var swalpromptdeleteuser = swal.mixin({
+//pop-up prompt delete User or admin project
+var confirmdeleteproject = swal.mixin({
     confirmButtonClass: 'btn btn-danger swal-btn-last',
+    cancelButtonClass: 'btn btn-primary swal-btn-not-last',
     buttonsStyling: false,
 });
-//pop-up prompt delete Admin project
+var buttondeleteproject = {
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'No, cancel!',
+    reverseButtons: true
+};
 
-//pop-up prompt delete User
-
+//pop-up prompt delete user by admin
+var confirmdeleteuser = swal.mixin({
+    confirmButtonClass: 'btn btn-danger swal-btn-last',
+    cancelButtonClass: 'btn btn-primary swal-btn-not-last',
+    buttonsStyling: false,
+});
+var buttondeleteuser = {
+    title: 'Are you sure?',
+    text: "You won't be able to revert this!",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, delete it!',
+    cancelButtonText: 'No, cancel!',
+    reverseButtons: true
+};
 
 //other function
 //isEmail

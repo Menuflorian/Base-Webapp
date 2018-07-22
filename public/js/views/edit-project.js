@@ -19,15 +19,7 @@ $('#btn-save').on("click", function() {
 //Delet project from user (change argument in database)
 $('#btn-delete-user').on("click", function() {
     var id = $('#IdDeleteArea').val();
-    swalWithBootstrapButtons({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-    }).then(function(result) {
+    confirmdeleteproject(buttondeleteproject).then(function(result) {
         if (result.value) {
             $.ajax({
                 type: 'post',
@@ -49,7 +41,7 @@ $('#btn-delete-user').on("click", function() {
             // Read more about handling dismissals
             result.dismiss === swal.DismissReason.cancel
         ) {
-            swalWithBootstrapButtons(
+            confirmdeleteproject(
                 'Cancelled',
                 'Your file is safe :)',
                 'error'
@@ -75,16 +67,7 @@ $('#btn-restore').on("click", function() {
 //delet project from admin (delet from database)
 $('#btn-finaldelete').on("click", function() {
     var id = $('#IdFinalDeleteArea').val();
-
-    swalWithBootstrapButtons({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-    }).then(function(result) {
+    confirmdeleteproject(buttondeleteproject).then(function(result) {
         if (result.value) {
             $.ajax({
                 type: 'post',
@@ -106,7 +89,7 @@ $('#btn-finaldelete').on("click", function() {
             // Read more about handling dismissals
             result.dismiss === swal.DismissReason.cancel
         ) {
-            swalWithBootstrapButtons(
+            confirmdeleteproject(
                 'Cancelled',
                 'Your file is safe :)',
                 'error'

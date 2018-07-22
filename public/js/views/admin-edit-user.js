@@ -71,15 +71,7 @@ $('#MultiSelect2').change(function () {
 $('#Delete-user-button').on("click", function() {
     var id = $('#DeleteidArea').val();
 
-    swalWithBootstrapButtons({
-        title: 'Are you sure?',
-        text: "You won't be able to revert this!",
-        type: 'warning',
-        showCancelButton: true,
-        confirmButtonText: 'Yes, delete it!',
-        cancelButtonText: 'No, cancel!',
-        reverseButtons: true
-    }).then(function(result) {
+    confirmdeleteuser(buttondeleteuser).then(function(result) {
         if (result.value) {
             $.ajax({
                 type: 'post',
@@ -104,7 +96,7 @@ $('#Delete-user-button').on("click", function() {
             // Read more about handling dismissals
             result.dismiss === swal.DismissReason.cancel
         ) {
-            swalWithBootstrapButtons(
+            confirmdeleteuser(
                 'Cancelled',
                 'Your User is safe :)',
                 'error'
