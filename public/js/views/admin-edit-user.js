@@ -88,7 +88,12 @@ $('#Delete-user-button').on("click", function() {
                 }),
                 contentType: 'application/json',
                 url: URLUtils.getAbsoluteURL('/admin/admin-delete-user/' + id),
-                success: swalsuccess('User has been deleted').then(function(result) {
+                success: swalsuccessbutton({
+                    position: 'center',
+                    type: 'success',
+                    title: 'User has been deleted',
+                    showConfirmButton: true,
+                }).then(function(result) {
                         location.href = URLUtils.getAbsoluteURL('/admin/admin');
                     }),
                 error: function(data) {

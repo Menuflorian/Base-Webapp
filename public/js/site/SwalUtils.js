@@ -209,8 +209,24 @@ var swalerror500button = swal.mixin({
     confirmButtonClass: 'btn btn-danger swal-btn-last',
     buttonsStyling: false,
 });
-//pop-up prompt delete User project
 
+
+//pop-up prompt delete User project
+var promptdeleteuser = function(title) {
+    swalpromptdeleteuser({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    });
+};
+var swalpromptdeleteuser = swal.mixin({
+    confirmButtonClass: 'btn btn-danger swal-btn-last',
+    buttonsStyling: false,
+});
 //pop-up prompt delete Admin project
 
 //pop-up prompt delete User

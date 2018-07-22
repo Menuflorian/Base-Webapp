@@ -33,7 +33,12 @@ $('#btn-delete-user').on("click", function() {
                 type: 'post',
                 contentType: 'application/json',
                 url: URLUtils.getAbsoluteURL('/exports/userdelete/' + id),
-                success: swalsuccess('Project is now deleted').then(function(result) {
+                success: swalsuccessbutton({
+                    position: 'center',
+                    type: 'success',
+                    title: 'Project is now deleted',
+                    showConfirmButton: true,
+                }).then(function(result) {
                         location.href = URLUtils.getAbsoluteURL('/');
                     }),
                 error: function(data) {
@@ -85,7 +90,12 @@ $('#btn-finaldelete').on("click", function() {
                 type: 'post',
                 contentType: 'application/json',
                 url: URLUtils.getAbsoluteURL('/exports/admindelete/' + id),
-                success: swalsuccess('Project has been extarminated.').then(function(result) {
+                success: swalsuccessbutton({
+                    position: 'center',
+                    type: 'success',
+                    title: 'Project is defenitly deleted',
+                    showConfirmButton: true,
+                }).then(function(result) {
                         location.href = URLUtils.getAbsoluteURL('/exports/projects4');
                     }),
                 error: function(data) {
