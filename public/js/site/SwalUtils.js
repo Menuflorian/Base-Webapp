@@ -26,6 +26,7 @@ var swalerrorbutton = swal.mixin({
     buttonsStyling: false,
 });
 
+
 //pop-up Error 400
 var swalerror400 = function(title) {
     swalerror400button({
@@ -39,6 +40,16 @@ var swalerror400button = swal.mixin({
     confirmButtonClass: 'btn btn-danger swal-btn-last',
     buttonsStyling: false,
 });
+
+//error 400
+var show400 = function(data) {
+        var x = document.getElementById("error400");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }};
+
 
 //pop-up Error 401
 var swalerror401 = function(title) {
@@ -54,6 +65,16 @@ var swalerror401button = swal.mixin({
     buttonsStyling: false,
 });
 
+//error 401
+var show401 = function(data) {
+        var x = document.getElementById("error401");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }};
+
+
 //pop-up Error 402
 var swalerror402 = function(title) {
     swalerror402button({
@@ -67,6 +88,16 @@ var swalerror402button = swal.mixin({
     confirmButtonClass: 'btn btn-danger swal-btn-last',
     buttonsStyling: false,
 });
+
+//error 402
+var show402 = function(data) {
+        var x = document.getElementById("error402");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }};
+
 
 //pop-up Error 403
 var swalerror403 = function(title) {
@@ -83,6 +114,16 @@ var swalerror403button = swal.mixin({
     buttonsStyling: false,
 });
 
+//error 403
+var show403 = function(data) {
+        var x = document.getElementById("error403");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }};
+
+
 //pop-up Error 404
 var swalerror404 = function(title) {
     swalerror404button({
@@ -97,6 +138,16 @@ var swalerror404button = swal.mixin({
     confirmButtonClass: 'btn btn-danger swal-btn-last',
     buttonsStyling: false,
 });
+
+//error 404
+var show404 = function(data) {
+        var x = document.getElementById("error404");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }};
+
 
 //pop-up Error 405
 var swalerror405 = function(title) {
@@ -113,6 +164,16 @@ var swalerror405button = swal.mixin({
     buttonsStyling: false,
 });
 
+//error 405
+var show405 = function(data) {
+        var x = document.getElementById("error405");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }};
+
+
 //pop-up Error 406
 var swalerror406 = function(title) {
     swalerror406button({
@@ -127,6 +188,16 @@ var swalerror406button = swal.mixin({
     confirmButtonClass: 'btn btn-danger swal-btn-last',
     buttonsStyling: false,
 });
+
+//error 406
+var show406 = function(data) {
+        var x = document.getElementById("error406");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }};
+
 
 //pop-up Error 407
 var swalerror407 = function(title) {
@@ -143,6 +214,16 @@ var swalerror407button = swal.mixin({
     buttonsStyling: false,
 });
 
+//error 407
+var show407 = function(data) {
+        var x = document.getElementById("error407");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }};
+
+
 //pop-up Error 408
 var swalerror408 = function(title) {
     swalerror408button({
@@ -157,6 +238,16 @@ var swalerror408button = swal.mixin({
     confirmButtonClass: 'btn btn-danger swal-btn-last',
     buttonsStyling: false,
 });
+
+//error 408
+var show408 = function(data) {
+        var x = document.getElementById("error408");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }};
+
 
 //pop-up Error 409
 var swalerror409 = function(title) {
@@ -173,6 +264,16 @@ var swalerror409button = swal.mixin({
     buttonsStyling: false,
 });
 
+//error 409
+var show409 = function(data) {
+        var x = document.getElementById("error409");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }};
+
+
 //pop-up Error 410
 var swalerror410 = function(title) {
     swalerror410button({
@@ -188,6 +289,15 @@ var swalerror410button = swal.mixin({
     buttonsStyling: false,
 });
 
+//error 410
+var show410 = function(data) {
+        var x = document.getElementById("error410");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }};
+
 
 //pop-up Error 500
 var swalerror500 = function(title) {
@@ -202,6 +312,15 @@ var swalerror500button = swal.mixin({
     confirmButtonClass: 'btn btn-danger swal-btn-last',
     buttonsStyling: false,
 });
+
+//error 500
+var show500 = function(data) {
+        var x = document.getElementById("error500");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+        } else {
+            x.style.display = "none";
+        }};
 
 
 //pop-up prompt delete User or admin project

@@ -5,3 +5,8 @@
 .swal-btn-last {
     margin-left:0.25em;
 }
+
+#error400,#error401,#error402,#error403,#error404,#error405,#error406,#error407,#error408,#error409,#error410,#error500
+ {
+    color:red;
+}

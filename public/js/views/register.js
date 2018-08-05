@@ -1,24 +1,24 @@
 $('#SubmitButton').on("click", function() {
     if ($('#Password2TextArea').val() != $('#PasswordTextArea').val()) {
-        swalerror410();
+        show410();
     }
     if ($('#Password2TextArea').val() == "") {
-        swalerror409();
+        show409();
     }
     if ($('#PasswordTextArea').val() == "") {
-        swalerror404();
+        show404();
     }
     if (isEmail($('#EmailTextArea').val()) != true) {
-        swalerror405();
+        show405();
     }
     if ($('#EmailTextArea').val() == "") {
-        swalerror403();
+        show403();
     }
     if ($('#UsernameTextArea').val() == "") {
-        swalerror408();
+        show408();
     }
     if ($('#NameTextArea').val() == "") {
-        swalerror407();
+        show407();
     }
     if ($('#NameTextArea').val() && $('#UsernameTextArea').val() && $('#EmailTextArea').val() && $('#PasswordTextArea').val() && $('#Password2TextArea').val() != "") {
         var name = $('#NameTextArea').val();
