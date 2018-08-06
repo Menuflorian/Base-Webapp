@@ -28,7 +28,6 @@
 						<label for="name"><h2>Name : {{dbData.name}}</h2></label>
 						<div class="form-group">
 							<textarea id='CorpTextArea' type="text" class="form-control" name="corp">{{dbData.corp}}</textarea>
-							<input id="IdSaveArea" type="hidden" value="{{dbData._id}}" name="id"></input>
 							<button  id="btn-save" class="btn btn-primary" name="sauve">Save</button>
 						</div>
 					</div>
@@ -39,7 +38,6 @@
 				<div class="form-group">
 					<label for="name">Project options</label>
 					<div class="container">
-						<input id="IdDeleteArea" type="hidden" value="{{dbData._id}}" name="id"></input>
 						<button id="btn-delete-user" type="button" class="btn btn-warning">Delete project</button>
 					</div>
 				</div>
@@ -49,13 +47,11 @@
 			<label for="name">Admin option</label>
 					<div class="form-group">
 						<div class="container">
-							<input id="IdFinalDeleteArea" type="hidden" value="{{dbData._id}}" name="id"></input>
 							<button id="btn-finaldelete" type="submit" class="btn btn-danger">Final delete</button>
 						</div>
 					</div>
 				<div class="form-group">
 					<div class="container">
-						<input id="IdRestoreArea" type="hidden" value="{{dbData._id}}" name="id"></input>
 						<button id="btn-restore" type="button" class="btn btn-danger">Restore project.</button>
 					</div>
 				</div>
@@ -99,5 +95,8 @@
 	<!-- /.row -->
 
 </div>
+<script>
+    window.projectId = "{{dbData._id}}";
+</script>
 <!-- /.container -->
-<script src="/js/views/edit-project.js"></script>
+<script src="/js/views/view-project.js"></script>

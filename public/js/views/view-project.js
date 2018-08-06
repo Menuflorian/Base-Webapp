@@ -1,14 +1,14 @@
 //Save edit
 $('#btn-save').on("click", function() {
     var corp = $('#CorpTextArea').val();
-    var id = $('#IdSaveArea').val();
+    var id = window.projectId;
     $.ajax({
         type: 'post',
         data: JSON.stringify({
             corp: corp
         }),
         contentType: 'application/json',
-        url: URLUtils.getAbsoluteURL('/exports/edit/' + id),
+        url: URLUtils.getAbsoluteURL('/exports/save/' + id),
             success: function(data) {swalsuccess('Project has been changed');},
             error: function(data) {
                     swalerrorgen();
@@ -18,7 +18,7 @@ $('#btn-save').on("click", function() {
 
 //Delet project from user (change argument in database)
 $('#btn-delete-user').on("click", function() {
-    var id = $('#IdDeleteArea').val();
+    var id = window.projectId;
     confirmdeleteproject(buttondeleteproject).then(function(result) {
         if (result.value) {
             $.ajax({
@@ -52,7 +52,7 @@ $('#btn-delete-user').on("click", function() {
 
 //Restor project
 $('#btn-restore').on("click", function() {
-    var id = $('#IdRestoreArea').val();
+    var id = window.projectId;
     $.ajax({
         type: 'post',
         contentType: 'application/json',
@@ -66,7 +66,7 @@ $('#btn-restore').on("click", function() {
 
 //delet project from admin (delet from database)
 $('#btn-finaldelete').on("click", function() {
-    var id = $('#IdFinalDeleteArea').val();
+    var id = window.projectId;
     confirmdeleteproject(buttondeleteproject).then(function(result) {
         if (result.value) {
             $.ajax({

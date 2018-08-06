@@ -58,7 +58,7 @@ function dbfindAndUpdate(id, params) {
 //-------------------------get----------------------------
 
 // redirection to new project//
-router.get('/dual', ensureAuthenticated, function(req, res) {
+router.get('/new', ensureAuthenticated, function(req, res) {
     res.render('new-project');
 });
 
@@ -100,7 +100,7 @@ router.get('/:id', ensureAuthenticated, function(req, res) {
                 if (err) {
                     res.send(err);
                 }
-                res.render('edit-project', {
+                res.render('view-project', {
                     dbData: db_export
                 });
             });
@@ -157,7 +157,7 @@ router.post('/userdelete/:id', ensureAuthenticated, function(req, res) {
 });
 
 //Delet from user and admin
-router.post('/edit/:id', ensureAuthenticated, function(req, res) {
+router.post('/save/:id', ensureAuthenticated, function(req, res) {
     var id = req.params.id;
     dbfindAndUpdate(
         id, {
