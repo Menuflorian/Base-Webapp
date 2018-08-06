@@ -1,26 +1,34 @@
 $('#SubmitButton').on("click", function() {
+    var ok = true;
     if ($('#Password2TextArea').val() != $('#PasswordTextArea').val()) {
-        show410();
+        $('#error410').show();
+        ok = false;
     }
     if ($('#Password2TextArea').val() == "") {
-        show409();
+        $('#error409').show();
+        ok = false;
     }
     if ($('#PasswordTextArea').val() == "") {
-        show404();
+        $('#error404').show();
+        ok = false;
     }
     if (isEmail($('#EmailTextArea').val()) != true) {
-        show405();
+        $('#error405').show();
+        ok = false;
     }
     if ($('#EmailTextArea').val() == "") {
-        show403();
+        $('#error403').show();
+        ok = false;
     }
     if ($('#UsernameTextArea').val() == "") {
-        show408();
+        $('#error408').show();
+        ok = false;
     }
     if ($('#NameTextArea').val() == "") {
-        show407();
+        $('#error407').show();
+        ok = false;
     }
-    if ($('#NameTextArea').val() && $('#UsernameTextArea').val() && $('#EmailTextArea').val() && $('#PasswordTextArea').val() && $('#Password2TextArea').val() != "") {
+    if (ok) {
         var name = $('#NameTextArea').val();
         var username = $('#UsernameTextArea').val();
         var email = $('#EmailTextArea').val();
