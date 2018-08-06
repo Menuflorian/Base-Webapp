@@ -1,4 +1,8 @@
 //Pop-up Success
+var swalsuccessbutton = swal.mixin({
+    confirmButtonClass: 'btn btn-success swal-btn-last',
+    buttonsStyling: false,
+});
 var swalsuccess = function(title) {
     swalsuccessbutton({
         position: 'center',
@@ -7,10 +11,6 @@ var swalsuccess = function(title) {
         showConfirmButton: true,
     });
 };
-var swalsuccessbutton = swal.mixin({
-    confirmButtonClass: 'btn btn-success swal-btn-last',
-    buttonsStyling: false,
-});
 
 //pop-up Error
 var swalerrorgen = function(title) {
