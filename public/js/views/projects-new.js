@@ -68,7 +68,7 @@ $('#saveProjectButton').on("click", function() {
             corp: JSON.stringify(exp)
         }),
         contentType: 'application/json',
-        url: URLUtils.getAbsoluteURL("/exports/save"),
+        url: URLUtils.getAbsoluteURL("/projects/save"),
         success: function(data) {
             swalsuccess('Your work has been saved');
         },

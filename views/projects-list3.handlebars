@@ -10,12 +10,12 @@
 		<li class="breadcrumb-item">
 			<a href="/">Home</a>
 		</li>
-		<li class="breadcrumb-item active">Projects version portfolio 2</li>
+		<li class="breadcrumb-item active">Projects version portfolio 3</li>
 	</ol>
 
 	<div class="row">
 		{{#each dbData}}
-			<div class="col-lg-6 portfolio-item">
+			<div class="col-lg-4 col-sm-6 portfolio-item">
 				<div class="card h-100">
 					<a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
 					<div class="card-body">
@@ -26,7 +26,7 @@
 						<p><b>Last edit:</b> {{formaDate this.lastedit}}</p>
 					</div>
 					<div class="containerfluid d-flex justify-content-center">
-						<a type="button" href="/exports/{{this._id}}" class="btn btn-primary" style=" margin-bottom: 10px">Edit</a>
+						<a type="button" href="/projects/view/{{this._id}}" class="btn btn-primary" style=" margin-bottom: 10px">Edit</a>
 					</div>
 				</div>
 			</div>

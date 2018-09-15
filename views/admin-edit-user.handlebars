@@ -6,7 +6,7 @@
 					<h3>Profile</h3>
 				</div>
 				<div class="containerfluid">
-					<input id="DeleteidArea" type="hidden" value="{{db_user.[0].id}}" name="id"></input>
+					<input id="DeleteidArea" type="hidden" value="{{dbUser.id}}" name="id"></input>
 					<button id="Delete-user-button" class="btn btn-danger">Delete user</button>
 
 				</div>
@@ -20,7 +20,7 @@
 							<td>
 								<div class="form-group">
                                     <select id="MultiSelect1" class="form-control form-control-sm">
-										{{#if db_user.[0].isAdmin}}
+										{{#if dbUser.isAdmin}}
 										<option selected value="1">Admin</option>
 										<option value="2">User</option>
 										{{else}}
@@ -30,29 +30,29 @@
 									</select>
 								</div>
 								<div class="form-group">
-									<input id="MultiSelect1idArea" type="hidden" value="{{db_user.[0].id}}" name="id"></input>
+									<input id="MultiSelect1idArea" type="hidden" value="{{dbUser.id}}" name="id"></input>
 								</div>
 							</td>
 						</tr>
 						<tr>
 							<td><b>Name:</b></td>
-							<td>{{db_user.[0].name}}</td>
+							<td>{{dbUser.name}}</td>
 						</tr>
 						<tr>
 							<td><b>Username:</b></td>
-							<td>{{db_user.[0].username}}</td>
+							<td>{{dbUser.username}}</td>
 						</tr>
 						<tr>
 							<td><b>Register date:</b></td>
-							<td>{{formaDate db_user.[0].registerdate}} </td>
+							<td>{{formaDate dbUser.registerdate}} </td>
 						</tr>
 						<tr>
 							<td><b>Email</b></td>
-							<td><a href="mailto:{{db_user.[0].email}}">{{db_user.[0].email}}</a></td>
+							<td><a href="mailto:{{dbUser.email}}">{{dbUser.email}}</a></td>
 						</tr>
 						<tr>
 							<td><b>Number of projects:</b></td>
-							<td>{{db_data.length}}</b>
+							<td>{{dbProjects.length}}</b>
 							</td>
 						</tr>
 						<tr>
@@ -60,7 +60,7 @@
 							<td>
 								<div class="form-group">
 									<select id="MultiSelect2" class="form-control form-control-sm">
-									{{#if db_user.[0].isValedated}}
+									{{#if dbUser.isValedated}}
 									<option selected value="3">Valedated</option>
 									<option value="4">Not validated</option>
 									{{else}}
@@ -74,8 +74,8 @@
 					</tbody>
 				</table>
 				<div class="container d-flex justify-content-between">
-					<a href="/admin/admin-edit-profile/{{db_user.[0].id}}" class="btn btn-primary ">Edit {{this.name}} profile</a>
-					<a href="/admin/admin-change-password/{{db_user.[0]._id}}" class="btn btn-primary ">Change {{this.name}} password</a>
+					<a href="/admin/admin-edit-profile/{{dbUser.id}}" class="btn btn-primary ">Edit {{this.name}} profile</a>
+					<a href="/admin/admin-change-password/{{dbUser._id}}" class="btn btn-primary ">Change {{this.name}} password</a>
 				</div>
 			</div>
 		</div>
@@ -97,7 +97,7 @@
 
 								</tr>
 							</thead>
-							{{#each db_data}}
+							{{#each dbProjects}}
 								<tbody>
 									<tr>
 										<th scope="row">{{math @index "+" "1"}}</th>
@@ -109,7 +109,7 @@
 										{{else}}
 											<td>No</td>
 										{{/if}}
-										<td><a href="/exports/{{this._id}}" class="btn btn-primary">Edit</a></td>
+										<td><a href="/projects/view/{{this._id}}" class="btn btn-primary">Edit</a></td>
 									</tr>
 								</tbody>
 							{{/each}}

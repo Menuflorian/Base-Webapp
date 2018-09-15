@@ -1,43 +1,61 @@
 $('#SubmitButton').on("click", function() {
+    var username = $('#UsernameTextArea').val();
+    var email = $('#EmailTextArea').val();
+    var password = $('#PasswordTextArea').val();
+    var password2 = $('#Password2TextArea').val();
+
     var ok = true;
-    if ($('#Password2TextArea').val() != $('#PasswordTextArea').val()) {
+    if (password2 != password) {
         $('#ErrorPasswordDontMatch').show();
         ok = false;
+    }else{
+        $('#ErrorPasswordDontMatch').hide();
     }
-    if ($('#Password2TextArea').val() == "") {
+
+    if (password2 == "") {
         $('#ErrorPassword2Empty').show();
         ok = false;
+    }else{
+        $('#ErrorPassword2Empty').hide();
     }
-    if ($('#PasswordTextArea').val() == "") {
+
+    if (password == "") {
         $('#ErrorPasswordEmpty').show();
         ok = false;
+    }else{
+        $('#ErrorPasswordEmpty').hide();
     }
-    if (isEmail($('#EmailTextArea').val()) != true) {
+
+    if (EmailUtils.isEmail(email) != true) {
         $('#ErrorEmailInvalid').show();
         ok = false;
+    }else{
+        $('#ErrorEmailInvalid').hide();
     }
-    if ($('#EmailTextArea').val() == "") {
+
+    if (email == "") {
         $('#ErrorEmailEmpty').show();
         ok = false;
+    }else{
+        $('#ErrorEmailEmpty').hide();
     }
-    if ($('#UsernameTextArea').val() == "") {
+
+    if (username == "") {
         $('#ErrorUserNameEmpty').show();
         ok = false;
+    }else{
+        $('#ErrorUserNameEmpty').hide();
     }
-    if ($('#UsernameTextArea').val() == "") {
-        $('#ErrorUserNameEmpty').show();
+
+    if (password == "") {
+        $('#ErrorPasswordEmpty').show();
         ok = false;
+    }else{
+        $('#ErrorPasswordEmpty').hide();
     }
-    //if ($('#NameTextArea').val() == "") {
-    //    $('#ErrorNameEmpty').show();
-    //    ok = false;
-    //}
+
     if (ok) {
-        var username = $('#UsernameTextArea').val();
         var name = username.replace(username[0],username[0].toUpperCase()).replace(new RegExp("[.]","g")," ").replace(new RegExp(" [a-zA-Z]","g"), function(s){return s.toUpperCase();});
-        var email = $('#EmailTextArea').val();
-        var password = $('#PasswordTextArea').val();
-        var password2 = $('#Password2TextArea').val();
         $.ajax({
             type: 'post',
             data: JSON.stringify({
@@ -54,6 +72,12 @@ $('#SubmitButton').on("click", function() {
                 location.href = URLUtils.getAbsoluteURL('/users/login');
             },
             statusCode: {
+                400: function(data) {
+                    SwalUtils.ServerError(data.responseJSON.message);
+                },
+                409: function(data) {
+                    SwalUtils.ServerError(data.responseJSON.message);
+                },
                 500: function(data) {
                     SwalUtils.ServerError(data.responseJSON.message);
                 }

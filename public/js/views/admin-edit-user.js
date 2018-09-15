@@ -10,10 +10,14 @@ $('#MultiSelect1').change(function () {
                 }),
                 url: URLUtils.getAbsoluteURL("/admin/admin-makeadmin-user/" + id),
                 contentType: "application/json",
-                success: swalsuccess('User is now admin.'),
-                error: function(data) {
-                    swalerrorgen();
+                success: function(data) {
+                    SwalUtils.Success('Admin rights were given to this user.')
                 },
+                statusCode: {
+                    500: function(data) {
+                        SwalUtils.ServerError(data.responseJSON.message);
+                    }
+                }
             });
         }
         if (selected == 2) { //select on user
@@ -24,10 +28,14 @@ $('#MultiSelect1').change(function () {
                 }),
                 url: URLUtils.getAbsoluteURL("/admin/admin-removeadmin-user/" + id),
                 contentType: "application/json",
-                success: swalsuccess('Admin is now user'),
-                error: function(data) {
-                    swalerrorgen();
+                success: function(data) {
+                    SwalUtils.Success('Admin rights removed for this user.')
                 },
+                statusCode: {
+                    500: function(data) {
+                        SwalUtils.ServerError(data.responseJSON.message);
+                    }
+                }
             });
         }
     });
@@ -44,10 +52,14 @@ $('#MultiSelect2').change(function () {
                 }),
                 url: URLUtils.getAbsoluteURL("/admin/admin-validate-user/" + id),
                 contentType: "application/json",
-                success: swalsuccess('User is now validated.'),
-                error: function(data) {
-                    swalerrorgen();
+                success: function(data) {
+                    SwalUtils.Success('User is now validated.')
                 },
+                statusCode: {
+                    500: function(data) {
+                        SwalUtils.ServerError(data.responseJSON.message);
+                    }
+                }
             });
         }
         if (selected == 4) { //select on unvalidated
@@ -58,10 +70,15 @@ $('#MultiSelect2').change(function () {
                 }),
                 url: URLUtils.getAbsoluteURL("/admin/admin-unvalidate-user/" + id),
                 contentType: "application/json",
-                success: swalsuccess('User no longer validated'),
-                error: function(data) {
-                    swalerrorgen();
+                success: function(data) {
+                    SwalUtils.Success('User is no longer validated.')
                 },
+                statusCode: {
+                    500: function(data) {
+                        SwalUtils.ServerError(data.responseJSON.message);
+                    }
+                }
+
             });
         }
     });
@@ -69,9 +86,9 @@ $('#MultiSelect2').change(function () {
 
 //Delet user
 $('#Delete-user-button').on("click", function() {
-    var id = $('#DeleteidArea').val();
+    var id = $('#DeletedArea').val();
 
-    confirmdeleteuser(buttondeleteuser).then(function(result) {
+    SwalUtils.DangerousConfirm("Are you sure you want to do this?", "The user will be permanently deleted.").then(function(result) {
         if (result.value) {
             $.ajax({
                 type: 'post',
@@ -80,27 +97,20 @@ $('#Delete-user-button').on("click", function() {
                 }),
                 contentType: 'application/json',
                 url: URLUtils.getAbsoluteURL('/admin/admin-delete-user/' + id),
-                success: swalsuccessbutton({
-                    position: 'center',
-                    type: 'success',
-                    title: 'User has been deleted',
-                    showConfirmButton: true,
-                }).then(function(result) {
+                success: function(data) {
+                    SwalUtils.Success('User has been permanently deleted.').then(function(result) {
                         location.href = URLUtils.getAbsoluteURL('/admin/admin');
-                    }),
-                error: function(data) {
-                    swalerrorgen();
+                    });
                 },
+                statusCode: {
+                    500: function(data) {
+                        SwalUtils.ServerError(data.responseJSON.message);
+                    }
+                }
             });
-        } else if (
-            // Read more about handling dismissals
-            result.dismiss === swal.DismissReason.cancel
-        ) {
-            confirmdeleteuser(
-                'Cancelled',
-                'Your User is safe :)',
-                'error'
-            );
+        }else if (result.dismiss === swal.DismissReason.cancel)// Read more about handling dismissals
+        {
+            SwalUtils.Error("Cancelled : the user is safe :)");
         }
     });
 });

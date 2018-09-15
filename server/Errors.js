@@ -22,10 +22,12 @@ UsernameOrEmailAlreadyUsed.prototype = Object.create(ApplicationError.prototype)
 UsernameOrEmailAlreadyUsed.prototype.name = "UsernameOrEmailAlreadyUsed";
 UsernameOrEmailAlreadyUsed.prototype.constructor = UsernameOrEmailAlreadyUsed;
 
-module.exports = {
-    "ApplicationError":ApplicationError,
-    "UsernameOrEmailAlreadyUsed":UsernameOrEmailAlreadyUsed
-};
+function InvalidPasswordOrEmail(message) {
+    ApplicationError.call(this, message || "Invalid password or email.")
+}
+InvalidPasswordOrEmail.prototype = Object.create(ApplicationError.prototype);
+InvalidPasswordOrEmail.prototype.name = "InvalidPasswordOrEmail";
+InvalidPasswordOrEmail.prototype.constructor = InvalidPasswordOrEmail;
 
 function InvalidForm(message) {
     ApplicationError.call(this, message || "Someting is wrong with the form, incorrect data was sent to server, request failed.")
@@ -37,5 +39,6 @@ InvalidForm.prototype.constructor = InvalidForm;
 module.exports = {
     "ApplicationError":ApplicationError,
     "UsernameOrEmailAlreadyUsed":UsernameOrEmailAlreadyUsed,
+    "InvalidPasswordOrEmail":InvalidPasswordOrEmail,
     "InvalidForm":InvalidForm
 };

@@ -20,7 +20,7 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 var other = require('./routes/other');
 var admin = require('./routes/admin');
-var exports = require('./routes/exports');
+var projects = require('./routes/projects');
 
 // Init App
 var app = express();
@@ -109,7 +109,7 @@ app.use(function (req, res, next) {
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/exports', exports);
+app.use('/projects', projects);
 app.use('/other', other);
 app.use('/admin', admin);
 

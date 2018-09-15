@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 
 //Schema scripts
-var DualboxExportsSchema = mongoose.Schema({
+var ProjectsSchema = mongoose.Schema({
   name: {
     type: String,
   },
@@ -26,4 +26,4 @@ var DualboxExportsSchema = mongoose.Schema({
     type: Date,
   },
 });
-var DualboxExports = module.exports = mongoose.model('DualboxExports', DualboxExportsSchema);
+var Projects = module.exports = mongoose.model('Projects', ProjectsSchema);

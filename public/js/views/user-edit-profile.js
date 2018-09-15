@@ -1,12 +1,41 @@
-//Edit profile from user.
+//Edit profile from user or admin
 $('#SubmitButton').on("click", function() {
-    if ((isEmail($('#EmailTextArea').val()) != true) && ($('#EmailTextArea').val()) !== "") {
-        swalerror405();
-    } else {
-        var name = $('#NameTextArea').val();
-        var username = $('#UsernameTextArea').val();
-        var email = $('#EmailTextArea').val();
-        var id = $('#IdArea').val();
+    var name = $('#NameTextArea').val();
+    var username = $('#UsernameTextArea').val();
+    var email = $('#EmailTextArea').val();
+    var id = $('#IdArea').val();
+
+    var ok = true;
+
+    if (EmailUtils.isEmail(email) != true) {
+        $('#ErrorEmailInvalid').show();
+        ok = false;
+    }else{
+        $('#ErrorEmailInvalid').hide();
+    }
+
+    if (email == "") {
+        $('#ErrorEmailEmpty').show();
+        ok = false;
+    }else{
+        $('#ErrorEmailEmpty').hide();
+    }
+
+    if (username == "") {
+        $('#ErrorUserNameEmpty').show();
+        ok = false;
+    }else{
+        $('#ErrorUserNameEmpty').hide();
+    }
+
+    if (name == "") {
+        $('#ErrorNameEmpty').show();
+        ok = false;
+    }else{
+        $('#ErrorNameEmpty').hide();
+    }
+
+    if (ok){
         $.ajax({
             type: 'post',
             data: JSON.stringify({
@@ -17,15 +46,19 @@ $('#SubmitButton').on("click", function() {
             }),
             contentType: 'application/json',
             url: URLUtils.getAbsoluteURL('/users/user-edit-profile/' + id),
-            success: function(data) {swalsuccess('Profile has been changed');},
+            success: function(data) {
+                SwalUtils.Success('Profile updated.');
+            },
             statusCode: {
-                400: function(data) {swalerror400();},
-                401: function(data) {swalerror401();},
-                402: function(data) {swalerror402();},
-                404: function(data) {swalerror404();},
-                405: function(data) {swalerror405();},
-                406: function(data) {swalerror406();},
-                500: function(data) {swalerror500();},
+                400: function(data) {
+                    SwalUtils.ServerError(data.responseJSON.message);
+                },
+                409: function(data) {
+                    SwalUtils.ServerError(data.responseJSON.message);
+                },
+                500: function(data) {
+                    SwalUtils.ServerError(data.responseJSON.message);
+                }
             }
         });
     }

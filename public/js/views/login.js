@@ -1,11 +1,22 @@
 $('#SubmitButton').on("click", function() {
+
+    var ok = true;
+
     if ($('#UsernameTextArea').val() == "") {
-        swalerror403();
+        $('#ErrorUsernameEmpty').show();
+        ok = false;
+    }else{
+        $('#ErrorUsernameEmpty').hide();
     }
+
     if ($('#PasswordTextArea').val() == "") {
-        swalerror404();
+        $('#ErrorPasswordEmpty').show();
+        ok = false;
+    }else{
+        $('#ErrorPasswordEmpty').hide();
     }
-    if ($('#PasswordTextArea').val() && $('#UsernameTextArea').val() != "") {
+
+    if (ok) {
         var pass = $('#PasswordTextArea').val();
         var username = $('#UsernameTextArea').val();
         $.ajax({
@@ -16,13 +27,22 @@ $('#SubmitButton').on("click", function() {
             }),
             contentType: 'application/json',
             url: URLUtils.getAbsoluteURL('/users/login'),
+            success: function(result) {
+                location.href = URLUtils.getAbsoluteURL('/');
+            },
             statusCode: {
-
-                200: function(data) {location.href = URLUtils.getAbsoluteURL('/');},
-                400: function(data) {swalerror400();},
-                401: function(data) {swalerror401();},
-                402: function(data) {swalerror402();},
-                500: function(data) {swalerror500();},
+                200: function(data) {
+                    location.href = URLUtils.getAbsoluteURL('/');
+                },
+                400: function(data) {
+                    SwalUtils.ServerError(data.responseJSON.message);
+                },
+                409: function(data) {
+                    SwalUtils.ServerError(data.responseJSON.message);
+                },
+                500: function(data) {
+                    SwalUtils.ServerError(data.responseJSON.message);
+                }
             }
         });
     }

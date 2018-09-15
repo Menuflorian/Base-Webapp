@@ -6,13 +6,19 @@
 				<div class="card-body">
                     <div class="form-group">
                         <input id="UsernameTextArea" type="text" class="form-control" name="username" placeholder="Email">
+                        <div id="ErrorUsernameEmpty" class="container" style=" display: none" >
+							Username can't be empty.
+						</div>
                     </div>
                     <div class="form-group">
                         <input id="PasswordTextArea" type="password" class="form-control" name="password" placeholder="Password">
+                        <div id="ErrorPasswordEmpty" class="container" style=" display: none" >
+							Password can't be empty.
+						</div>
                     </div>
                     <div class="recpassword">
                         <label>
-                        <a href="">Forget password?</a>
+                        <a href="">Forgotten password?</a>
                         </label></br>
                         <label>
                         <a href="/users/register">Not register yet?</a>

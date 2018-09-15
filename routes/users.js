@@ -4,32 +4,12 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
-var User = require('../models/user');
-var DualboxExports = require('../models/DualboxExports');
 var bcrypt = require('bcryptjs');
+
+var User = require('../models/User');
+var Projects = require('../models/Projects');
 var Errors = require('../server/Errors');
-
-//-------------------------Function----------------------------
-
-//Check Auth
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    } else {
-        req.flash('error_msg', 'You are not logged in');
-        res.redirect('/users/login');
-    }
-}
-
-//Check Admin
-function ensureAdmin(req, res, next) {
-    if (req.isAuthenticated() && req.user.isAdmin == true) {
-        return next();
-    } else {
-        req.flash('error_msg', 'This part is reserved to admin');
-        res.redirect('/users/login');
-    }
-}
+var AuthUtils = require('../server/AuthUtils');
 
 //-------------------------get----------------------------
 
@@ -44,23 +24,30 @@ router.get('/register', function(req, res) {
 });
 
 //  redirection to profile
-router.get('/user-profile', ensureAuthenticated, function(req, res) {
+router.get('/user-profile', AuthUtils.ensureAuthenticated, function(req, res) {
     res.render('user-profile', {
         layout: 'layout2'
     });
 });
 
 //  redirection to edit profile
-router.get('/user-edit-profile', ensureAuthenticated, function(req, res) {
-    res.render('user-edit-profile', {
-        layout: 'layout2'
-    });
+router.get('/user-edit-profile', AuthUtils.ensureAuthenticated, function(req, res) {
+    res.render(
+        'user-edit-profile',
+        {
+            layout: 'layout2',
+            userEdit:req.user,
+            admin: false // force admin to false to get the user render
+        }
+    );
 });
 
 //  redirection to change password
-router.get('/user-change-password', ensureAuthenticated, function(req, res) {
+router.get('/user-change-password', AuthUtils.ensureAuthenticated, function(req, res) {
     res.render('user-change-password', {
-        layout: 'layout2'
+        layout: 'layout2',
+        userEdit:req.user,
+        admin:false // force admin to false to get the user render
     });
 });
 
@@ -93,7 +80,7 @@ router.post('/register', function(req, res) {
     var errors = req.validationErrors();
 
     if (errors) {
-        res.status(500).send(new Errors.InvalidForm());
+        res.status(400).send(new Errors.InvalidForm());
     } else if (name == "") {
 
     } else {
@@ -111,7 +98,7 @@ router.post('/register', function(req, res) {
                 }
             }, function(err, mail) {
                 if (user || mail) {
-                    res.status(500).send(new Errors.UsernameOrEmailAlreadyUsed());
+                    res.status(409).send(new Errors.UsernameOrEmailAlreadyUsed());
                 } else {
                     var newUser = new User({
                         name: name,
@@ -137,17 +124,17 @@ passport.use(new LocalStrategy(
     function(email, password, done) {
         User.getUserByEmail(email, function(err, user) {
             if (err) {
-                return res.sendStatus(500);
+                return res.status(500).send(new Errors.ApplicationError("Invalid email or password."));
             }
             if (!user) {
                 return done(null, false, {
-                    errorcode: 401
+                    errorcode: 400
                 });
             }
 
             User.comparePassword(password, user.password, function(err, isMatch) {
                 if (err) {
-                    return res.sendStatus(500);
+                    return res.status(500).send(new Errors.ApplicationError("Invalid email or password."));
                 }
                 if (isMatch) {
                     return done(null, user);
@@ -179,67 +166,65 @@ router.post('/login', function(req, res, next) {
             return next(err);
         }
         if (!user) {
-            return res.sendStatus(info.errorcode);
+            return res.status(info.errorcode).send(new Errors.InvalidPasswordOrEmail());
         }
         req.logIn(user,
             function(err) {
                 if (err) {
-                    return res.sendStatus(500);
+                    return res.status(500).send(new Errors.ApplicationError("Error while trying to login."));
                 }
                 return res.sendStatus(200);
             });
     })(req, res, next);
 });
 
-//Edit profile
-router.post('/user-edit-profile/:id', function(req, res) {
-    var id = req.params.id;
+// Edit profile
+// Accessible when admin
+router.post('/user-edit-profile/:id', AuthUtils.ensureAuthenticated, function(req, res) {
+    var user_id = req.body.id;
+
+    if(req.user._id.toString() !== user_id && !req.user.isAdmin){
+        res.status(500).send(new Errors.ApplicationError("Error : attempt to edit profile of another user without admin rights."));
+    }
+
     var name = req.body.name;
-    if (name == ""){name = req.user.name;}
     var email = req.body.email;
-    if (email == ""){email = req.user.email;}
     var username = req.body.username;
-    if (username == ""){username = req.user.username;}
     User.findOne({
             username: {
                 "$regex": "^" + username + "\\b",
                 "$options": "i"
             }
         },
-        function(err, user) {
+        function(err, user_username) {
             User.findOne({
                     email: {
                         "$regex": "^" + email + "\\b",
                         "$options": "i"
                     }
                 },
-                function(err, mail) {
-                    if ((user.id == 1) && (mail.id == 1) ||
-                        ((user.id == 1) && (mail.id == req.user.id)) ||
-                        ((mail.id == 1) && (user.id == req.user.id)) ||
-                        ((user.id == req.user.id) && (mail.id == req.user.id))
-                    ) {
+                function(err, user_mail) {
+                    if(err){
+                        res.status(500).send(new Errors.ApplicationError("Error while checking existing emails and usernames."));
+                    }
+                    if (user_username && user_username.id !== user_id || user_mail && user_mail.id !== user_id) {
+                        res.status(409).send(new Errors.UsernameOrEmailAlreadyUsed());
+                    } else{
                         User.findById({
-                                _id: id
-                            },
-                            function(err, db_user) {
-                                if (err) res.send(err);
-                                db_user.name = name;
-                                db_user.username = username;
-                                db_user.email = email;
-                                db_user.save(function(err, majdata) {
-                                    if (err) {
-                                        res.sendStatus(500);
-                                    }
-                                    res.sendStatus(200);
-                                });
+                            _id: user_id
+                        },
+                        function(err, db_user) {
+                            if (err) res.send(err);
+                            db_user.name = name;
+                            db_user.username = username;
+                            db_user.email = email;
+                            db_user.save(function(err, majdata) {
+                                if (err) {
+                                    res.status(500).send(new Errors.ApplicationError("Error while saving informations."));
+                                }
+                                res.sendStatus(200);
                             });
-                    } else {
-                        if (user||mail) {
-                            res.sendStatus(406);
-                        } else{
-                            res.sendStatus(405);
-                        }
+                        });
                     }
                 }
             );
@@ -249,8 +234,13 @@ router.post('/user-edit-profile/:id', function(req, res) {
 
 
 //Change password
-router.post('/user-change-password', ensureAuthenticated, function(req, res) {
+router.post('/user-change-password', AuthUtils.ensureAuthenticated, function(req, res) {
     var id = req.body.id;
+
+    if(req.user._id.toString() !== id && !req.user.isAdmin){
+        res.status(500).send(new Errors.ApplicationError("Error : attempt to change password of another user without admin rights."));
+    }
+
     var userpassword = req.body.userpassword;
     var password = req.body.password;
     var password2 = req.body.password2;
@@ -259,19 +249,19 @@ router.post('/user-change-password', ensureAuthenticated, function(req, res) {
         },
         function(err, db_user) {
             if (err) {
-                res.sendStatus(500);
+                res.status(500).send(new Errors.ApplicationError("Something went wrong when looking for user id."));
             } else if (password == "" || password2 == "") {
-                res.sendStatus(404);
-            } else if (bcrypt.compareSync(userpassword, req.user.password) == false) {
-                res.sendStatus(400);
+                res.status(400).send(new Errors.ApplicationError("Password cannot be empty."));
+            } else if (!req.user.isAdmin && bcrypt.compareSync(userpassword, req.user.password) == false) {
+                res.sendStatus(400).send(new Errors.ApplicationError("Wrong entry for current password."));
             } else {
                 if (password != password2) {
-                    res.sendStatus(402);
+                    res.status(400).send(new Errors.ApplicationError("Mismatch between password and re-entered password."));
                 } else {
                     db_user.password = bcrypt.hashSync(password, 10);
                     db_user.save(function(err) {
                         if (err) {
-                            res.sendStatus(500);
+                            res.status(500).send(new Errors.ApplicationError("Something went wrong when saving new password."));
                         }
                         res.sendStatus(200);
                     });

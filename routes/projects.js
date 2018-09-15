@@ -3,39 +3,18 @@ var router = express.Router();
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var session = require('express-session');
-var DualboxExports = require('../models/DualboxExports');
-
-
-//-------------------------Function----------------------------
-
-//Check auth
-function ensureAuthenticated(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    } else {
-        req.flash('error_msg', 'You are not logged in');
-        res.redirect('/users/login');
-    }
-}
-
-//Check admin
-function ensureAdmin(req, res, next) {
-    if (req.isAuthenticated() && req.user.isAdmin == true) {
-        return next();
-    } else {
-        req.flash('error_msg', 'This part is reserved to admin');
-        res.redirect('/users/login');
-    }
-}
+var Projects = require('../models/Projects');
+var AuthUtils = require('../server/AuthUtils');
+var Errors = require('../server/Errors');
 
 //Factorisation funcion to edit: deleted, corp, lasedit argument on a project
 function dbfindAndUpdate(id, params) {
-    DualboxExports.findById({
+    Projects.findById({
             _id: id
         },
         function(err, db_export) {
             if (err) {
-                res.sendStatus(500);
+                res.status(500).send(new Errors.ApplicationError("Project not found."));
             }
             if (params.deleted !== undefined) {
                 db_export.deleted = params.deleted;
@@ -48,7 +27,7 @@ function dbfindAndUpdate(id, params) {
             }
             db_export.save(function(err, majdata) {
                 if (err) {
-                    res.sendStatus(500);
+                    res.status(500).send(new Errors.ApplicationError("Error while saving the project."));
                 }
             });
         }
@@ -58,22 +37,22 @@ function dbfindAndUpdate(id, params) {
 //-------------------------get----------------------------
 
 // redirection to new project//
-router.get('/new', ensureAuthenticated, function(req, res) {
-    res.render('new-project');
+router.get('/new', AuthUtils.ensureAuthenticated, function(req, res) {
+    res.render('projects-new');
 });
 
 //redirection on a portefolio with project
-router.get('/projects:folio', ensureAuthenticated, function(req, res) {
+router.get('/list:folio', AuthUtils.ensureAuthenticated, function(req, res) {
     var Id = req.params.id;
     var folio = req.params.folio;
     var admin = req.user.isAdmin;
     var dbfind = function dbfind(selectors) {
-        DualboxExports.find(selectors, {},
+        Projects.find(selectors, {},
             function(err, dbx) {
                 if (err) {
                     res.send(err);
                 }
-                res.render('projects' + (folio === undefined ? 3 : folio), {
+                res.render('projects-list' + (folio === undefined ? 3 : folio), {
                     dbData: dbx,
                     admin: admin
                 });
@@ -91,16 +70,16 @@ router.get('/projects:folio', ensureAuthenticated, function(req, res) {
 });
 
 //Edit project redirection.
-router.get('/:id', ensureAuthenticated, function(req, res) {
+router.get('/view/:id', AuthUtils.ensureAuthenticated, function(req, res) {
     var Id = req.params.id;
     var admin = req.user.isAdmin;
     var dbfindOne = function dbfindOne(selectors) {
-        DualboxExports.findOne(selectors, {}, {},
+        Projects.findOne(selectors, {}, {},
             function(err, db_export) {
                 if (err) {
                     res.send(err);
                 }
-                res.render('view-project', {
+                res.render('projects-view', {
                     dbData: db_export
                 });
             });
@@ -121,21 +100,21 @@ router.get('/:id', ensureAuthenticated, function(req, res) {
 //-------------------------post----------------------------
 
 // Delete a project
-router.post('/admindelete/:id', ensureAdmin, function(req, res) {
+router.post('/admindelete/:id', AuthUtils.ensureAdmin, function(req, res) {
     var id = req.params.id;
-    DualboxExports.remove({
+    Projects.remove({
             _id: id
         },
         function(err) {
             if (err) {
-                res.sendStatus(500);
+                res.status(500).send(new Errors.ApplicationError("Error while removing the project."));
             }
-            res.sendStatus(200);
+            res.status(200);
         });
 });
 
 //Restore a project
-router.post('/restore/:id', ensureAuthenticated, function(req, res) {
+router.post('/restore/:id', AuthUtils.ensureAuthenticated, function(req, res) {
     var id = req.params.id;
     dbfindAndUpdate(
         id, {
@@ -146,7 +125,7 @@ router.post('/restore/:id', ensureAuthenticated, function(req, res) {
 });
 
 //user delet
-router.post('/userdelete/:id', ensureAuthenticated, function(req, res) {
+router.post('/userdelete/:id', AuthUtils.ensureAuthenticated, function(req, res) {
     var id = req.params.id;
     dbfindAndUpdate(
         id, {
@@ -157,7 +136,7 @@ router.post('/userdelete/:id', ensureAuthenticated, function(req, res) {
 });
 
 //Delet from user and admin
-router.post('/save/:id', ensureAuthenticated, function(req, res) {
+router.post('/save/:id', AuthUtils.ensureAuthenticated, function(req, res) {
     var id = req.params.id;
     dbfindAndUpdate(
         id, {
@@ -169,8 +148,8 @@ router.post('/save/:id', ensureAuthenticated, function(req, res) {
 });
 
 //save new project//
-router.post('/save', ensureAuthenticated, function(req, res) {
-    var db_export = new DualboxExports({
+router.post('/save', AuthUtils.ensureAuthenticated, function(req, res) {
+    var db_export = new Projects({
         name: req.body.name,
         corp: req.body.corp,
         ownerId: req.user._id,
@@ -180,7 +159,7 @@ router.post('/save', ensureAuthenticated, function(req, res) {
     });
     db_export.save(function(err) {
         if (err) {
-            res.sendStatus(500);
+            res.status(500).send(new Errors.ApplicationError("Error while saving the project."));;
         }
         res.sendStatus(200);
     });
