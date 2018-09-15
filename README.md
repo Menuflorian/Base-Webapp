@@ -15,7 +15,7 @@ The template used for, is modern business.
 
 Installer mongodb
   -demarer mogod
-    -> mongod.exe --dpath (chemin de la data)
+    -> mongod.exe --dbpath (chemin de la data)
   -demarer l'appli
     -> npm start
 ### Installation

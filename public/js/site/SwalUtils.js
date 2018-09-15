@@ -1,8 +1,41 @@
+
+var SwalUtils = {
+    ServerError:function(title){
+        swal.mixin({
+            confirmButtonClass: 'btn btn-danger swal-btn-last',
+            buttonsStyling: false,
+        })({
+            position: 'center',
+            type: 'error',
+            title: title,
+            showConfirmButton: true,
+        });
+    }
+};
+
+
 //Pop-up Success
-var swalsuccessbutton = swal.mixin({
+var swalSuccessButton = swal.mixin({
     confirmButtonClass: 'btn btn-success swal-btn-last',
     buttonsStyling: false,
 });
+var swalErrorButton = swal.mixin({
+    confirmButtonClass: 'btn btn-danger swal-btn-last',
+    buttonsStyling: false,
+});
+
+
+//pop-up Error 400
+var swalerror400 = function(title) {
+    swalerror400button({
+        position: 'center',
+        type: 'error',
+        title: "Error, Incorrect password",
+        showConfirmButton: true,
+    });
+};
+
+
 var swalsuccess = function(title) {
     swalsuccessbutton({
         position: 'center',
@@ -36,10 +69,7 @@ var swalerror400 = function(title) {
         showConfirmButton: true,
     });
 };
-var swalerror400button = swal.mixin({
-    confirmButtonClass: 'btn btn-danger swal-btn-last',
-    buttonsStyling: false,
-});
+
 
 //error 400
 var show400 = function(data) {

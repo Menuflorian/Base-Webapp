@@ -5,7 +5,7 @@ function ApplicationError(message) {
     this.stack = (new Error()).stack;
 }
 ApplicationError.prototype = Object.create(Error.prototype);
-ApplicationError.prototype.toJSON(){
+ApplicationError.prototype.toJSON = function(){
     return {
         name:this.name,
         message:this.message
@@ -25,4 +25,17 @@ UsernameOrEmailAlreadyUsed.prototype.constructor = UsernameOrEmailAlreadyUsed;
 module.exports = {
     "ApplicationError":ApplicationError,
     "UsernameOrEmailAlreadyUsed":UsernameOrEmailAlreadyUsed
+};
+
+function InvalidForm(message) {
+    ApplicationError.call(this, message || "Someting is wrong with the form, incorrect data was sent to server, request failed.")
+}
+InvalidForm.prototype = Object.create(ApplicationError.prototype);
+InvalidForm.prototype.name = "InvalidForm";
+InvalidForm.prototype.constructor = InvalidForm;
+
+module.exports = {
+    "ApplicationError":ApplicationError,
+    "UsernameOrEmailAlreadyUsed":UsernameOrEmailAlreadyUsed,
+    "InvalidForm":InvalidForm
 };

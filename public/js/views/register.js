@@ -1,36 +1,40 @@
 $('#SubmitButton').on("click", function() {
     var ok = true;
     if ($('#Password2TextArea').val() != $('#PasswordTextArea').val()) {
-        $('#error410').show();
+        $('#ErrorPasswordDontMatch').show();
         ok = false;
     }
     if ($('#Password2TextArea').val() == "") {
-        $('#error409').show();
+        $('#ErrorPassword2Empty').show();
         ok = false;
     }
     if ($('#PasswordTextArea').val() == "") {
-        $('#error404').show();
+        $('#ErrorPasswordEmpty').show();
         ok = false;
     }
     if (isEmail($('#EmailTextArea').val()) != true) {
-        $('#error405').show();
+        $('#ErrorEmailInvalid').show();
         ok = false;
     }
     if ($('#EmailTextArea').val() == "") {
-        $('#error403').show();
+        $('#ErrorEmailEmpty').show();
         ok = false;
     }
     if ($('#UsernameTextArea').val() == "") {
-        $('#error408').show();
+        $('#ErrorUserNameEmpty').show();
         ok = false;
     }
-    if ($('#NameTextArea').val() == "") {
-        $('#error407').show();
+    if ($('#UsernameTextArea').val() == "") {
+        $('#ErrorUserNameEmpty').show();
         ok = false;
     }
+    //if ($('#NameTextArea').val() == "") {
+    //    $('#ErrorNameEmpty').show();
+    //    ok = false;
+    //}
     if (ok) {
-        var name = $('#NameTextArea').val();
         var username = $('#UsernameTextArea').val();
+        var name = username.replace(username[0],username[0].toUpperCase()).replace(new RegExp("[.]","g")," ").replace(new RegExp(" [a-zA-Z]","g"), function(s){return s.toUpperCase();});
         var email = $('#EmailTextArea').val();
         var password = $('#PasswordTextArea').val();
         var password2 = $('#Password2TextArea').val();
@@ -47,14 +51,12 @@ $('#SubmitButton').on("click", function() {
             url: URLUtils.getAbsoluteURL('/users/register'),
 
             success: function(result) {
-                        location.href = URLUtils.getAbsoluteURL('/users/login');
+                location.href = URLUtils.getAbsoluteURL('/users/login');
             },
             statusCode: {
-                400: function(data) {swalerror400();},
-                401: function(data) {swalerror401();},
-                402: function(data) {swalerror402();},
-                406: function(data) {swalerror406();},
-                500: function(data) {swalerror500();},
+                500: function(data) {
+                    SwalUtils.ServerError(data.responseJSON.message);
+                }
             }
         });
     }

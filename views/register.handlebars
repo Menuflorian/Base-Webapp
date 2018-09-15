@@ -4,39 +4,39 @@
 			<div class="card h-100">
 				<h4 class="card-header">Register</h4>
 				<div class="card-body">
-					<div class="form-group">
+					<!-- <div class="form-group">
 						<input id="NameTextArea" type="text" class="form-control" placeholder="Enter Name" name="name">
-						<div id="error407" class="container" style=" display: none" >
+						<div id="ErrorNameEmpty" class="container" style=" display: none" >
 							Name can't be empty.
 						</div>
-                    </div>
+                    </div> -->
                     <div class="form-group">
-						<input id="UsernameTextArea" type="text" class="form-control" placeholder="Enter Username" name="username">
-						<div id="error408" class="container" style=" display: none" >
+						<input id="UsernameTextArea" type="text" class="form-control" placeholder="Enter Username" name="username" onkeyup="this.value = this.value.replace(/[^a-zA-Z0-9]/, 'g')">
+						<div id="ErrorUserNameEmpty" class="container" style=" display: none" >
 							Username can't be empty.
 						</div>
                     </div>
                     <div class="form-group">
 						<input id="EmailTextArea" type="email" class="form-control" placeholder="Enter Email" name="email">
-						<div id="error403" class="container" style=" display: none" >
+						<div id="ErrorEmailEmpty" class="container" style=" display: none" >
 							Email can't be empty.
 						</div>
-						<div id="error405" class="container" style=" display: none" >
+						<div id="ErrorEmailInvalid" class="container" style=" display: none" >
 							Email Must be a valid email
 						</div>
                     </div>
                     <div class="form-group">
 						<input id="PasswordTextArea" type="password" class="form-control" placeholder="Enter Password" name="password">
-						<div id="error404" class="container" style=" display: none" >
+						<div id="ErrorPasswordEmpty" class="container" style=" display: none" >
 							Password can't be empty.
 						</div>
-						<div id="error410" class="container" style=" display: none" >
+						<div id="ErrorPasswordDontMatch" class="container" style=" display: none" >
 							Password don't match with cofirm password.
 						</div>
                     </div>
                     <div class="form-group">
 						<input id="Password2TextArea" type="password" class="form-control" placeholder="Re-enter Password" name="password2">
-						<div id="error409" class="container" style=" display: none" >
+						<div id="ErrorPassword2Empty" class="container" style=" display: none" >
 							Please confirm your password
 						</div>
 					</div>

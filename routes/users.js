@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var User = require('../models/user');
 var DualboxExports = require('../models/DualboxExports');
 var bcrypt = require('bcryptjs');
+var Errors = require('../server/Errors');
 
 //-------------------------Function----------------------------
 
@@ -76,7 +77,7 @@ router.get('/logout', function(req, res) {
 router.post('/register', function(req, res) {
     var name = req.body.name;
     var email = req.body.email;
-    var username = req.body.username;
+    var username = req.body.username.replace(/[^a-zA-Z0-9]/, '');
     var password = req.body.password;
     var password2 = req.body.password2;
 
@@ -92,7 +93,7 @@ router.post('/register', function(req, res) {
     var errors = req.validationErrors();
 
     if (errors) {
-        res.sendStatus(404);
+        res.status(500).send(new Errors.InvalidForm());
     } else if (name == "") {
 
     } else {
@@ -110,7 +111,7 @@ router.post('/register', function(req, res) {
                 }
             }, function(err, mail) {
                 if (user || mail) {
-                    res.sendStatus(406);
+                    res.status(500).send(new Errors.UsernameOrEmailAlreadyUsed());
                 } else {
                     var newUser = new User({
                         name: name,
@@ -121,7 +122,7 @@ router.post('/register', function(req, res) {
                     });
                     User.createUser(newUser, function(err, user) {
                         if (err) {
-                            res.sendStatus(500);
+                            res.status(500).send(new Errors.ApplicationError("Sever error when creating the user. Please retry or contact us for help."));
                         }
                     });
                     res.sendStatus(200);
